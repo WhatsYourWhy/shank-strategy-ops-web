@@ -72,6 +72,12 @@ function Navigation() {
               MODELS
             </button>
             <Link
+              href="/tools"
+              className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors"
+            >
+              TOOLS
+            </Link>
+            <Link
               href="/blog"
               className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors"
             >
@@ -125,6 +131,12 @@ function Navigation() {
                 MODELS
               </button>
               <Link
+                href="/tools"
+                className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors text-left"
+              >
+                TOOLS
+              </Link>
+              <Link
                 href="/blog"
                 className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors text-left"
               >
@@ -132,6 +144,7 @@ function Navigation() {
               </Link>
               <button
                 onClick={() => scrollToSection("contact")}
+
                 className="font-mono text-sm bg-brand-orange text-brand-black px-6 py-3 hover:bg-brand-offwhite transition-colors text-left"
               >
                 START CONVERSATION

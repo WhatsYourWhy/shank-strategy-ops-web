@@ -68,6 +68,16 @@ export default function BlogNavigation() {
               MODELS
             </button>
             <Link
+              href="/tools"
+              className={`font-mono text-sm transition-colors ${
+                location === "/tools"
+                  ? "text-brand-orange"
+                  : "text-brand-offwhite/70 hover:text-brand-orange"
+              }`}
+            >
+              TOOLS
+            </Link>
+            <Link
               href="/blog"
               className={`font-mono text-sm transition-colors ${
                 location.startsWith("/blog")
@@ -130,6 +140,17 @@ export default function BlogNavigation() {
               >
                 MODELS
               </button>
+              <Link
+                href="/tools"
+                className={`font-mono text-sm transition-colors text-left ${
+                  location === "/tools"
+                    ? "text-brand-orange"
+                    : "text-brand-offwhite/70 hover:text-brand-orange"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                TOOLS
+              </Link>
               <Link
                 href="/blog"
                 className={`font-mono text-sm transition-colors text-left ${

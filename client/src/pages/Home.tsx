@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 
 // Navigation Component
 function Navigation() {
@@ -70,6 +71,12 @@ function Navigation() {
             >
               MODELS
             </button>
+            <Link
+              href="/blog"
+              className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors"
+            >
+              BLOG
+            </Link>
             <button
               onClick={() => scrollToSection("contact")}
               className="font-mono text-sm bg-brand-orange text-brand-black px-6 py-2 hover:bg-brand-offwhite transition-colors"
@@ -117,6 +124,12 @@ function Navigation() {
               >
                 MODELS
               </button>
+              <Link
+                href="/blog"
+                className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors text-left"
+              >
+                BLOG
+              </Link>
               <button
                 onClick={() => scrollToSection("contact")}
                 className="font-mono text-sm bg-brand-orange text-brand-black px-6 py-3 hover:bg-brand-offwhite transition-colors text-left"

@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ContactForm } from "@/components/ContactForm";
 import { Link } from "wouter";
 
 // Navigation Component
@@ -812,21 +813,7 @@ function ContactSection() {
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-12"
-          >
-            <a
-              href="mailto:contact@shankstrategyops.com"
-              className="inline-flex items-center gap-3 bg-brand-black text-brand-offwhite hover:bg-brand-orange hover:text-brand-black font-mono text-lg px-12 py-6 transition-colors"
-            >
-              CONTACT@SHANKSTRATEGYOPS.COM
-              <ArrowRight className="h-5 w-5" />
-            </a>
-          </motion.div>
+          <ContactForm />
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -835,7 +822,14 @@ function ContactSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="font-body text-brand-black/50 mt-8"
           >
-            We respond to serious inquiries within 48 hours.
+            Or email{" "}
+            <a
+              href="mailto:contact@shankstrategy.com"
+              className="text-brand-orange hover:underline"
+            >
+              contact@shankstrategy.com
+            </a>
+            . We respond within 48 hours.
           </motion.p>
         </div>
       </div>

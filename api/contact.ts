@@ -40,19 +40,23 @@ export async function POST(request: Request) {
     );
   }
 
-  const safeName = typeof name === "string" ? name : "—";
-  const subject = `Contact form: ${safeName} (${email})`;
+  const MAX_MESSAGE_LENGTH = 5000;
+  const MAX_EMAIL_LENGTH = 254;
+  const trimmedMessage = message.slice(0, MAX_MESSAGE_LENGTH);
+  const trimmedEmail = email.slice(0, MAX_EMAIL_LENGTH);
+  const safeName = typeof name === "string" ? name.slice(0, 120) : "—";
+  const subject = `Contact form: ${safeName} (${trimmedEmail})`;
 
   const { data, error } = await resend.emails.send({
     from: FROM,
     to: [TO],
-    replyTo: email,
+    replyTo: trimmedEmail,
     subject,
-    text: message,
+    text: trimmedMessage,
     html: [
-      `<p><strong>From:</strong> ${escapeHtml(safeName)} &lt;${escapeHtml(email)}&gt;</p>`,
+      `<p><strong>From:</strong> ${escapeHtml(safeName)} &lt;${escapeHtml(trimmedEmail)}&gt;</p>`,
       `<p><strong>Message:</strong></p>`,
-      `<pre style="white-space:pre-wrap;font-family:inherit;">${escapeHtml(message)}</pre>`,
+      `<pre style="white-space:pre-wrap;font-family:inherit;">${escapeHtml(trimmedMessage)}</pre>`,
     ].join(""),
   });
 

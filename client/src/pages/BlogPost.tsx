@@ -243,10 +243,11 @@ export default function BlogPost() {
     window.scrollTo(0, 0);
   }, [params.slug]);
 
-  if (!post) {
-    setLocation("/404");
-    return null;
-  }
+  useEffect(() => {
+    if (!post && params.slug) setLocation("/404");
+  }, [post, params.slug, setLocation]);
+
+  if (!post) return null;
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Contact form: POSTs to /api/contact (Resend). Swiss Brutalist styling.
  */
 
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { TurnstileWidget } from "@/components/TurnstileWidget";
 
 const schema = z.object({
   name: z.string().max(120).optional(),
@@ -28,8 +29,15 @@ const schema = z.object({
 
 type Values = z.infer<typeof schema>;
 
+const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY as
+  | string
+  | undefined;
+const turnstileEnabled = Boolean(turnstileSiteKey);
+
 export function ContactForm() {
   const [submitting, setSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
   const form = useForm<Values>({
     resolver: zodResolver(schema),
@@ -37,12 +45,22 @@ export function ContactForm() {
   });
 
   async function onSubmit(values: Values) {
+    if (turnstileEnabled && !turnstileToken) {
+      toast.error("Please complete the bot check before sending.");
+      return;
+    }
+
     setSubmitting(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          ...values,
+          ...(turnstileEnabled && turnstileToken
+            ? { turnstileToken }
+            : {}),
+        }),
       });
       const data = await res.json().catch(() => ({}));
 
@@ -52,6 +70,8 @@ export function ContactForm() {
       }
       toast.success("Message sent. We'll respond within 48 hours.");
       form.reset();
+      setTurnstileToken(null);
+      setTurnstileResetKey((current) => current + 1);
     } catch {
       toast.error("Failed to send. Try emailing directly.");
     } finally {
@@ -126,6 +146,19 @@ export function ContactForm() {
             )}
           />
         </div>
+
+        {turnstileEnabled && turnstileSiteKey ? (
+          <div className="mt-6">
+            <p className="mb-2 font-mono text-xs text-brand-black/70 tracking-widest">
+              BOT CHECK
+            </p>
+            <TurnstileWidget
+              siteKey={turnstileSiteKey}
+              onTokenChange={setTurnstileToken}
+              resetKey={turnstileResetKey}
+            />
+          </div>
+        ) : null}
 
         <Button
           type="submit"

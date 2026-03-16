@@ -80,7 +80,12 @@ const products: Product[] = [
       "Interpretable AI is not an academic concern. In operations, you need to know why something alerted so you can tune it, trust it, and hand it to the next person. GP-evolved symbolic rules give you that transparency without sacrificing the ability to discover non-obvious patterns.",
     whoItsFor:
       "Engineering and ops teams running monitoring pipelines who are drowning in alert noise and need a system that discovers non-obvious patterns without sacrificing explainability.",
-    tags: ["ANOMALY DETECTION", "GENETIC PROGRAMMING", "INTERPRETABLE AI", "OPEN SOURCE"],
+    tags: [
+      "ANOMALY DETECTION",
+      "GENETIC PROGRAMMING",
+      "INTERPRETABLE AI",
+      "OPEN SOURCE",
+    ],
     githubUrl: "https://github.com/WhatsYourWhy/Alert-Axolotl-Evo",
     pypiUrl: "https://pypi.org/project/alert-axolotl-evo/1.0.0/",
     status: "PRODUCTION",
@@ -131,8 +136,43 @@ const products: Product[] = [
       "This is a dynamics framework, not a cognitive model. All claims are limited to defined state variables and testable invariants. Designed to be embedded in larger systems — agents, pipelines, monitoring infrastructure — as a principled compute scheduling layer.",
     whoItsFor:
       "AI engineers and systems architects building agents or pipelines that need principled, salience-aware resource allocation rather than uniform polling or naive priority queues.",
-    tags: ["AI INFRASTRUCTURE", "COMPUTE SCHEDULING", "AGENT SYSTEMS", "RESEARCH"],
+    tags: [
+      "AI INFRASTRUCTURE",
+      "COMPUTE SCHEDULING",
+      "AGENT SYSTEMS",
+      "RESEARCH",
+    ],
     githubUrl: "https://github.com/WhatsYourWhy/The-Temporal-Gradient",
+    status: "BETA",
+  },
+  {
+    id: "topoguard",
+    number: "05",
+    name: "TOPOGUARD",
+    tagline: "Topology-Gated Refusal for Dynamical Systems",
+    oneLiner:
+      "A calibration-driven control layer that learns the shape of a stable regime, then decides when to automate, intervene, or refuse.",
+    problem:
+      "Most monitoring and control layers rely on amplitude thresholds, hand-tuned rules, or black-box anomaly scores. That breaks when a system changes shape without obviously changing magnitude, or when teams need a refusal boundary they can justify instead of another vague confidence score.",
+    whatItDoes: [
+      "Calibrates on a known stable regime and classifies future windows as AUTOMATE, INTERVENE/FLARE, or REFUSE/VOID",
+      "Measures connectedness, recurrence, and window-to-window structural change instead of relying only on variance",
+      "Supports scalar, multivariate, and streaming inputs through one interface",
+      "Offers a lightweight proxy backend plus a persistent-homology backend for exact topological analysis",
+      "Uses calibration-derived quantiles rather than fixed magic numbers",
+      "Keeps streaming behavior bounded and replayable with explicit dimensionality checks",
+    ],
+    differentiator:
+      "TopoGuard is built around refusal as an engineering primitive. Instead of pretending every input deserves an answer, it learns what admissible structure looks like and says no when the topology leaves that envelope. That makes the boundary legible, calibratable, and operationally defensible.",
+    whoItsFor:
+      "AI infrastructure teams, controls engineers, and safety-minded builders who need an interpretable gate in front of automation when regime shifts matter more than raw amplitude.",
+    tags: [
+      "SAFETY LAYERS",
+      "TOPOLOGY",
+      "STREAMING SYSTEMS",
+      "INTERPRETABLE AI",
+    ],
+    githubUrl: "https://github.com/WhatsYourWhy/TopoGuard",
     status: "BETA",
   },
 ];
@@ -172,9 +212,9 @@ function ProductsHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-body text-xl md:text-2xl text-brand-offwhite/70 mt-8 max-w-2xl leading-relaxed"
         >
-          Every tool here was built to solve a real problem. No dashboards. No vibes.
-          Deterministic outputs, local-first architecture, and zero tolerance for systems
-          that can't explain themselves.
+          Every tool here was built to solve a real problem. No dashboards. No
+          vibes. Deterministic outputs, local-first architecture, and zero
+          tolerance for systems that can't explain themselves.
         </motion.p>
 
         {/* Divider */}
@@ -191,15 +231,24 @@ function ProductsHero() {
 
 function StatusBadge({ status }: { status: Product["status"] }) {
   const config = {
-    PRODUCTION: { label: "PRODUCTION", className: "bg-brand-orange text-brand-black" },
-    BETA: { label: "BETA", className: "bg-brand-offwhite/20 text-brand-offwhite border border-brand-offwhite/40" },
-    RESEARCH: { label: "RESEARCH", className: "bg-transparent text-brand-offwhite/50 border border-brand-offwhite/20" },
+    PRODUCTION: {
+      label: "PRODUCTION",
+      className: "bg-brand-orange text-brand-black",
+    },
+    BETA: {
+      label: "BETA",
+      className:
+        "bg-brand-offwhite/20 text-brand-offwhite border border-brand-offwhite/40",
+    },
+    RESEARCH: {
+      label: "RESEARCH",
+      className:
+        "bg-transparent text-brand-offwhite/50 border border-brand-offwhite/20",
+    },
   };
   const { label, className } = config[status];
   return (
-    <span className={`font-mono text-xs px-3 py-1 ${className}`}>
-      {label}
-    </span>
+    <span className={`font-mono text-xs px-3 py-1 ${className}`}>{label}</span>
   );
 }
 
@@ -269,7 +318,9 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         </div>
 
         {/* Content grid */}
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 ${isEven ? "" : "lg:grid-flow-dense"}`}>
+        <div
+          className={`grid grid-cols-1 lg:grid-cols-2 gap-12 ${isEven ? "" : "lg:grid-flow-dense"}`}
+        >
           {/* Problem + Differentiator */}
           <div className={`space-y-8 ${isEven ? "" : "lg:col-start-2"}`}>
             <div>
@@ -320,7 +371,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mt-8">
-              {product.tags.map((tag) => (
+              {product.tags.map(tag => (
                 <span
                   key={tag}
                   className="font-mono text-xs px-3 py-1 bg-brand-black text-brand-offwhite/50 border border-brand-offwhite/15"
@@ -344,7 +395,7 @@ function ProductsNav() {
           <span className="font-mono text-xs text-brand-offwhite/40 mr-4 flex-shrink-0">
             JUMP TO:
           </span>
-          {products.map((p) => (
+          {products.map(p => (
             <a
               key={p.id}
               href={`#${p.id}`}
@@ -378,10 +429,10 @@ function ProductsCTA() {
               <span className="text-brand-orange">HOW I WORK</span>
             </h2>
             <p className="font-body text-xl text-brand-offwhite/70 mt-6 leading-relaxed">
-              These tools are open source and production-shaped. They're also the instruments
-              I use in consulting engagements — when I recommend a solution, I've already
-              built and run it. If any of these could solve a problem in your organization,
-              let's talk.
+              These tools are open source and production-shaped. They're also
+              the instruments I use in consulting engagements — when I recommend
+              a solution, I've already built and run it. If any of these could
+              solve a problem in your organization, let's talk.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -418,7 +469,7 @@ export default function Products() {
     title: "Tools",
     path: "/tools",
     description:
-      "Production-shaped tools from Shank Strategy Ops for supply chain risk, anomaly detection, offline document intelligence, and salience-aware compute scheduling.",
+      "Production-shaped tools from Shank Strategy Ops for supply chain risk, anomaly detection, offline document intelligence, salience-aware compute scheduling, and topology-gated control.",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "CollectionPage",

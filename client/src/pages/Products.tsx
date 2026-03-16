@@ -11,6 +11,9 @@ import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Link } from "wouter";
 import BlogNavigation from "@/components/blog/BlogNavigation";
+import SiteFooter from "@/components/layout/SiteFooter";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { absoluteUrl } from "@/lib/site";
 
 // ─── Product Data ────────────────────────────────────────────────────────────
 
@@ -382,13 +385,13 @@ function ProductsCTA() {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Link
+              <a
                 href="/#contact"
                 className="inline-flex items-center gap-3 font-mono text-sm bg-brand-orange text-brand-black px-8 py-4 hover:bg-brand-offwhite transition-colors"
               >
                 START A CONVERSATION
                 <ArrowRight className="h-4 w-4" />
-              </Link>
+              </a>
               <Link
                 href="/blog"
                 className="inline-flex items-center gap-3 font-mono text-sm border border-brand-offwhite/30 text-brand-offwhite px-8 py-4 hover:border-brand-orange hover:text-brand-orange transition-colors"
@@ -405,30 +408,27 @@ function ProductsCTA() {
 }
 
 function Footer() {
-  return (
-    <footer className="py-12 bg-brand-black border-t border-border">
-      <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-brand-orange flex items-center justify-center">
-              <span className="font-display font-bold text-brand-black">S</span>
-            </div>
-            <span className="font-display font-bold tracking-tight">
-              SHANK STRATEGY OPS
-            </span>
-          </Link>
-          <p className="font-mono text-sm text-brand-offwhite/50">
-            &copy; {new Date().getFullYear()} Shank Strategy Ops. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
+  return <SiteFooter />;
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Products() {
+  usePageMetadata({
+    title: "Tools",
+    path: "/tools",
+    description:
+      "Production-shaped tools from Shank Strategy Ops for supply chain risk, anomaly detection, offline document intelligence, and salience-aware compute scheduling.",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Shank Strategy Ops Tools",
+      url: absoluteUrl("/tools"),
+      description:
+        "Production-shaped tools from Shank Strategy Ops for operations and engineering teams.",
+    },
+  });
+
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
       <BlogNavigation />

@@ -68,6 +68,20 @@ export default function BlogNavigation() {
               MODELS
             </button>
             <Link
+              href="/about"
+              className={`font-mono text-sm transition-colors ${
+                location === "/about" ||
+                location === "/methodology" ||
+                location === "/editorial-policy" ||
+                location === "/privacy" ||
+                location === "/terms"
+                  ? "text-brand-orange"
+                  : "text-brand-offwhite/70 hover:text-brand-orange"
+              }`}
+            >
+              ABOUT
+            </Link>
+            <Link
               href="/tools"
               className={`font-mono text-sm transition-colors ${
                 location === "/tools"
@@ -140,6 +154,21 @@ export default function BlogNavigation() {
               >
                 MODELS
               </button>
+              <Link
+                href="/about"
+                className={`font-mono text-sm transition-colors text-left ${
+                  location === "/about" ||
+                  location === "/methodology" ||
+                  location === "/editorial-policy" ||
+                  location === "/privacy" ||
+                  location === "/terms"
+                    ? "text-brand-orange"
+                    : "text-brand-offwhite/70 hover:text-brand-orange"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                ABOUT
+              </Link>
               <Link
                 href="/tools"
                 className={`font-mono text-sm transition-colors text-left ${

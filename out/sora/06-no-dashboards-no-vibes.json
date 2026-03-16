@@ -1,0 +1,17 @@
+{
+  "completed_at": null,
+  "created_at": 1773369531,
+  "edited_from_video_id": null,
+  "error": null,
+  "expires_at": null,
+  "extended_from_video_id": null,
+  "id": "video_69b378bb8ce08193ae03ef5b0bf4ed190f4f4d2936420580",
+  "model": "sora-2",
+  "object": "video",
+  "progress": 0,
+  "prompt": "Use case: differentiator beat\nPrimary request: Emphasize the anti-fluff stance with stark typography over disciplined system imagery. Blunt, premium, unsentimental, no people.\nScene/background: black and graphite background with faint terminal blocks and ruled grids, burnt orange underline accents\nSubject: rejection of fluff and empty dashboards\nAction: beat 1 (0-2s) the words appear one phrase at a time; beat 2 (2-4s) background system graphics resolve into a clean, restrained structure\nCamera: locked frame with subtle texture motion\nLighting/mood: blunt, confident, unsentimental\nColor palette: black, off-white, burnt orange\nStyle/format: manifesto-style motion graphic\nAudio: one dry impact per phrase, no dialogue\nText (verbatim): \"NO DASHBOARDS. NO VIBES.\"\nConstraints: text must dominate; no extra phrases; no people\nAvoid: meme energy, flashy transitions, comedic tone",
+  "remixed_from_video_id": null,
+  "seconds": "4",
+  "size": "1280x720",
+  "status": "queued"
+}

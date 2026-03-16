@@ -1,0 +1,17 @@
+{
+  "completed_at": null,
+  "created_at": 1773369529,
+  "edited_from_video_id": null,
+  "error": null,
+  "expires_at": null,
+  "extended_from_video_id": null,
+  "id": "video_69b378b99edc8190829d7cfb498643cd0ea8ae6b14a9eac1",
+  "model": "sora-2",
+  "object": "video",
+  "progress": 0,
+  "prompt": "Use case: brand promise beat\nPrimary request: Make the core promise feel bold and uncompromising through giant typography and severe structure. No people, no logos, no extra claims.\nScene/background: black field with off-white slabs and burnt orange bars creating a severe stage for giant kinetic type\nSubject: the firm's core promise\nAction: beat 1 (0-1s) type fragments enter; beat 2 (1-3s) the full phrase locks into place with subtle parallax; beat 3 (3-4s) burnt orange emphasis lands on the middle phrase\nCamera: mostly locked-off with slight depth motion\nLighting/mood: confrontational, crisp, premium\nColor palette: black, off-white, burnt orange\nStyle/format: typography-first brand film\nAudio: low bass thump, restrained metallic accents\nText (verbatim): \"WE FIX WHAT'S BROKEN. THEN WE LEAVE.\"\nConstraints: exact wording; large legible typography; no extra claims\nAvoid: warped text, decorative fonts, excess particles",
+  "remixed_from_video_id": null,
+  "seconds": "4",
+  "size": "1280x720",
+  "status": "queued"
+}

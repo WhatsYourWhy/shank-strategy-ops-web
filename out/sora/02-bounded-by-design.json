@@ -1,0 +1,17 @@
+{
+  "completed_at": null,
+  "created_at": 1773369528,
+  "edited_from_video_id": null,
+  "error": null,
+  "expires_at": null,
+  "extended_from_video_id": null,
+  "id": "video_69b378b852648190a3b7f0e3ddce08e202a3714cf9636f45",
+  "model": "sora-2",
+  "object": "video",
+  "progress": 0,
+  "prompt": "Use case: social ad thesis beat\nPrimary request: Transform chaos into a single clean operating line for a severe investor-style brand ad. Premium brutalist architecture, no people, no logos.\nScene/background: abstract brutalist concrete geometry suspended in a black void with one burnt orange line cutting through disorder\nSubject: bounded execution\nAction: beat 1 (0-2s) orange line slices through disorder; beat 2 (2-4s) all geometry snaps into a clean asymmetric composition\nCamera: slow forward dolly with precise framing\nLighting/mood: authoritative, calm, expensive\nColor palette: black, warm off-white concrete, burnt orange\nStyle/format: cinematic brutalist design film\nAudio: pulse steadies, one clean mechanical hit\nText (verbatim): \"BOUNDED BY DESIGN\"\nConstraints: no people; no logos; keep composition minimal\nAvoid: soft corporate visuals, generic office architecture",
+  "remixed_from_video_id": null,
+  "seconds": "4",
+  "size": "1280x720",
+  "status": "queued"
+}

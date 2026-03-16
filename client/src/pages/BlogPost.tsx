@@ -11,8 +11,11 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Clock, ExternalLink } from "lucide-react";
 import { Link, useParams, useLocation } from "wouter";
 import BlogNavigation from "@/components/blog/BlogNavigation";
+import SiteFooter from "@/components/layout/SiteFooter";
 import { getBlogPost } from "@/data/blogPosts";
 import type { BlogSection, BlogSubsection } from "@/data/blogPosts";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { absoluteUrl } from "@/lib/site";
 
 function PostHero({
   title,
@@ -212,26 +215,7 @@ function SectionBlock({ section, index }: { section: BlogSection; index: number 
 }
 
 function Footer() {
-  return (
-    <footer className="py-12 bg-brand-black border-t border-border">
-      <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-brand-orange flex items-center justify-center">
-              <span className="font-display font-bold text-brand-black">S</span>
-            </div>
-            <span className="font-display font-bold tracking-tight">
-              SHANK STRATEGY OPS
-            </span>
-          </Link>
-
-          <p className="font-mono text-sm text-brand-offwhite/50">
-            &copy; {new Date().getFullYear()} Shank Strategy Ops. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
+  return <SiteFooter />;
 }
 
 export default function BlogPost() {
@@ -246,6 +230,35 @@ export default function BlogPost() {
   useEffect(() => {
     if (!post && params.slug) setLocation("/404");
   }, [post, params.slug, setLocation]);
+
+  usePageMetadata({
+    title: post?.title ?? "Article",
+    path: post ? `/blog/${post.slug}` : `/blog/${params.slug}`,
+    description: post?.tldr ?? "Article from Shank Strategy Ops.",
+    type: "article",
+    image: post?.heroImage,
+    robots: post ? "index,follow" : "noindex,follow",
+    structuredData: post
+      ? {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.tldr,
+          image: post.heroImage ? absoluteUrl(post.heroImage) : undefined,
+          datePublished: post.publishedDate,
+          author: {
+            "@type": "Organization",
+            name: post.author,
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "Shank Strategy Ops",
+            url: absoluteUrl("/"),
+          },
+          mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+        }
+      : undefined,
+  });
 
   if (!post) return null;
 
@@ -270,6 +283,15 @@ export default function BlogPost() {
             {/* TL;DR */}
             <TldrBlock tldr={post.tldr} />
 
+            {post.originalUrl && (
+              <div className="mb-12 border border-brand-offwhite/10 bg-brand-charcoal/60 p-5">
+                <p className="font-body text-sm leading-relaxed text-brand-offwhite/72">
+                  This website version is the primary readable edition of the piece. If a related
+                  public post exists elsewhere, it is linked near the end for reference.
+                </p>
+              </div>
+            )}
+
             {/* Sections */}
             {post.sections.map((section, index) => (
               <SectionBlock key={section.id} section={section} index={index} />
@@ -291,7 +313,7 @@ export default function BlogPost() {
                   className="inline-flex items-center gap-2 font-mono text-sm text-brand-offwhite/50 hover:text-brand-orange transition-colors"
                 >
                   <ExternalLink className="h-4 w-4" />
-                  ORIGINALLY PUBLISHED ON LINKEDIN
+                  RELATED PUBLIC VERSION
                 </a>
               </motion.div>
             )}

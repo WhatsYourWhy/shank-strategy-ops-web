@@ -1,0 +1,17 @@
+{
+  "completed_at": null,
+  "created_at": 1773369531,
+  "edited_from_video_id": null,
+  "error": null,
+  "expires_at": null,
+  "extended_from_video_id": null,
+  "id": "video_69b378bb690c8191a1fb3fbb44878ee5002d7f12a664ed6f",
+  "model": "sora-2",
+  "object": "video",
+  "progress": 0,
+  "prompt": "Use case: proof through tools beat\nPrimary request: Show proof through tools rather than slide decks: explainable alert logic, offline document outputs, deterministic alerts, local data cues. No logos, no people, no unsupported SaaS UI.\nScene/background: modular panels floating in a black environment, each showing one kind of evidence: explainable rule logic, offline document summaries, deterministic alerting, local data cues\nSubject: open-source, deterministic, local-first instruments\nAction: beat 1 (0-1.3s) first panel reveals explainable alert logic; beat 2 (1.3-2.6s) second panel reveals structured document output; beat 3 (2.6-4s) all panels align in one clean system tableau\nCamera: lateral slide across panels ending centered\nLighting/mood: serious, technical, trustworthy\nColor palette: black, off-white, burnt orange, muted graphite\nStyle/format: editorial product montage without brand logos\nAudio: subtle mechanical clicks, controlled pulse\nText (verbatim): \"DETERMINISTIC. LOCAL-FIRST. EXPLAINABLE.\"\nConstraints: no logos; no fabricated product UI; no SaaS dashboard framing\nAvoid: unreadable terminal text, code rain, fake holograms",
+  "remixed_from_video_id": null,
+  "seconds": "4",
+  "size": "1280x720",
+  "status": "queued"
+}

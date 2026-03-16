@@ -1,0 +1,78 @@
+{
+  "name": "Shank Investor Ad",
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "defaultDuration": 4,
+  "clipsDir": "out/sora",
+  "output": "out/ads/shank-investor-ad.mp4",
+  "style": {
+    "backgroundColor": "black",
+    "overlayOpacity": 0.18,
+    "textBoxOpacity": 0.72,
+    "accentColor": "#c65a1e",
+    "textColor": "#f3eee4",
+    "shadowColor": "black",
+    "boxMarginX": 64,
+    "boxMarginBottom": 56,
+    "boxPaddingX": 34,
+    "boxPaddingTop": 28,
+    "boxPaddingBottom": 34,
+    "accentBarHeight": 8,
+    "headlineFontSize": 54,
+    "headlineLineGap": 10,
+    "kickerFontSize": 20,
+    "fontCandidates": [
+      "C:/Windows/Fonts/arialbd.ttf",
+      "C:/Windows/Fonts/bahnschrift.ttf",
+      "C:/Windows/Fonts/segoeuib.ttf",
+      "C:/Windows/Fonts/impact.ttf",
+      "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+      "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    ]
+  },
+  "shots": [
+    {
+      "input": "01-more-activity-more-noise.mp4",
+      "kicker": "THESIS",
+      "textLines": ["MORE ACTIVITY.", "MORE NOISE."],
+      "voiceover": "Most firms sell more meetings."
+    },
+    {
+      "input": "02-bounded-by-design.mp4",
+      "kicker": "THESIS",
+      "textLines": ["BOUNDED", "BY DESIGN"],
+      "voiceover": "Shank Strategy Ops sells something rarer: bounded execution."
+    },
+    {
+      "input": "03-fix-whats-broken-then-we-leave.mp4",
+      "kicker": "PROMISE",
+      "textLines": ["WE FIX WHAT'S BROKEN.", "THEN WE LEAVE."],
+      "voiceover": "Fix what's broken. Build authority. Leave without dependency."
+    },
+    {
+      "input": "04-engagement-model.mp4",
+      "kicker": "MODEL",
+      "textLines": ["FIT. DIAGNOSE. DESIGN.", "STABILIZE. EXIT."],
+      "voiceover": "The model is explicit: fit, diagnose, design, stabilize, exit."
+    },
+    {
+      "input": "05-proof-through-tools.mp4",
+      "kicker": "PROOF",
+      "textLines": ["DETERMINISTIC.", "LOCAL-FIRST. EXPLAINABLE."],
+      "voiceover": "And the proof isn't a slide deck. It's the tools."
+    },
+    {
+      "input": "06-no-dashboards-no-vibes.mp4",
+      "kicker": "STANCE",
+      "textLines": ["NO DASHBOARDS.", "NO VIBES."],
+      "voiceover": "Open-source instruments for risk intelligence, interpretable alerts, and offline document pipelines."
+    },
+    {
+      "input": "07-start-a-conversation.mp4",
+      "kicker": "CTA",
+      "textLines": ["START A", "CONVERSATION"],
+      "voiceover": "If you have authority to act, start the conversation."
+    }
+  ]
+}

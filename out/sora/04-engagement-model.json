@@ -1,0 +1,17 @@
+{
+  "completed_at": null,
+  "created_at": 1773369530,
+  "edited_from_video_id": null,
+  "error": null,
+  "expires_at": null,
+  "extended_from_video_id": null,
+  "id": "video_69b378ba19f8819196086e266be9bdec043e004b53df4b4e",
+  "model": "sora-2",
+  "object": "video",
+  "progress": 0,
+  "prompt": "Use case: process proof beat\nPrimary request: Visualize a disciplined five-step engagement model as a circuit-like operating system. Elegant, credible, no people, no logos.\nScene/background: dark technical board with glowing off-white nodes connected by burnt orange pathways\nSubject: fit, diagnose, design, stabilize, exit\nAction: beat 1 (0-1s) node 0 lights; beat 2 (1-3s) nodes illuminate in sequence along the path; beat 3 (3-4s) the full flow glows steadily\nCamera: top-down locked-off shot with subtle push-in\nLighting/mood: precise, engineered, credible\nColor palette: black, off-white, burnt orange\nStyle/format: elegant systems diagram animation\nAudio: sequential ticks synced to node activation\nText (verbatim): \"FIT. DIAGNOSE. DESIGN. STABILIZE. EXIT.\"\nConstraints: keep diagram simple and readable; no fake metrics; no logos\nAvoid: dense UI, tiny labels, neon cyberpunk styling",
+  "remixed_from_video_id": null,
+  "seconds": "4",
+  "size": "1280x720",
+  "status": "queued"
+}

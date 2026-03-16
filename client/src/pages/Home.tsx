@@ -12,6 +12,10 @@ import { ArrowRight, Check, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/ContactForm";
 import { Link } from "wouter";
+import SiteFooter from "@/components/layout/SiteFooter";
+import { getAllBlogPosts } from "@/data/blogPosts";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { absoluteUrl } from "@/lib/site";
 
 // Navigation Component
 function Navigation() {
@@ -73,6 +77,12 @@ function Navigation() {
               MODELS
             </button>
             <Link
+              href="/about"
+              className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors"
+            >
+              ABOUT
+            </Link>
+            <Link
               href="/tools"
               className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors"
             >
@@ -132,14 +142,23 @@ function Navigation() {
                 MODELS
               </button>
               <Link
+                href="/about"
+                className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors text-left"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                ABOUT
+              </Link>
+              <Link
                 href="/tools"
                 className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors text-left"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 TOOLS
               </Link>
               <Link
                 href="/blog"
                 className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors text-left"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 BLOG
               </Link>
@@ -789,6 +808,181 @@ function ExitSection() {
   );
 }
 
+function PublishingSection() {
+  return (
+    <section className="py-32 bg-brand-charcoal border-y border-brand-offwhite/10">
+      <div className="container">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start">
+          <div>
+            <span className="font-mono text-brand-orange text-sm tracking-widest">
+              WHY THIS SITE EXISTS
+            </span>
+            <h2 className="font-display text-4xl md:text-6xl font-bold mt-4">
+              ORIGINAL OPERATOR NOTES,
+              <br />
+              NOT THIN PUBLISHING.
+            </h2>
+            <p className="font-body text-xl text-brand-offwhite/72 mt-6 max-w-2xl leading-relaxed">
+              This site is the public home for Shank Strategy Ops. It exists to explain the
+              operating model, document the tools behind the work, and publish original essays
+              that help leaders make better execution decisions.
+            </p>
+          </div>
+
+          <div className="grid gap-4">
+            {[
+              {
+                title: "Publisher-owned content",
+                description:
+                  "Pages are written for a real consulting and product practice, not assembled to fill ad inventory.",
+              },
+              {
+                title: "Transparent standards",
+                description:
+                  "Methodology, editorial policy, privacy, and terms are all public and linked in the footer.",
+              },
+              {
+                title: "Useful over endless",
+                description:
+                  "The goal is fewer pages with clearer judgment, better sourcing, and actual operational value.",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="border border-brand-offwhite/10 bg-brand-black p-6"
+              >
+                <h3 className="font-display text-2xl font-bold">{item.title}</h3>
+                <p className="font-body text-brand-offwhite/75 mt-3 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function InsightsSection() {
+  const posts = getAllBlogPosts().slice(0, 3);
+
+  return (
+    <section className="py-32 bg-brand-black">
+      <div className="container">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl">
+            <span className="font-mono text-brand-orange text-sm tracking-widest">
+              RECENT WRITING
+            </span>
+            <h2 className="font-display text-4xl md:text-6xl font-bold mt-4">
+              FIELD NOTES, ESSAYS,
+              <br />
+              AND TOOL BREAKDOWNS.
+            </h2>
+            <p className="font-body text-xl text-brand-offwhite/70 mt-6 leading-relaxed">
+              Essays here are meant to stand on their own: clear thesis, explicit tradeoffs,
+              and enough depth to be useful without needing to chase the reader off-site.
+            </p>
+          </div>
+
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 font-mono text-sm text-brand-orange hover:text-brand-offwhite transition-colors"
+          >
+            VIEW ALL POSTS
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {posts.map((post) => (
+            <Link key={post.slug} href={`/blog/${post.slug}`}>
+              <article className="group h-full border border-brand-offwhite/10 bg-brand-charcoal p-6 transition-colors hover:border-brand-orange">
+                <p className="font-mono text-xs tracking-widest text-brand-orange">
+                  {new Date(post.publishedDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+                <h3 className="mt-4 font-display text-2xl font-bold leading-tight group-hover:text-brand-orange transition-colors">
+                  {post.title}
+                </h3>
+                <p className="mt-4 font-body text-brand-offwhite/72 leading-relaxed">
+                  {post.tldr}
+                </p>
+                <div className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-brand-offwhite/60 group-hover:text-brand-orange">
+                  READ ARTICLE
+                  <ArrowRight className="h-4 w-4" />
+                </div>
+              </article>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StandardsSection() {
+  const standards = [
+    {
+      href: "/about",
+      title: "About the publisher",
+      description: "Who this site serves and how the essays, tools, and consulting practice connect.",
+    },
+    {
+      href: "/methodology",
+      title: "Methodology",
+      description: "How pages are sourced, reviewed, updated, and kept useful over time.",
+    },
+    {
+      href: "/editorial-policy",
+      title: "Editorial policy",
+      description: "The site's originality, disclosure, and correction standards.",
+    },
+  ];
+
+  return (
+    <section className="py-32 bg-brand-offwhite text-brand-black">
+      <div className="container">
+        <div className="max-w-3xl">
+          <span className="font-mono text-brand-orange text-sm tracking-widest">
+            REVIEW STANDARDS
+          </span>
+          <h2 className="font-display text-4xl md:text-6xl font-bold mt-4 text-brand-black">
+            TRUST SIGNALS SHOULD BE
+            <br />
+            EASY TO VERIFY.
+          </h2>
+          <p className="font-body text-xl text-brand-black/70 mt-6 leading-relaxed">
+            Transparent ownership and policy pages are part of the product. Readers should be
+            able to see how the site works, not infer it from guesswork.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {standards.map((item) => (
+            <Link key={item.href} href={item.href}>
+              <article className="h-full border-4 border-brand-black bg-white p-6 transition-colors hover:border-brand-orange">
+                <h3 className="font-display text-2xl font-bold text-brand-black">{item.title}</h3>
+                <p className="mt-4 font-body leading-relaxed text-brand-black/72">
+                  {item.description}
+                </p>
+                <div className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-brand-orange">
+                  READ PAGE
+                  <ArrowRight className="h-4 w-4" />
+                </div>
+              </article>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // Contact Section
 function ContactSection() {
   return (
@@ -838,7 +1032,7 @@ function ContactSection() {
 }
 
 // Footer
-function Footer() {
+function LegacyFooter() {
   return (
     <footer className="py-12 bg-brand-black border-t border-border">
       <div className="container">
@@ -862,7 +1056,33 @@ function Footer() {
 }
 
 // Main Home Component
+function Footer() {
+  return <SiteFooter />;
+}
+
 export default function Home() {
+  usePageMetadata({
+    path: "/",
+    title: "Strategy execution, essays, and deterministic tools",
+    description:
+      "Shank Strategy Ops publishes original essays, operating models, and deterministic tools for strategy execution and operational excellence.",
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Shank Strategy Ops",
+        url: absoluteUrl("/"),
+        email: "contact@shankstrategy.com",
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Shank Strategy Ops",
+        url: absoluteUrl("/"),
+      },
+    ],
+  });
+
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
       <Navigation />
@@ -873,6 +1093,9 @@ export default function Home() {
       <NotSection />
       <RequirementsSection />
       <ExitSection />
+      <PublishingSection />
+      <InsightsSection />
+      <StandardsSection />
       <ContactSection />
       <Footer />
     </div>

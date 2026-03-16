@@ -1,0 +1,17 @@
+{
+  "completed_at": null,
+  "created_at": 1773369528,
+  "edited_from_video_id": null,
+  "error": null,
+  "expires_at": null,
+  "extended_from_video_id": null,
+  "id": "video_69b378b869788190a8e6fa78ae3a288001d2a5adc4ab322d",
+  "model": "sora-2",
+  "object": "video",
+  "progress": 0,
+  "prompt": "Use case: social ad opener\nPrimary request: Show operational noise as an overwhelming but abstract system overload for an investor-style brand ad. Premium Swiss brutalist precision, no people, no logos.\nScene/background: black background with burnt orange alert lines, off-white fragments of charts, document blocks, feed cards, and flashing grid marks colliding in space\nSubject: noise, activity, overload\nAction: beat 1 (0-1.5s) fragments slam into frame from different angles; beat 2 (1.5-3s) the composition becomes chaotic but stays readable; beat 3 (3-4s) everything freezes under a bold headline\nCamera: fast editorial push-in ending in a locked-off frame\nLighting/mood: urgent, sharp, high-contrast\nColor palette: black, off-white, burnt orange\nStyle/format: premium brutalist motion-graphics ad\nAudio: sharp impacts, rising pulse, no dialogue\nText (verbatim): \"MORE ACTIVITY. MORE NOISE.\"\nConstraints: no logos; no people; text must be centered and legible\nAvoid: glitch spam, cheesy warning icons, unreadable microtext",
+  "remixed_from_video_id": null,
+  "seconds": "4",
+  "size": "1280x720",
+  "status": "queued"
+}

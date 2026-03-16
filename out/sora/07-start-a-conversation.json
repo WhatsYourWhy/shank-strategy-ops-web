@@ -1,0 +1,17 @@
+{
+  "completed_at": null,
+  "created_at": 1773369532,
+  "edited_from_video_id": null,
+  "error": null,
+  "expires_at": null,
+  "extended_from_video_id": null,
+  "id": "video_69b378bc2d0881909436b0a2e1a011140236af8033e5b902",
+  "model": "sora-2",
+  "object": "video",
+  "progress": 0,
+  "prompt": "Use case: closing CTA\nPrimary request: Land the ad with one clean invitation for qualified leads. Luxury-minimal brutalist end card, no people, no logos, one CTA only.\nScene/background: nearly empty black field with one off-white brutalist plane and a single burnt orange button-like bar\nSubject: clear CTA for serious buyers\nAction: beat 1 (0-2s) the scene settles into stillness; beat 2 (2-4s) CTA text appears with a gentle push-in and a final burnt orange glow\nCamera: slow, centered push-in\nLighting/mood: calm, decisive, premium\nColor palette: black, off-white, burnt orange\nStyle/format: luxury-minimal end card\nAudio: pulse resolves, one final low note\nText (verbatim): \"START A CONVERSATION\"\nConstraints: one CTA only; no website URL required; no logos; no people\nAvoid: clutter, extra subheads, flashy end-card animation",
+  "remixed_from_video_id": null,
+  "seconds": "4",
+  "size": "1280x720",
+  "status": "queued"
+}

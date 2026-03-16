@@ -11,7 +11,10 @@ import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
 import { Link } from "wouter";
 import BlogNavigation from "@/components/blog/BlogNavigation";
+import SiteFooter from "@/components/layout/SiteFooter";
 import { getAllBlogPosts } from "@/data/blogPosts";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { absoluteUrl } from "@/lib/site";
 
 function BlogHero() {
   return (
@@ -135,30 +138,26 @@ function BlogPostCard({
 }
 
 function Footer() {
-  return (
-    <footer className="py-12 bg-brand-black border-t border-border">
-      <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-brand-orange flex items-center justify-center">
-              <span className="font-display font-bold text-brand-black">S</span>
-            </div>
-            <span className="font-display font-bold tracking-tight">
-              SHANK STRATEGY OPS
-            </span>
-          </Link>
-
-          <p className="font-mono text-sm text-brand-offwhite/50">
-            &copy; {new Date().getFullYear()} Shank Strategy Ops. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
+  return <SiteFooter />;
 }
 
 export default function Blog() {
   const posts = getAllBlogPosts();
+
+  usePageMetadata({
+    title: "Blog",
+    path: "/blog",
+    description:
+      "Original essays and field notes from Shank Strategy Ops on strategy, operations, deterministic systems, and open-source tools.",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      name: "Shank Strategy Ops Blog",
+      url: absoluteUrl("/blog"),
+      description:
+        "Original essays and field notes on strategy, operations, deterministic systems, and tools.",
+    },
+  });
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
@@ -168,6 +167,14 @@ export default function Blog() {
       {/* Posts List */}
       <section className="py-16 bg-brand-black">
         <div className="container">
+          <div className="mb-10 max-w-3xl border border-brand-offwhite/10 bg-brand-charcoal p-6">
+            <p className="font-body text-base leading-relaxed text-brand-offwhite/75">
+              This archive is intentionally small and publisher-owned. Posts are selected for
+              depth, not frequency, and each article is expected to stand on its own as a useful
+              resource rather than a thin summary page.
+            </p>
+          </div>
+
           <div className="space-y-6">
             {posts.map((post, index) => (
               <BlogPostCard key={post.slug} post={post} index={index} />

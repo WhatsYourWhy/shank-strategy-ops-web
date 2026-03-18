@@ -1,4 +1,5 @@
 import express from "express";
+import { readFile } from "fs/promises";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -15,12 +16,14 @@ async function startServer() {
     process.env.NODE_ENV === "production"
       ? path.resolve(__dirname, "public")
       : path.resolve(__dirname, "..", "dist", "public");
+  const indexHtmlPath = path.join(staticPath, "index.html");
+  const indexHtml = await readFile(indexHtmlPath, "utf8");
 
   app.use(express.static(staticPath));
 
-  // Handle client-side routing - serve index.html for all routes
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
+  // Express 5 requires a named wildcard for catch-all route patterns.
+  app.get("/{*path}", (_req, res) => {
+    res.type("html").send(indexHtml);
   });
 
   const port = process.env.PORT || 3000;

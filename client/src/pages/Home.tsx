@@ -1022,6 +1022,13 @@ function ContactSection() {
               className="text-brand-orange hover:underline"
             >
               contact@shankstrategy.com
+            </a>{" "}
+            or{" "}
+            <a
+              href="mailto:ashlee.wishmyer@gmail.com"
+              className="text-brand-orange hover:underline"
+            >
+              Ashlee@shankstrategy.com
             </a>
             . We respond within 48 hours.
           </motion.p>

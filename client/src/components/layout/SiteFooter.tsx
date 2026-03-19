@@ -55,6 +55,12 @@ export default function SiteFooter() {
               >
                 {siteConfig.email}
               </a>
+              <a
+                href="mailto:ashlee.wishmyer@gmail.com"
+                className="font-body text-sm text-brand-offwhite transition-colors hover:text-brand-orange"
+              >
+                Ashlee@shankstrategy.com
+              </a>
             </div>
           </div>
         </div>

@@ -538,7 +538,11 @@ function toConcatPath(filePath: string) {
 }
 
 function escapeFilterPath(filePath: string) {
-  return filePath.replace(/\\/g, "/").replace(/:/g, "\\:").replace(/'/g, "\\'");
+  const normalized = filePath.replace(/\\/g, "/");
+  // Wrap in single quotes and escape any embedded single quotes using the
+  // standard shell pattern: '\'' (end quote, escaped quote, reopen quote).
+  const escapedInner = normalized.replace(/'/g, `'\\''`);
+  return `'${escapedInner}'`;
 }
 
 function writeCompanionScript(outputPath: string, manifest: Manifest) {

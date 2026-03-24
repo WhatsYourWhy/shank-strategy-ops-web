@@ -2,41 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://shankstrategy.com/</loc>
+    <lastmod>2026-03-24</lastmod>
   </url>
   <url>
     <loc>https://shankstrategy.com/about</loc>
+    <lastmod>2026-03-24</lastmod>
   </url>
   <url>
     <loc>https://shankstrategy.com/methodology</loc>
+    <lastmod>2026-03-24</lastmod>
   </url>
   <url>
     <loc>https://shankstrategy.com/editorial-policy</loc>
+    <lastmod>2026-03-24</lastmod>
   </url>
   <url>
     <loc>https://shankstrategy.com/privacy</loc>
+    <lastmod>2026-03-24</lastmod>
   </url>
   <url>
     <loc>https://shankstrategy.com/terms</loc>
+    <lastmod>2026-03-24</lastmod>
   </url>
   <url>
     <loc>https://shankstrategy.com/blog</loc>
+    <lastmod>2026-03-24</lastmod>
   </url>
   <url>
     <loc>https://shankstrategy.com/tools</loc>
+    <lastmod>2026-03-24</lastmod>
+  </url>
+  <url>
+    <loc>https://shankstrategy.com/blog/the-latency-tax-why-digital-speed-is-quietly-eroding-your-brains-operating-system</loc>
+    <lastmod>2026-03-11</lastmod>
+  </url>
+  <url>
+    <loc>https://shankstrategy.com/blog/stop-mainlining-panic-for-profit</loc>
+    <lastmod>2026-03-10</lastmod>
+  </url>
+  <url>
+    <loc>https://shankstrategy.com/blog/trust-is-the-new-energy</loc>
+    <lastmod>2026-03-01</lastmod>
   </url>
   <url>
     <loc>https://shankstrategy.com/blog/the-externalized-mind-from-cave-walls-to-the-age-of-joules</loc>
-  </url>
-  <url>
-    <loc>https://shankstrategy.com/blog/the-blueprint-for-predictability-taming-complexity-with-automation</loc>
-  </url>
-  <url>
-    <loc>https://shankstrategy.com/blog/determinism-the-only-engineering-discipline-that-matters</loc>
-  </url>
-  <url>
-    <loc>https://shankstrategy.com/blog/economic-constraints-force-real-usefulness</loc>
+    <lastmod>2026-02-21</lastmod>
   </url>
   <url>
     <loc>https://shankstrategy.com/blog/alert-axolotl-evo-evolving-interpretable-alert-rules</loc>
+    <lastmod>2026-02-08</lastmod>
+  </url>
+  <url>
+    <loc>https://shankstrategy.com/blog/economic-constraints-force-real-usefulness</loc>
+    <lastmod>2026-01-29</lastmod>
+  </url>
+  <url>
+    <loc>https://shankstrategy.com/blog/determinism-the-only-engineering-discipline-that-matters</loc>
+    <lastmod>2026-01-18</lastmod>
+  </url>
+  <url>
+    <loc>https://shankstrategy.com/blog/the-blueprint-for-predictability-taming-complexity-with-automation</loc>
+    <lastmod>2024-10-15</lastmod>
   </url>
 </urlset>

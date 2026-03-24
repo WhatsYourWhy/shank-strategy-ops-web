@@ -10,12 +10,14 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Clock, ExternalLink } from "lucide-react";
 import { Link, useParams, useLocation } from "wouter";
+import BlogAdsScript from "@/components/BlogAdsScript";
 import BlogNavigation from "@/components/blog/BlogNavigation";
+import LeadConversationCta from "@/components/LeadConversationCta";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { getBlogPost } from "@/data/blogPosts";
 import type { BlogSection, BlogSubsection } from "@/data/blogPosts";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 function PostHero({
   title,
@@ -113,6 +115,7 @@ function PostHero({
               <img
                 src={heroImage}
                 alt={title}
+                loading="eager"
                 className="w-full max-h-[500px] object-cover"
               />
             </div>
@@ -246,15 +249,16 @@ export default function BlogPost() {
           description: post.tldr,
           image: post.heroImage ? absoluteUrl(post.heroImage) : undefined,
           datePublished: post.publishedDate,
+          dateModified: post.publishedDate,
           author: {
             "@type": "Organization",
             name: post.author,
           },
-          publisher: {
-            "@type": "Organization",
-            name: "Shank Strategy Ops",
-            url: absoluteUrl("/"),
-          },
+          publisher: siteConfig.publisher,
+          keywords: post.tags.join(", "),
+          articleSection: post.tags[0],
+          inLanguage: "en-US",
+          isAccessibleForFree: true,
           mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
         }
       : undefined,
@@ -264,6 +268,7 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
+      <BlogAdsScript />
       <BlogNavigation />
 
       <PostHero
@@ -296,6 +301,14 @@ export default function BlogPost() {
             {post.sections.map((section, index) => (
               <SectionBlock key={section.id} section={section} index={index} />
             ))}
+
+            <LeadConversationCta
+              eyebrow="FROM NOTE TO EXECUTION"
+              title="If this issue is active in your organization, we can pressure-test it together."
+              body="The article is there to sharpen the model. The engagement is there to change the operating reality."
+              source={`blog-post-${post.slug}`}
+              className="mt-16"
+            />
 
             {/* Original Source Link */}
             {post.originalUrl && (

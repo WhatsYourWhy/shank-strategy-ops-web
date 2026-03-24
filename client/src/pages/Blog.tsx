@@ -10,11 +10,13 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
 import { Link } from "wouter";
+import BlogAdsScript from "@/components/BlogAdsScript";
 import BlogNavigation from "@/components/blog/BlogNavigation";
+import LeadConversationCta from "@/components/LeadConversationCta";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { getAllBlogPosts } from "@/data/blogPosts";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 function BlogHero() {
   return (
@@ -45,8 +47,9 @@ function BlogHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-body text-xl md:text-2xl text-brand-offwhite/70 mt-8 max-w-2xl leading-relaxed"
         >
-          Strategy, operations, and the forces reshaping how work gets done.
-          Long-form thinking for people who build things that matter.
+          Essays here are the evidence layer behind the consulting practice:
+          operating notes, system arguments, and tool breakdowns for people who
+          have to make real execution decisions.
         </motion.p>
       </div>
     </section>
@@ -83,6 +86,7 @@ function BlogPostCard({
                 <img
                   src={post.heroImage}
                   alt={post.title}
+                  loading="lazy"
                   className="w-full h-48 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -149,18 +153,26 @@ export default function Blog() {
     path: "/blog",
     description:
       "Original essays and field notes from Shank Strategy Ops on strategy, operations, deterministic systems, and open-source tools.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Blog",
-      name: "Shank Strategy Ops Blog",
-      url: absoluteUrl("/blog"),
-      description:
-        "Original essays and field notes on strategy, operations, deterministic systems, and tools.",
-    },
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        name: "Shank Strategy Ops Blog",
+        url: absoluteUrl("/blog"),
+        description:
+          "Original essays and field notes on strategy, operations, deterministic systems, and tools.",
+        publisher: siteConfig.publisher,
+      },
+      {
+        "@context": "https://schema.org",
+        ...siteConfig.publisher,
+      },
+    ],
   });
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
+      <BlogAdsScript />
       <BlogNavigation />
       <BlogHero />
 
@@ -175,6 +187,14 @@ export default function Blog() {
             </p>
           </div>
 
+          <LeadConversationCta
+            eyebrow="TURN READING INTO ACTION"
+            title="If this problem is live inside your organization, start the conversation there."
+            body="The archive is public on purpose: it should help you decide whether the way we think matches the problem you need solved."
+            source="blog-index"
+            className="mb-10"
+          />
+
           <div className="space-y-6">
             {posts.map((post, index) => (
               <BlogPostCard key={post.slug} post={post} index={index} />
@@ -188,6 +208,14 @@ export default function Blog() {
               </p>
             </div>
           )}
+
+          <LeadConversationCta
+            eyebrow="READY TO TALK"
+            title="Useful writing is not the end state. Better execution is."
+            body="If the article helped define the problem more clearly, we can use that clarity to decide whether a bounded engagement makes sense."
+            source="blog-index-bottom"
+            className="mt-10"
+          />
         </div>
       </section>
 

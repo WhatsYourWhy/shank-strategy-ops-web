@@ -11,9 +11,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Link } from "wouter";
 import BlogNavigation from "@/components/blog/BlogNavigation";
+import LeadConversationCta from "@/components/LeadConversationCta";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl } from "@/lib/site";
+import { analyticsEvents, trackEvent } from "@/lib/analytics";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 // ─── Product Data ────────────────────────────────────────────────────────────
 
@@ -212,9 +214,9 @@ function ProductsHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-body text-xl md:text-2xl text-brand-offwhite/70 mt-8 max-w-2xl leading-relaxed"
         >
-          Every tool here was built to solve a real problem. No dashboards. No
-          vibes. Deterministic outputs, local-first architecture, and zero
-          tolerance for systems that can't explain themselves.
+          These tools are the product side of the same operating model: systems
+          built for real constraints, explicit tradeoffs, and outputs a team can
+          actually trust.
         </motion.p>
 
         {/* Divider */}
@@ -291,6 +293,12 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
               href={product.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                trackEvent(analyticsEvents.toolOutboundClicked, {
+                  product: product.id,
+                  destination: "github",
+                })
+              }
               className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
             >
               <Github className="h-4 w-4" />
@@ -301,6 +309,12 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
                 href={product.pypiUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent(analyticsEvents.toolOutboundClicked, {
+                    product: product.id,
+                    destination: "pypi",
+                  })
+                }
                 className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
               >
                 <ExternalLink className="h-4 w-4" />
@@ -470,14 +484,21 @@ export default function Products() {
     path: "/tools",
     description:
       "Production-shaped tools from Shank Strategy Ops for supply chain risk, anomaly detection, offline document intelligence, salience-aware compute scheduling, and topology-gated control.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: "Shank Strategy Ops Tools",
-      url: absoluteUrl("/tools"),
-      description:
-        "Production-shaped tools from Shank Strategy Ops for operations and engineering teams.",
-    },
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Shank Strategy Ops Tools",
+        url: absoluteUrl("/tools"),
+        description:
+          "Production-shaped tools from Shank Strategy Ops for operations and engineering teams.",
+        publisher: siteConfig.publisher,
+      },
+      {
+        "@context": "https://schema.org",
+        ...siteConfig.publisher,
+      },
+    ],
   });
 
   return (
@@ -492,6 +513,17 @@ export default function Products() {
           <ProductCard key={product.id} product={product} index={index} />
         ))}
       </div>
+
+      <section className="bg-brand-black">
+        <div className="container pb-24">
+          <LeadConversationCta
+            eyebrow="OPERATOR TO OPERATOR"
+            title="If one of these tools maps to a live operating problem, that is usually where the engagement starts."
+            body="The open-source layer proves how the system thinks. The consulting layer adapts that logic to your environment, constraints, and decision structure."
+            source="tools-page"
+          />
+        </div>
+      </section>
 
       <ProductsCTA />
       <Footer />

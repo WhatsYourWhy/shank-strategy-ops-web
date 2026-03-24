@@ -21,6 +21,7 @@ import { absoluteUrl, siteConfig } from "@/lib/site";
 
 function PostHero({
   title,
+  subtitle,
   publishedDate,
   readingTime,
   author,
@@ -29,6 +30,7 @@ function PostHero({
   heroImageCaption,
 }: {
   title: string;
+  subtitle?: string;
   publishedDate: string;
   readingTime: string;
   author: string;
@@ -86,6 +88,17 @@ function PostHero({
         >
           {title}
         </motion.h1>
+
+        {subtitle ? (
+          <motion.p
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.16 }}
+            className="mt-5 max-w-3xl font-body text-xl leading-relaxed text-brand-offwhite/72 md:text-2xl"
+          >
+            {subtitle}
+          </motion.p>
+        ) : null}
 
         {/* Author */}
         <motion.div
@@ -246,6 +259,7 @@ export default function BlogPost() {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
           headline: post.title,
+          alternativeHeadline: post.subtitle,
           description: post.tldr,
           image: post.heroImage ? absoluteUrl(post.heroImage) : undefined,
           datePublished: post.publishedDate,
@@ -273,6 +287,7 @@ export default function BlogPost() {
 
       <PostHero
         title={post.title}
+        subtitle={post.subtitle}
         publishedDate={post.publishedDate}
         readingTime={post.readingTime}
         author={post.author}

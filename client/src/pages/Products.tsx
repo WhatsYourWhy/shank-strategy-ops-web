@@ -9,12 +9,13 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import BlogNavigation from "@/components/blog/BlogNavigation";
 import LeadConversationCta from "@/components/LeadConversationCta";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { analyticsEvents, trackEvent } from "@/lib/analytics";
+import { queueHomeSectionNavigation } from "@/lib/homeNavigation";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
 // ─── Product Data ────────────────────────────────────────────────────────────
@@ -425,6 +426,8 @@ function ProductsNav() {
 }
 
 function ProductsCTA() {
+  const [, setLocation] = useLocation();
+
   return (
     <section className="py-24 bg-brand-charcoal">
       <div className="container">
@@ -450,13 +453,14 @@ function ProductsCTA() {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <a
-                href="/#contact"
+              <button
+                type="button"
+                onClick={() => queueHomeSectionNavigation("contact", setLocation)}
                 className="inline-flex items-center gap-3 font-mono text-sm bg-brand-orange text-brand-black px-8 py-4 hover:bg-brand-offwhite transition-colors"
               >
                 START A CONVERSATION
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </button>
               <Link
                 href="/blog"
                 className="inline-flex items-center gap-3 font-mono text-sm border border-brand-offwhite/30 text-brand-offwhite px-8 py-4 hover:border-brand-orange hover:text-brand-orange transition-colors"
@@ -521,6 +525,7 @@ export default function Products() {
             title="If one of these tools maps to a live operating problem, that is usually where the engagement starts."
             body="The open-source layer proves how the system thinks. The consulting layer adapts that logic to your environment, constraints, and decision structure."
             source="tools-page"
+            eventName={analyticsEvents.toolCtaClicked}
           />
         </div>
       </section>

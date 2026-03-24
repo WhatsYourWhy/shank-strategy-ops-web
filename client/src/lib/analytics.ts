@@ -5,6 +5,7 @@ type TrackProperties = Record<string, string | number | boolean | null | undefin
 export const analyticsEvents = {
   heroCtaClicked: "Hero CTA Clicked",
   blogCtaClicked: "Blog CTA Clicked",
+  toolCtaClicked: "Tool CTA Clicked",
   toolOutboundClicked: "Tool Outbound Clicked",
   contactSubmitSucceeded: "Contact Submit Succeeded",
   contactSubmitFailed: "Contact Submit Failed",

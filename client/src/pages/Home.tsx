@@ -14,7 +14,9 @@ import {
 } from "@/components/home/HomeSections";
 import { getAllBlogPosts } from "@/data/blogPosts";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { consumeHomeSectionNavigation } from "@/lib/homeNavigation";
 import { absoluteUrl, siteConfig } from "@/lib/site";
+import { useEffect } from "react";
 
 function scrollToSection(id: string) {
   const element = document.getElementById(id);
@@ -25,6 +27,17 @@ function scrollToSection(id: string) {
 
 export default function Home() {
   const posts = getAllBlogPosts().slice(0, 3);
+
+  useEffect(() => {
+    const targetSection = consumeHomeSectionNavigation();
+    if (!targetSection) {
+      return;
+    }
+
+    window.setTimeout(() => {
+      scrollToSection(targetSection);
+    }, 0);
+  }, []);
 
   usePageMetadata({
     path: "/",

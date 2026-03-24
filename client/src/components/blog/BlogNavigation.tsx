@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
+import { queueHomeSectionNavigation } from "@/lib/homeNavigation";
 
 export default function BlogNavigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,7 +20,8 @@ export default function BlogNavigation() {
 
   const scrollToSection = (id: string) => {
     if (!isHome) {
-      window.location.href = `/#${id}`;
+      queueHomeSectionNavigation(id, setLocation);
+      setMobileMenuOpen(false);
       return;
     }
     const element = document.getElementById(id);

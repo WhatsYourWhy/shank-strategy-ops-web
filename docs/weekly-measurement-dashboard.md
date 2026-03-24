@@ -13,15 +13,16 @@ Review these numbers once per week and note what changed, what likely caused it,
 
 - `Hero CTA Clicked`
 - `Blog CTA Clicked`
+- `Tool CTA Clicked`
 - `Tool Outbound Clicked`
 - `Contact Submit Succeeded`
 - `Contact Submit Failed`
 
 ## Weekly Snapshot Template
 
-| Week of | Top landing pages | Hero CTA clicks | Blog CTA clicks | Tool outbound clicks | Contact submits | Contact failures | Notes / hypotheses |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| YYYY-MM-DD |  |  |  |  |  |  |  |
+| Week of | Top landing pages | Hero CTA clicks | Blog CTA clicks | Tool CTA clicks | Tool outbound clicks | Contact submits | Contact failures | Notes / hypotheses |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| YYYY-MM-DD |  |  |  |  |  |  |  |  |
 
 ## Review Notes
 

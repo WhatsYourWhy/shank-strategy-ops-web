@@ -31,9 +31,10 @@ interface Product {
   differentiator: string;
   whoItsFor: string;
   tags: string[];
-  githubUrl: string;
+  githubUrl?: string;
   pypiUrl?: string;
-  status: "PRODUCTION" | "BETA" | "RESEARCH";
+  gumroadUrl?: string;
+  status: "PRODUCTION" | "BETA" | "RESEARCH" | "AVAILABLE";
 }
 
 const products: Product[] = [
@@ -149,8 +150,36 @@ const products: Product[] = [
     status: "BETA",
   },
   {
+    id: "operator-toolkit",
+    number: "06",
+    name: "OPERATOR TOOLKIT",
+    tagline: "9 Templates for Managers Who Run Real Operations",
+    oneLiner:
+      "A ready-to-use bundle of operations templates for daily management, shift handoffs, weekly reviews, 1:1s, action tracking, issue visibility, KPI review, and staffing stability.",
+    problem:
+      "Most managers are running on memory, scattered sheets, messy handoffs, and weekly reviews that produce more heat than follow-through. The result: dropped actions, unclear ownership, repeated problems, and reactive leadership that stays vague until it becomes a fire.",
+    whatItDoes: [
+      "Daily Leader Checklist — start every shift with clear visibility",
+      "Shift Handoff Template — hand off reality cleanly, not from memory",
+      "Weekly Operations Review — review patterns instead of just reacting to them",
+      "Manager 1:1 Template — coach people with more clarity and less vagueness",
+      "Action Tracker — track commitments across time without losing them",
+      "Issue & Escalation Log — spot recurring problems before they spread",
+      "KPI Review Sheet — measure what matters without dashboard bloat",
+      "Staffing Stability Review — see staffing pressure before it becomes a fire",
+      "Start Here guide + License and Use Notes included",
+    ],
+    differentiator:
+      "This is not a giant operating system. It is a simple working layer for managers who are tired of rebuilding the same tools every week. Start with the spine — Daily Checklist, Shift Handoff, Action Tracker — and layer in the rest as needed.",
+    whoItsFor:
+      "Warehouse managers, operations managers, site leaders, assistant general managers, and team leaders who need more structure without more bureaucracy.",
+    tags: ["OPERATIONS", "MANAGEMENT", "TEMPLATES", "EDITABLE"],
+    gumroadUrl: "https://whatsyourwhy85.gumroad.com/l/ftpcj",
+    status: "AVAILABLE",
+  },
+  {
     id: "topoguard",
-    number: "05",
+    number: "07",
     name: "TOPOGUARD",
     tagline: "Topology-Gated Refusal for Dynamical Systems",
     oneLiner:
@@ -248,6 +277,10 @@ function StatusBadge({ status }: { status: Product["status"] }) {
       className:
         "bg-transparent text-brand-offwhite/50 border border-brand-offwhite/20",
     },
+    AVAILABLE: {
+      label: "AVAILABLE",
+      className: "bg-brand-orange text-brand-black",
+    },
   };
   const { label, className } = config[status];
   return (
@@ -290,21 +323,23 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
           {/* Links */}
           <div className="flex items-center gap-4 flex-shrink-0 lg:mt-2">
-            <a
-              href={product.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() =>
-                trackEvent(analyticsEvents.toolOutboundClicked, {
-                  product: product.id,
-                  destination: "github",
-                })
-              }
-              className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
-            >
-              <Github className="h-4 w-4" />
-              GITHUB
-            </a>
+            {product.githubUrl && (
+              <a
+                href={product.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent(analyticsEvents.toolOutboundClicked, {
+                    product: product.id,
+                    destination: "github",
+                  })
+                }
+                className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
+              >
+                <Github className="h-4 w-4" />
+                GITHUB
+              </a>
+            )}
             {product.pypiUrl && (
               <a
                 href={product.pypiUrl}
@@ -320,6 +355,23 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
               >
                 <ExternalLink className="h-4 w-4" />
                 PYPI
+              </a>
+            )}
+            {product.gumroadUrl && (
+              <a
+                href={product.gumroadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent(analyticsEvents.toolOutboundClicked, {
+                    product: product.id,
+                    destination: "gumroad",
+                  })
+                }
+                className="flex items-center gap-2 font-mono text-sm bg-brand-orange text-brand-black hover:bg-brand-offwhite transition-colors px-4 py-2"
+              >
+                <ExternalLink className="h-4 w-4" />
+                GET IT — $17
               </a>
             )}
           </div>

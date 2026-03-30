@@ -15,12 +15,15 @@ import {
 import { getAllBlogPosts } from "@/data/blogPosts";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { consumeHomeSectionNavigation } from "@/lib/homeNavigation";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
 import { FIXED_HEADER_OFFSET, scrollToElementWithOffset } from "@/lib/scroll";
-import { absoluteUrl, siteConfig } from "@/lib/site";
 import { useEffect } from "react";
 
 function scrollToSection(id: string) {
-  scrollToElementWithOffset(id, FIXED_HEADER_OFFSET);
+  scrollToElementWithOffset(id, {
+    focusTarget: `${id}-heading`,
+    offset: FIXED_HEADER_OFFSET,
+  });
 }
 
 export default function Home() {
@@ -37,34 +40,7 @@ export default function Home() {
     }, 0);
   }, []);
 
-  usePageMetadata({
-    path: "/",
-    title: "Strategic Operations Consulting, Operator Notes, and Tools",
-    description:
-      "Shank Strategy Ops provides strategic operations consulting for leaders fixing execution drift, decision bottlenecks, and operating systems that no longer hold under real conditions.",
-    structuredData: [
-      {
-        "@context": "https://schema.org",
-        ...siteConfig.publisher,
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        name: siteConfig.name,
-        url: absoluteUrl("/"),
-        email: siteConfig.email,
-        description:
-          "Strategy execution and operational repair for leaders who need clearer control, bounded engagements, and durable systems.",
-        areaServed: "United States",
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: siteConfig.name,
-        url: absoluteUrl("/"),
-      },
-    ],
-  });
+  usePageMetadata(getStaticPageMetadata("/"));
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">

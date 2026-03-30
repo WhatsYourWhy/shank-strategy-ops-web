@@ -3,20 +3,7 @@ import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { getStaticPageMetadata } from "@/lib/pageMetadata";
 
 export default function Methodology() {
-  usePageMetadata({
-    title: "Content Methodology and Review Standards",
-    path: "/methodology",
-    description:
-      "See how Shank Strategy Ops researches, reviews, updates, and quality-checks essays and tool writeups before publication.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Methodology",
-      url: absoluteUrl("/methodology"),
-      description:
-        "Methodology page describing sourcing, testing, review, and update standards for Shank Strategy Ops.",
-    },
-  });
+  usePageMetadata(getStaticPageMetadata("/methodology"));
 
   return (
     <InfoPageLayout

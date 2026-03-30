@@ -4,9 +4,16 @@ import { Link, useLocation } from "wouter";
 import { queueHomeSectionNavigation } from "@/lib/homeNavigation";
 import { FIXED_HEADER_OFFSET, scrollToElementWithOffset } from "@/lib/scroll";
 
+const homeNavSections = [
+  { id: "principles", label: "CORE PRINCIPLES" },
+  { id: "engagement", label: "ENGAGEMENT FLOW" },
+  { id: "models", label: "OPERATING MODELS" },
+] as const;
+
 export default function BlogNavigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const [location, setLocation] = useLocation();
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const firstMobileItemRef = useRef<HTMLButtonElement | null>(null);
@@ -35,9 +42,19 @@ export default function BlogNavigation() {
       return;
     }
 
-    scrollToElementWithOffset(id, FIXED_HEADER_OFFSET);
+    scrollToElementWithOffset(id, {
+      focusTarget: `${id}-heading`,
+      offset: FIXED_HEADER_OFFSET,
+    });
     closeMobileMenu();
   };
+
+  const getSectionButtonClass = (id: string) =>
+    `font-mono text-sm transition-colors ${
+      isHome && activeSection === id
+        ? "border-b border-brand-orange pb-1 text-brand-offwhite"
+        : "text-brand-offwhite/72 hover:text-brand-offwhite"
+    }`;
 
   useEffect(() => {
     if (!mobileMenuOpen) {
@@ -79,6 +96,32 @@ export default function BlogNavigation() {
     closeMobileMenu();
   }, [location]);
 
+  useEffect(() => {
+    if (!isHome) {
+      setActiveSection(null);
+      return;
+    }
+
+    const updateActiveSection = () => {
+      const marker = window.scrollY + FIXED_HEADER_OFFSET + 24;
+      let nextActiveSection: string | null = null;
+
+      for (const section of homeNavSections) {
+        const element = document.getElementById(section.id);
+        if (element && element.offsetTop <= marker) {
+          nextActiveSection = section.id;
+        }
+      }
+
+      setActiveSection(nextActiveSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+
+    return () => window.removeEventListener("scroll", updateActiveSection);
+  }, [isHome]);
+
   return (
     <nav
       aria-label="Primary"
@@ -103,23 +146,23 @@ export default function BlogNavigation() {
             <button
               type="button"
               onClick={() => scrollToSection("principles")}
-              className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors"
+              className={getSectionButtonClass("principles")}
             >
-              CORE PRINCIPLES
+              {homeNavSections[0].label}
             </button>
             <button
               type="button"
               onClick={() => scrollToSection("engagement")}
-              className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors"
+              className={getSectionButtonClass("engagement")}
             >
-              ENGAGEMENT FLOW
+              {homeNavSections[1].label}
             </button>
             <button
               type="button"
               onClick={() => scrollToSection("models")}
-              className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors"
+              className={getSectionButtonClass("models")}
             >
-              OPERATING MODELS
+              {homeNavSections[2].label}
             </button>
             <Link
               href="/about"
@@ -220,23 +263,23 @@ export default function BlogNavigation() {
                 ref={firstMobileItemRef}
                 type="button"
                 onClick={() => scrollToSection("principles")}
-                className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors text-left"
+                className={`${getSectionButtonClass("principles")} text-left`}
               >
-                CORE PRINCIPLES
+                {homeNavSections[0].label}
               </button>
               <button
                 type="button"
                 onClick={() => scrollToSection("engagement")}
-                className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors text-left"
+                className={`${getSectionButtonClass("engagement")} text-left`}
               >
-                ENGAGEMENT FLOW
+                {homeNavSections[1].label}
               </button>
               <button
                 type="button"
                 onClick={() => scrollToSection("models")}
-                className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors text-left"
+                className={`${getSectionButtonClass("models")} text-left`}
               >
-                OPERATING MODELS
+                {homeNavSections[2].label}
               </button>
               <Link
                 href="/about"

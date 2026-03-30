@@ -1,18 +1,8 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { blogPosts } from "../client/src/data/blogPosts";
+import { staticRenderablePaths } from "../client/src/lib/pageMetadata";
 import { siteConfig } from "../client/src/lib/site";
-
-const staticRoutes = [
-  "/",
-  "/about",
-  "/methodology",
-  "/editorial-policy",
-  "/privacy",
-  "/terms",
-  "/blog",
-  "/tools",
-];
 
 function escapeXml(value: string) {
   return value
@@ -27,7 +17,7 @@ async function main() {
   const buildDate = new Date().toISOString().slice(0, 10);
 
   const urls = [
-    ...staticRoutes.map((route) => ({
+    ...staticRenderablePaths.map((route) => ({
       loc: new URL(route, siteConfig.url).toString(),
       lastmod: buildDate,
     })),

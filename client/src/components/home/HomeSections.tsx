@@ -68,7 +68,7 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
               className="mt-8 max-w-2xl font-body text-xl leading-relaxed text-brand-offwhite/76 md:text-2xl"
             >
               Strategic operations consulting for leadership teams dealing with stalled
-              execution, unclear ownership, and systems that create more noise than control.
+              execution, unclear ownership, and operating cadences that create more noise than control.
             </motion.p>
 
             <motion.p
@@ -139,8 +139,17 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
 
 export function HomeProofStrip() {
   return (
-    <section className="bg-brand-black pb-16">
+    <section
+      aria-labelledby="home-proof-heading"
+      className="bg-brand-black pb-16"
+    >
       <div className="container">
+        <h2
+          id="home-proof-heading"
+          className="sr-only"
+        >
+          What we do at a glance
+        </h2>
         <div className="grid gap-px overflow-hidden border border-brand-offwhite/10 bg-brand-offwhite/10 md:grid-cols-2 xl:grid-cols-4">
           {homeProofStrip.map((item, index) => (
             <motion.div
@@ -151,7 +160,7 @@ export function HomeProofStrip() {
               transition={{ duration: 0.45, delay: index * 0.06 }}
               className="bg-brand-charcoal p-6"
             >
-              <p className="font-mono text-xs tracking-[0.24em] text-brand-offwhite/78">{item.label}</p>
+              <h3 className="font-mono text-xs tracking-[0.24em] text-brand-offwhite/78">{item.label}</h3>
               <p className="mt-4 font-body text-base leading-relaxed text-brand-offwhite/78">
                 {item.value}
               </p>
@@ -220,11 +229,19 @@ export function HomeOutcomesSection() {
 
 export function HomePrinciplesSection() {
   return (
-    <section id="principles" className="scroll-mt-28 bg-brand-charcoal py-24">
+    <section
+      id="principles"
+      aria-labelledby="principles-heading"
+      className="scroll-mt-28 bg-brand-charcoal py-24"
+    >
       <div className="container">
         <div className="max-w-3xl">
           <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">ENGAGEMENT PRINCIPLES</p>
-          <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
+          <h2
+            id="principles-heading"
+            tabIndex={-1}
+            className="mt-4 font-display text-4xl font-bold md:text-6xl"
+          >
             THE RULES THAT KEEP THE
             <br />
             WORK HONEST.
@@ -256,12 +273,20 @@ export function HomePrinciplesSection() {
 
 export function HomeEngagementSection() {
   return (
-    <section id="engagement" className="scroll-mt-28 relative overflow-hidden bg-brand-black py-24">
+    <section
+      id="engagement"
+      aria-labelledby="engagement-heading"
+      className="scroll-mt-28 relative overflow-hidden bg-brand-black py-24"
+    >
       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(212,98,43,0.08),transparent_35%),linear-gradient(0deg,rgba(245,242,235,0.02),rgba(245,242,235,0.02))]" />
       <div className="container relative">
         <div className="max-w-3xl">
           <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">STANDARD ENGAGEMENT FLOW</p>
-          <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
+          <h2
+            id="engagement-heading"
+            tabIndex={-1}
+            className="mt-4 font-display text-4xl font-bold md:text-6xl"
+          >
             DIAGNOSE. COMMIT.
             <br />
             STABILIZE. EXIT.
@@ -302,11 +327,19 @@ export function HomeEngagementSection() {
 
 export function HomeModelsSection() {
   return (
-    <section id="models" className="scroll-mt-28 bg-brand-black py-24">
+    <section
+      id="models"
+      aria-labelledby="models-heading"
+      className="scroll-mt-28 bg-brand-black py-24"
+    >
       <div className="container">
         <div className="max-w-3xl">
           <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">ENGAGEMENT MODELS</p>
-          <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
+          <h2
+            id="models-heading"
+            tabIndex={-1}
+            className="mt-4 font-display text-4xl font-bold md:text-6xl"
+          >
             STRUCTURE SHOULD MATCH
             <br />
             THE PROBLEM.
@@ -491,11 +524,19 @@ export function HomeStandardsSection() {
 
 export function HomeContactSection() {
   return (
-    <section id="contact" className="scroll-mt-28 bg-brand-offwhite py-24 text-brand-black">
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="scroll-mt-28 bg-brand-offwhite py-24 text-brand-black"
+    >
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
           <p className="font-mono text-sm tracking-[0.28em] text-brand-black/72">READY TO TALK</p>
-          <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
+          <h2
+            id="contact-heading"
+            tabIndex={-1}
+            className="mt-4 font-display text-4xl font-bold md:text-6xl"
+          >
             START A CONVERSATION.
           </h2>
           <p className="mx-auto mt-6 max-w-2xl font-body text-xl leading-relaxed text-brand-black/72">

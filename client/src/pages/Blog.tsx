@@ -16,7 +16,7 @@ import LeadConversationCta from "@/components/LeadConversationCta";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { getAllBlogPosts } from "@/data/blogPosts";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
 
 function BlogHero() {
   return (
@@ -148,27 +148,7 @@ function Footer() {
 export default function Blog() {
   const posts = getAllBlogPosts();
 
-  usePageMetadata({
-    title: "Operator Notes and Essays",
-    path: "/blog",
-    description:
-      "Operator notes, essays, and field reports from Shank Strategy Ops on strategy execution, operations, deterministic systems, and working tools.",
-    structuredData: [
-      {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        name: "Shank Strategy Ops Blog",
-        url: absoluteUrl("/blog"),
-        description:
-          "Original essays and field notes on strategy, operations, deterministic systems, and tools.",
-        publisher: siteConfig.publisher,
-      },
-      {
-        "@context": "https://schema.org",
-        ...siteConfig.publisher,
-      },
-    ],
-  });
+  usePageMetadata(getStaticPageMetadata("/blog"));
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">

@@ -17,8 +17,8 @@ import SiteFooter from "@/components/layout/SiteFooter";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { analyticsEvents, trackEvent } from "@/lib/analytics";
 import { queueHomeSectionNavigation } from "@/lib/homeNavigation";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
 import { STACKED_HEADER_OFFSET, replaceHash, scrollToElementWithOffset } from "@/lib/scroll";
-import { absoluteUrl, siteConfig } from "@/lib/site";
 
 // ─── Product Data ────────────────────────────────────────────────────────────
 
@@ -314,7 +314,11 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
               <div className="flex items-center gap-4 mb-3">
                 <StatusBadge status={product.status} />
               </div>
-              <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
+              <h2
+                id={`${product.id}-heading`}
+                tabIndex={-1}
+                className="font-display text-3xl md:text-5xl font-bold leading-tight"
+              >
                 {product.name}
               </h2>
               <p className="font-mono text-brand-offwhite/78 text-sm mt-2 tracking-wide">
@@ -471,7 +475,10 @@ function ProductsNav() {
               onClick={(event) => {
                 event.preventDefault();
                 replaceHash(p.id);
-                scrollToElementWithOffset(p.id, STACKED_HEADER_OFFSET);
+                scrollToElementWithOffset(p.id, {
+                  focusTarget: `${p.id}-heading`,
+                  offset: STACKED_HEADER_OFFSET,
+                });
               }}
               className="font-mono text-xs text-brand-offwhite/60 hover:text-brand-offwhite transition-colors px-4 py-2 border border-brand-offwhite/15 hover:border-brand-orange flex-shrink-0 whitespace-nowrap"
             >
@@ -549,31 +556,14 @@ export default function Products() {
 
     const hashTarget = window.location.hash.slice(1);
     window.setTimeout(() => {
-      scrollToElementWithOffset(hashTarget, STACKED_HEADER_OFFSET);
+      scrollToElementWithOffset(hashTarget, {
+        focusTarget: `${hashTarget}-heading`,
+        offset: STACKED_HEADER_OFFSET,
+      });
     }, 0);
   }, []);
 
-  usePageMetadata({
-    title: "Operational Tools and Systems",
-    path: "/tools",
-    description:
-      "Operational tools from Shank Strategy Ops for supply chain risk, anomaly detection, document intelligence, compute scheduling, and safety-minded control layers.",
-    structuredData: [
-      {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: "Shank Strategy Ops Tools",
-        url: absoluteUrl("/tools"),
-        description:
-          "Production-shaped tools from Shank Strategy Ops for operations and engineering teams.",
-        publisher: siteConfig.publisher,
-      },
-      {
-        "@context": "https://schema.org",
-        ...siteConfig.publisher,
-      },
-    ],
-  });
+  usePageMetadata(getStaticPageMetadata("/tools"));
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">

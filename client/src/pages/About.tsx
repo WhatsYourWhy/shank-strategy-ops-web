@@ -1,30 +1,16 @@
 import { Link } from "wouter";
 import { InfoCard, InfoPageLayout } from "@/components/layout/InfoPageLayout";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl } from "@/lib/site";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
 
 export default function About() {
-  usePageMetadata({
-    title: "About the Practice",
-    path: "/about",
-    description:
-      "Learn how Shank Strategy Ops combines strategic operations consulting, original essays, and working tools to help leaders repair execution drift.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "AboutPage",
-      name: "About Shank Strategy Ops",
-      url: absoluteUrl("/about"),
-      description:
-        "About page for Shank Strategy Ops covering editorial focus, service model, and audience.",
-      isPartOf: absoluteUrl("/"),
-    },
-  });
+  usePageMetadata(getStaticPageMetadata("/about"));
 
   return (
     <InfoPageLayout
       eyebrow="WHO WE ARE"
-      title="A working publication and operator's shop, not a content shell."
-      lede="Shank Strategy Ops exists to publish original thinking on execution, operations, deterministic systems, and the practical constraints that decide whether ideas survive contact with reality."
+      title="Strategic operations consulting for leaders repairing execution drift."
+      lede="Shank Strategy Ops combines diagnostic consulting, operator notes, and working tools to help leadership teams clarify ownership, rebuild operating cadences, and leave the system stronger than they found it."
     >
       <InfoCard
         title="What this site is for"
@@ -57,7 +43,7 @@ export default function About() {
       />
 
       <section className="md:col-span-6 bg-brand-offwhite text-brand-black p-8 border border-brand-orange">
-        <p className="font-mono text-xs tracking-[0.24em] text-brand-orange">TRANSPARENCY</p>
+        <p className="font-mono text-xs tracking-[0.24em] text-brand-black/72">TRANSPARENCY</p>
         <h2 className="mt-4 font-display text-2xl font-bold">How we keep the bar high</h2>
         <div className="mt-5 space-y-4 font-body text-base leading-relaxed text-brand-black/78">
           <p>

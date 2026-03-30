@@ -1,24 +1,10 @@
 import { InfoCard, InfoPageLayout } from "@/components/layout/InfoPageLayout";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
+import { siteConfig } from "@/lib/site";
 
 export default function Privacy() {
-  usePageMetadata({
-    title: "Privacy Policy for Contact and Site Data",
-    path: "/privacy",
-    description:
-      "Understand how Shank Strategy Ops handles contact form submissions, bot protection, hosting logs, and advertising-related disclosures.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "PrivacyPolicy",
-      name: "Privacy Policy",
-      url: absoluteUrl("/privacy"),
-      publisher: {
-        "@type": "Organization",
-        name: siteConfig.name,
-      },
-    },
-  });
+  usePageMetadata(getStaticPageMetadata("/privacy"));
 
   return (
     <InfoPageLayout

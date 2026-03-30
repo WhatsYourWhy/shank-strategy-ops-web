@@ -17,7 +17,7 @@ import SiteFooter from "@/components/layout/SiteFooter";
 import { getBlogPost } from "@/data/blogPosts";
 import type { BlogSection, BlogSubsection } from "@/data/blogPosts";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { getBlogPostMetadata } from "@/lib/pageMetadata";
 
 function PostHero({
   title,
@@ -249,36 +249,7 @@ export default function BlogPost() {
     if (!post && params.slug) setLocation("/404");
   }, [post, params.slug, setLocation]);
 
-  usePageMetadata({
-    title: post?.title ?? "Article",
-    path: post ? `/blog/${post.slug}` : `/blog/${params.slug}`,
-    description: post?.tldr ?? "Article from Shank Strategy Ops.",
-    type: "article",
-    image: post?.heroImage,
-    robots: post ? "index,follow" : "noindex,follow",
-    structuredData: post
-      ? {
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: post.title,
-          alternativeHeadline: post.subtitle,
-          description: post.tldr,
-          image: post.heroImage ? absoluteUrl(post.heroImage) : undefined,
-          datePublished: post.publishedDate,
-          dateModified: post.publishedDate,
-          author: {
-            "@type": "Organization",
-            name: post.author,
-          },
-          publisher: siteConfig.publisher,
-          keywords: post.tags.join(", "),
-          articleSection: post.tags[0],
-          inLanguage: "en-US",
-          isAccessibleForFree: true,
-          mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
-        }
-      : undefined,
-  });
+  usePageMetadata(getBlogPostMetadata(post, params.slug));
 
   if (!post) return null;
 

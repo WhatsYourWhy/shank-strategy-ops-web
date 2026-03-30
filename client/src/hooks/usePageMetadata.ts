@@ -1,17 +1,6 @@
 import { useEffect } from "react";
 import { absoluteUrl, siteConfig } from "@/lib/site";
-
-type StructuredData = Record<string, unknown> | Array<Record<string, unknown>>;
-
-interface PageMetadata {
-  title?: string;
-  description?: string;
-  path?: string;
-  type?: "website" | "article";
-  image?: string;
-  robots?: string;
-  structuredData?: StructuredData;
-}
+import { type PageMetadata, resolvePageMetadata } from "@/lib/pageMetadata";
 
 function upsertMeta(selector: string, attributes: Record<string, string>) {
   let element = document.head.querySelector<HTMLMetaElement>(selector);
@@ -41,42 +30,50 @@ function upsertLink(selector: string, attributes: Record<string, string>) {
 
 export function usePageMetadata({
   title,
-  description = siteConfig.defaultDescription,
-  path = "/",
-  type = "website",
+  description,
+  path,
+  type,
   image,
-  robots = "index,follow",
+  robots,
   structuredData,
 }: PageMetadata) {
   useEffect(() => {
-    const fullTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.defaultTitle;
-    const url = absoluteUrl(path);
+    const resolved = resolvePageMetadata({
+      title,
+      description,
+      path,
+      type,
+      image,
+      robots,
+      structuredData,
+    });
+    const url = absoluteUrl(resolved.path);
 
-    document.title = fullTitle;
+    document.title = resolved.fullTitle;
 
     upsertMeta('meta[name="description"]', {
       name: "description",
-      content: description,
+      content: resolved.description,
     });
 
     upsertMeta('meta[name="robots"]', {
       name: "robots",
-      content: robots,
+      content: resolved.robots,
     });
 
     upsertMeta('meta[property="og:title"]', {
       property: "og:title",
-      content: fullTitle,
+      content: resolved.fullTitle,
     });
 
     upsertMeta('meta[property="og:description"]', {
       property: "og:description",
-      content: description,
+      content: resolved.description,
     });
 
     upsertMeta('meta[property="og:type"]', {
       property: "og:type",
-      content: type,
+      content: resolved.type,
     });
 
     upsertMeta('meta[property="og:url"]', {
@@ -84,23 +81,30 @@ export function usePageMetadata({
       content: url,
     });
 
+    upsertMeta('meta[property="og:site_name"]', {
+      property: "og:site_name",
+      content: siteConfig.name,
+    });
+
     upsertMeta('meta[name="twitter:card"]', {
       name: "twitter:card",
-      content: image ? "summary_large_image" : "summary",
+      content: resolved.image ? "summary_large_image" : "summary",
     });
 
     upsertMeta('meta[name="twitter:title"]', {
       name: "twitter:title",
-      content: fullTitle,
+      content: resolved.fullTitle,
     });
 
     upsertMeta('meta[name="twitter:description"]', {
       name: "twitter:description",
-      content: description,
+      content: resolved.description,
     });
 
-    if (image) {
-      const fullImageUrl = image.startsWith("http") ? image : absoluteUrl(image);
+    if (resolved.image) {
+      const fullImageUrl = resolved.image.startsWith("http")
+        ? resolved.image
+        : absoluteUrl(resolved.image);
 
       upsertMeta('meta[property="og:image"]', {
         property: "og:image",
@@ -124,11 +128,11 @@ export function usePageMetadata({
     const scriptId = "structured-data";
     const existingScript = document.getElementById(scriptId) as HTMLScriptElement | null;
 
-    if (structuredData) {
+    if (resolved.structuredData) {
       const script = existingScript ?? document.createElement("script");
       script.id = scriptId;
       script.type = "application/ld+json";
-      script.textContent = JSON.stringify(structuredData);
+      script.textContent = JSON.stringify(resolved.structuredData);
 
       if (!existingScript) {
         document.head.appendChild(script);

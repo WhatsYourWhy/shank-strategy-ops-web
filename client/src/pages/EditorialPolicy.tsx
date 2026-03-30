@@ -1,6 +1,6 @@
 import { InfoCard, InfoPageLayout } from "@/components/layout/InfoPageLayout";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl } from "@/lib/site";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
 
 export default function EditorialPolicy() {
   usePageMetadata({

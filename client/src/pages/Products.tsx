@@ -314,7 +314,11 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
               <div className="flex items-center gap-4 mb-3">
                 <StatusBadge status={product.status} />
               </div>
-              <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
+              <h2
+                id={`${product.id}-heading`}
+                tabIndex={-1}
+                className="font-display text-3xl md:text-5xl font-bold leading-tight"
+              >
                 {product.name}
               </h2>
               <p className="font-mono text-brand-offwhite/78 text-sm mt-2 tracking-wide">

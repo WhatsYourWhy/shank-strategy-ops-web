@@ -1,6 +1,7 @@
 import { InfoCard, InfoPageLayout } from "@/components/layout/InfoPageLayout";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
+import { siteConfig } from "@/lib/site";
 
 export default function Terms() {
   usePageMetadata({

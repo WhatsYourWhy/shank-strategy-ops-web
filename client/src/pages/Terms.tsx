@@ -4,7 +4,19 @@ import { getStaticPageMetadata } from "@/lib/pageMetadata";
 import { siteConfig } from "@/lib/site";
 
 export default function Terms() {
-  usePageMetadata(getStaticPageMetadata("/terms"));
+  usePageMetadata({
+    title: "Website Terms of Use",
+    path: "/terms",
+    description:
+      "Read the Shank Strategy Ops terms covering website use, intellectual property, informational content, and external links.",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "Terms of Use",
+      url: absoluteUrl("/terms"),
+      description: "Terms of use for the Shank Strategy Ops website.",
+    },
+  });
 
   return (
     <InfoPageLayout

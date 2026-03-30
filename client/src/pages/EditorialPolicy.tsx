@@ -3,7 +3,20 @@ import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { getStaticPageMetadata } from "@/lib/pageMetadata";
 
 export default function EditorialPolicy() {
-  usePageMetadata(getStaticPageMetadata("/editorial-policy"));
+  usePageMetadata({
+    title: "Editorial Standards and Corrections",
+    path: "/editorial-policy",
+    description:
+      "Review the editorial standards Shank Strategy Ops uses for originality, disclosures, corrections, authorship, and publishing quality.",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "Editorial Policy",
+      url: absoluteUrl("/editorial-policy"),
+      description:
+        "Editorial policy for Shank Strategy Ops covering originality, disclosures, and correction practices.",
+    },
+  });
 
   return (
     <InfoPageLayout

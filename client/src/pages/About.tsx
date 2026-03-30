@@ -4,7 +4,21 @@ import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { getStaticPageMetadata } from "@/lib/pageMetadata";
 
 export default function About() {
-  usePageMetadata(getStaticPageMetadata("/about"));
+  usePageMetadata({
+    title: "About the Practice",
+    path: "/about",
+    description:
+      "Learn how Shank Strategy Ops combines strategic operations consulting, original essays, and working tools to help leaders repair execution drift.",
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      name: "About Shank Strategy Ops",
+      url: absoluteUrl("/about"),
+      description:
+        "About page for Shank Strategy Ops covering editorial focus, service model, and audience.",
+      isPartOf: absoluteUrl("/"),
+    },
+  });
 
   return (
     <InfoPageLayout

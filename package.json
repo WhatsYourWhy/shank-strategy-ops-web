@@ -8,13 +8,12 @@
   },
   "scripts": {
     "dev": "vite --host",
-    "build": "pnpm generate:sitemap && vite build && pnpm generate:route-html && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build": "pnpm generate:sitemap && vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "generate:sitemap": "tsx scripts/generate-sitemap.ts",
-    "generate:route-html": "tsx scripts/generate-route-html.ts",
     "render:ad": "tsx scripts/render-ad.ts --config scripts/ad-manifests/shank-investor-ad.json"
   },
   "dependencies": {

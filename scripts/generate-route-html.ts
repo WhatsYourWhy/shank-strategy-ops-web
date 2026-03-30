@@ -20,21 +20,26 @@ function escapeJsonForScript(value: unknown) {
 }
 
 function stripManagedSeoTags(html: string) {
-  return html
-    .replace(/<meta\s+name="description"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+name="robots"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+property="og:title"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+property="og:description"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+property="og:type"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+property="og:url"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+property="og:image"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+property="og:site_name"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+name="twitter:card"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+name="twitter:title"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+name="twitter:description"[^>]*>\s*/gi, "")
-    .replace(/<meta\s+name="twitter:image"[^>]*>\s*/gi, "")
-    .replace(/<link\s+rel="canonical"[^>]*>\s*/gi, "")
-    .replace(/<script\s+id="structured-data"[^>]*>[\s\S]*?<\/script>\s*/gi, ""); // codeql[js/incomplete-multi-character-sanitization] - input is trusted build output, not user-supplied
+  let previous: string;
+  do {
+    previous = html;
+    html = html
+      .replace(/<meta\s+name="description"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+name="robots"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+property="og:title"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+property="og:description"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+property="og:type"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+property="og:url"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+property="og:image"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+property="og:site_name"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+name="twitter:card"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+name="twitter:title"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+name="twitter:description"[^>]*>\s*/gi, "")
+      .replace(/<meta\s+name="twitter:image"[^>]*>\s*/gi, "")
+      .replace(/<link\s+rel="canonical"[^>]*>\s*/gi, "")
+      .replace(/<script\s+id="structured-data"[^>]*>[\s\S]*?<\/script>\s*/gi, ""); // codeql[js/incomplete-multi-character-sanitization] - input is trusted build output, not user-supplied
+  } while (html !== previous);
+  return html;
 }
 
 function buildSeoMarkup(routePath: string) {

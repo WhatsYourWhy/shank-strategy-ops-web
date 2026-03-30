@@ -4,10 +4,10 @@ import { absoluteUrl } from "@/lib/site";
 
 export default function EditorialPolicy() {
   usePageMetadata({
-    title: "Editorial Policy",
+    title: "Editorial Standards and Corrections",
     path: "/editorial-policy",
     description:
-      "Editorial standards for originality, authorship, corrections, disclosures, and publishing quality on Shank Strategy Ops.",
+      "Review the editorial standards Shank Strategy Ops uses for originality, disclosures, corrections, authorship, and publishing quality.",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebPage",

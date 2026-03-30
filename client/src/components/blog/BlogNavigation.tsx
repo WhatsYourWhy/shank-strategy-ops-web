@@ -1,12 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
 import { queueHomeSectionNavigation } from "@/lib/homeNavigation";
+import { FIXED_HEADER_OFFSET, scrollToElementWithOffset } from "@/lib/scroll";
 
 export default function BlogNavigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [location, setLocation] = useLocation();
+  const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
+  const firstMobileItemRef = useRef<HTMLButtonElement | null>(null);
+  const restoreFocusRef = useRef(false);
+  const mobileMenuId = useId();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,21 +23,65 @@ export default function BlogNavigation() {
 
   const isHome = location === "/";
 
+  const closeMobileMenu = ({ restoreFocus = false }: { restoreFocus?: boolean } = {}) => {
+    restoreFocusRef.current = restoreFocus;
+    setMobileMenuOpen(false);
+  };
+
   const scrollToSection = (id: string) => {
     if (!isHome) {
       queueHomeSectionNavigation(id, setLocation);
-      setMobileMenuOpen(false);
+      closeMobileMenu();
       return;
     }
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setMobileMenuOpen(false);
-    }
+
+    scrollToElementWithOffset(id, FIXED_HEADER_OFFSET);
+    closeMobileMenu();
   };
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      if (restoreFocusRef.current) {
+        restoreFocusRef.current = false;
+        window.requestAnimationFrame(() => {
+          toggleButtonRef.current?.focus();
+        });
+      }
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      firstMobileItemRef.current?.focus();
+    });
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      return;
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMobileMenu({ restoreFocus: true });
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      return;
+    }
+
+    closeMobileMenu();
+  }, [location]);
 
   return (
     <nav
+      aria-label="Primary"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-brand-black/95 backdrop-blur-sm border-b border-border" : "bg-transparent"
       }`}
@@ -52,58 +101,73 @@ export default function BlogNavigation() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
             <button
+              type="button"
               onClick={() => scrollToSection("principles")}
-              className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors"
+              className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors"
             >
-              PRINCIPLES
+              CORE PRINCIPLES
             </button>
             <button
+              type="button"
               onClick={() => scrollToSection("engagement")}
-              className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors"
+              className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors"
             >
-              ENGAGEMENT
+              ENGAGEMENT FLOW
             </button>
             <button
+              type="button"
               onClick={() => scrollToSection("models")}
-              className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors"
+              className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors"
             >
-              MODELS
+              OPERATING MODELS
             </button>
             <Link
               href="/about"
+              aria-current={
+                location === "/about" ||
+                location === "/methodology" ||
+                location === "/editorial-policy" ||
+                location === "/privacy" ||
+                location === "/terms"
+                  ? "page"
+                  : undefined
+              }
               className={`font-mono text-sm transition-colors ${
                 location === "/about" ||
                 location === "/methodology" ||
                 location === "/editorial-policy" ||
                 location === "/privacy" ||
                 location === "/terms"
-                  ? "text-brand-orange"
-                  : "text-brand-offwhite/70 hover:text-brand-orange"
+                  ? "text-brand-offwhite"
+                  : "text-brand-offwhite/72 hover:text-brand-offwhite"
               }`}
             >
               ABOUT
             </Link>
             <Link
               href="/tools"
+              aria-current={location === "/tools" ? "page" : undefined}
               className={`font-mono text-sm transition-colors ${
                 location === "/tools"
-                  ? "text-brand-orange"
-                  : "text-brand-offwhite/70 hover:text-brand-orange"
+                  ? "text-brand-offwhite"
+                  : "text-brand-offwhite/72 hover:text-brand-offwhite"
               }`}
             >
               TOOLS
             </Link>
             <Link
               href="/blog"
+              aria-current={location.startsWith("/blog") ? "page" : undefined}
               className={`font-mono text-sm transition-colors ${
                 location.startsWith("/blog")
-                  ? "text-brand-orange"
-                  : "text-brand-offwhite/70 hover:text-brand-orange"
+                  ? "text-brand-offwhite"
+                  : "text-brand-offwhite/72 hover:text-brand-offwhite"
               }`}
             >
               BLOG
             </Link>
             <button
+              type="button"
               onClick={() => scrollToSection("contact")}
               className="font-mono text-sm bg-brand-orange text-brand-black px-6 py-2 hover:bg-brand-offwhite transition-colors"
             >
@@ -113,7 +177,19 @@ export default function BlogNavigation() {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            ref={toggleButtonRef}
+            type="button"
+            aria-expanded={mobileMenuOpen}
+            aria-controls={mobileMenuId}
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => {
+              if (mobileMenuOpen) {
+                closeMobileMenu();
+                return;
+              }
+
+              setMobileMenuOpen(true);
+            }}
             className="lg:hidden p-2"
           >
             <div className="w-6 h-5 flex flex-col justify-between">
@@ -133,67 +209,85 @@ export default function BlogNavigation() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <motion.div
+            id={mobileMenuId}
+            aria-label="Mobile navigation"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className="lg:hidden py-6 border-t border-border"
           >
             <div className="flex flex-col gap-4">
               <button
+                ref={firstMobileItemRef}
+                type="button"
                 onClick={() => scrollToSection("principles")}
-                className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors text-left"
+                className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors text-left"
               >
-                PRINCIPLES
+                CORE PRINCIPLES
               </button>
               <button
+                type="button"
                 onClick={() => scrollToSection("engagement")}
-                className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors text-left"
+                className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors text-left"
               >
-                ENGAGEMENT
+                ENGAGEMENT FLOW
               </button>
               <button
+                type="button"
                 onClick={() => scrollToSection("models")}
-                className="font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors text-left"
+                className="font-mono text-sm text-brand-offwhite/72 hover:text-brand-offwhite transition-colors text-left"
               >
-                MODELS
+                OPERATING MODELS
               </button>
               <Link
                 href="/about"
+                aria-current={
+                  location === "/about" ||
+                  location === "/methodology" ||
+                  location === "/editorial-policy" ||
+                  location === "/privacy" ||
+                  location === "/terms"
+                    ? "page"
+                    : undefined
+                }
                 className={`font-mono text-sm transition-colors text-left ${
                   location === "/about" ||
                   location === "/methodology" ||
                   location === "/editorial-policy" ||
                   location === "/privacy" ||
                   location === "/terms"
-                    ? "text-brand-orange"
-                    : "text-brand-offwhite/70 hover:text-brand-orange"
+                    ? "text-brand-offwhite"
+                    : "text-brand-offwhite/72 hover:text-brand-offwhite"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => closeMobileMenu()}
               >
                 ABOUT
               </Link>
               <Link
                 href="/tools"
+                aria-current={location === "/tools" ? "page" : undefined}
                 className={`font-mono text-sm transition-colors text-left ${
                   location === "/tools"
-                    ? "text-brand-orange"
-                    : "text-brand-offwhite/70 hover:text-brand-orange"
+                    ? "text-brand-offwhite"
+                    : "text-brand-offwhite/72 hover:text-brand-offwhite"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => closeMobileMenu()}
               >
                 TOOLS
               </Link>
               <Link
                 href="/blog"
+                aria-current={location.startsWith("/blog") ? "page" : undefined}
                 className={`font-mono text-sm transition-colors text-left ${
                   location.startsWith("/blog")
-                    ? "text-brand-orange"
-                    : "text-brand-offwhite/70 hover:text-brand-orange"
+                    ? "text-brand-offwhite"
+                    : "text-brand-offwhite/72 hover:text-brand-offwhite"
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => closeMobileMenu()}
               >
                 BLOG
               </Link>
               <button
+                type="button"
                 onClick={() => scrollToSection("contact")}
                 className="font-mono text-sm bg-brand-orange text-brand-black px-6 py-3 hover:bg-brand-offwhite transition-colors text-left"
               >

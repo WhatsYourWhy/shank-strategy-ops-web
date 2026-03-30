@@ -4,10 +4,10 @@ import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export default function Terms() {
   usePageMetadata({
-    title: "Terms of Use",
+    title: "Website Terms of Use",
     path: "/terms",
     description:
-      "Terms of use for Shank Strategy Ops covering informational content, intellectual property, external links, and contact.",
+      "Read the Shank Strategy Ops terms covering website use, intellectual property, informational content, and external links.",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebPage",

@@ -7,6 +7,7 @@
  * - Hard edges, no soft shadows, mechanical interactions
  */
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Link, useLocation } from "wouter";
@@ -16,6 +17,7 @@ import SiteFooter from "@/components/layout/SiteFooter";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { analyticsEvents, trackEvent } from "@/lib/analytics";
 import { queueHomeSectionNavigation } from "@/lib/homeNavigation";
+import { STACKED_HEADER_OFFSET, replaceHash, scrollToElementWithOffset } from "@/lib/scroll";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
 // ─── Product Data ────────────────────────────────────────────────────────────
@@ -224,7 +226,7 @@ function ProductsHero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="font-mono text-brand-orange text-sm tracking-widest">
+          <span className="font-mono text-brand-offwhite/80 text-sm tracking-widest">
             INSTRUMENTS
           </span>
         </motion.div>
@@ -298,7 +300,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, delay: 0.1 }}
-      className="py-20 border-b border-border last:border-b-0"
+      className="scroll-mt-44 py-20 border-b border-border last:border-b-0"
     >
       <div className="container">
         {/* Header row */}
@@ -315,7 +317,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
               <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
                 {product.name}
               </h2>
-              <p className="font-mono text-brand-orange text-sm mt-2 tracking-wide">
+              <p className="font-mono text-brand-offwhite/78 text-sm mt-2 tracking-wide">
                 {product.tagline}
               </p>
             </div>
@@ -334,7 +336,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
                     destination: "github",
                   })
                 }
-                className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
+                className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-offwhite transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
               >
                 <Github className="h-4 w-4" />
                 GITHUB
@@ -351,7 +353,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
                     destination: "pypi",
                   })
                 }
-                className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
+                className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-offwhite transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
               >
                 <ExternalLink className="h-4 w-4" />
                 PYPI
@@ -391,7 +393,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           {/* Problem + Differentiator */}
           <div className={`space-y-8 ${isEven ? "" : "lg:col-start-2"}`}>
             <div>
-              <h3 className="font-mono text-xs text-brand-orange tracking-widest mb-4">
+              <h3 className="font-mono text-xs text-brand-offwhite/78 tracking-widest mb-4">
                 THE PROBLEM
               </h3>
               <p className="font-body text-brand-offwhite/80 leading-relaxed">
@@ -400,7 +402,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             </div>
 
             <div>
-              <h3 className="font-mono text-xs text-brand-orange tracking-widest mb-4">
+              <h3 className="font-mono text-xs text-brand-offwhite/78 tracking-widest mb-4">
                 THE DIFFERENTIATOR
               </h3>
               <p className="font-body text-brand-offwhite/80 leading-relaxed">
@@ -409,7 +411,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             </div>
 
             <div>
-              <h3 className="font-mono text-xs text-brand-orange tracking-widest mb-4">
+              <h3 className="font-mono text-xs text-brand-offwhite/78 tracking-widest mb-4">
                 WHO IT'S FOR
               </h3>
               <p className="font-body text-brand-offwhite/80 leading-relaxed">
@@ -420,13 +422,13 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
           {/* What it does */}
           <div className={`${isEven ? "" : "lg:col-start-1 lg:row-start-1"}`}>
-            <h3 className="font-mono text-xs text-brand-orange tracking-widest mb-6">
+            <h3 className="font-mono text-xs text-brand-offwhite/78 tracking-widest mb-6">
               WHAT IT DOES
             </h3>
             <div className="space-y-3">
               {product.whatItDoes.map((item, i) => (
                 <div key={i} className="flex items-start gap-4">
-                  <span className="font-mono text-xs text-brand-orange mt-1 flex-shrink-0 w-5">
+                  <span className="font-mono text-xs text-brand-offwhite/78 mt-1 flex-shrink-0 w-5">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="font-body text-brand-offwhite/80 leading-relaxed text-sm">
@@ -466,7 +468,12 @@ function ProductsNav() {
             <a
               key={p.id}
               href={`#${p.id}`}
-              className="font-mono text-xs text-brand-offwhite/60 hover:text-brand-orange transition-colors px-4 py-2 border border-brand-offwhite/15 hover:border-brand-orange flex-shrink-0 whitespace-nowrap"
+              onClick={(event) => {
+                event.preventDefault();
+                replaceHash(p.id);
+                scrollToElementWithOffset(p.id, STACKED_HEADER_OFFSET);
+              }}
+              className="font-mono text-xs text-brand-offwhite/60 hover:text-brand-offwhite transition-colors px-4 py-2 border border-brand-offwhite/15 hover:border-brand-orange flex-shrink-0 whitespace-nowrap"
             >
               {p.number} {p.name}
             </a>
@@ -490,7 +497,7 @@ function ProductsCTA() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="font-mono text-brand-orange text-sm tracking-widest">
+            <span className="font-mono text-brand-offwhite/80 text-sm tracking-widest">
               ENGAGEMENT
             </span>
             <h2 className="font-display text-4xl md:text-6xl font-bold mt-4 leading-tight">
@@ -515,7 +522,7 @@ function ProductsCTA() {
               </button>
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-3 font-mono text-sm border border-brand-offwhite/30 text-brand-offwhite px-8 py-4 hover:border-brand-orange hover:text-brand-orange transition-colors"
+                className="inline-flex items-center gap-3 font-mono text-sm border border-brand-offwhite/30 text-brand-offwhite px-8 py-4 hover:border-brand-orange hover:text-brand-offwhite transition-colors"
               >
                 READ THE BLOG
                 <ArrowRight className="h-4 w-4" />
@@ -535,11 +542,22 @@ function Footer() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Products() {
+  useEffect(() => {
+    if (!window.location.hash.startsWith("#")) {
+      return;
+    }
+
+    const hashTarget = window.location.hash.slice(1);
+    window.setTimeout(() => {
+      scrollToElementWithOffset(hashTarget, STACKED_HEADER_OFFSET);
+    }, 0);
+  }, []);
+
   usePageMetadata({
-    title: "Tools",
+    title: "Operational Tools and Systems",
     path: "/tools",
     description:
-      "Production-shaped tools from Shank Strategy Ops for supply chain risk, anomaly detection, offline document intelligence, salience-aware compute scheduling, and topology-gated control.",
+      "Operational tools from Shank Strategy Ops for supply chain risk, anomaly detection, document intelligence, compute scheduling, and safety-minded control layers.",
     structuredData: [
       {
         "@context": "https://schema.org",
@@ -560,29 +578,34 @@ export default function Products() {
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
       <BlogNavigation />
-      <ProductsHero />
-      <ProductsNav />
+      <main
+        id="main-content"
+        tabIndex={-1}
+      >
+        <ProductsHero />
+        <ProductsNav />
 
-      {/* Product Cards */}
-      <div className="bg-brand-black">
-        {products.map((product, index) => (
-          <ProductCard key={product.id} product={product} index={index} />
-        ))}
-      </div>
-
-      <section className="bg-brand-black">
-        <div className="container pb-24">
-          <LeadConversationCta
-            eyebrow="OPERATOR TO OPERATOR"
-            title="If one of these tools maps to a live operating problem, that is usually where the engagement starts."
-            body="The open-source layer proves how the system thinks. The consulting layer adapts that logic to your environment, constraints, and decision structure."
-            source="tools-page"
-            eventName={analyticsEvents.toolCtaClicked}
-          />
+        {/* Product Cards */}
+        <div className="bg-brand-black">
+          {products.map((product, index) => (
+            <ProductCard key={product.id} product={product} index={index} />
+          ))}
         </div>
-      </section>
 
-      <ProductsCTA />
+        <section className="bg-brand-black">
+          <div className="container pb-24">
+            <LeadConversationCta
+              eyebrow="OPERATOR TO OPERATOR"
+              title="If one of these tools maps to a live operating problem, that is usually where the engagement starts."
+              body="The open-source layer proves how the system thinks. The consulting layer adapts that logic to your environment, constraints, and decision structure."
+              source="tools-page"
+              eventName={analyticsEvents.toolCtaClicked}
+            />
+          </div>
+        </section>
+
+        <ProductsCTA />
+      </main>
       <Footer />
     </div>
   );

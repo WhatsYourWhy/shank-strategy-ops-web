@@ -19,11 +19,14 @@ export function InfoPageLayout({
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
       <BlogNavigation />
 
-      <main>
+      <main
+        id="main-content"
+        tabIndex={-1}
+      >
         <section className="border-b border-brand-offwhite/10 bg-brand-black pt-32 pb-14">
           <div className="container">
             <div className="max-w-4xl">
-              <p className="font-mono text-sm tracking-[0.28em] text-brand-orange">{eyebrow}</p>
+              <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">{eyebrow}</p>
               <h1 className="mt-6 max-w-4xl font-display text-5xl font-bold leading-[0.92] tracking-tight md:text-7xl">
                 {title}
               </h1>

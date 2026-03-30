@@ -25,7 +25,7 @@ export default function LeadConversationCta({
   return (
     <section className={`border border-brand-offwhite/10 bg-brand-charcoal ${className}`}>
       <div className="p-8 md:p-10">
-        <p className="font-mono text-xs tracking-[0.28em] text-brand-orange">{eyebrow}</p>
+        <p className="font-mono text-xs tracking-[0.28em] text-brand-offwhite/78">{eyebrow}</p>
         <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold leading-tight md:text-4xl">
           {title}
         </h2>

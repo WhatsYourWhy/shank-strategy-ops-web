@@ -4,10 +4,10 @@ import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export default function Privacy() {
   usePageMetadata({
-    title: "Privacy Policy",
+    title: "Privacy Policy for Contact and Site Data",
     path: "/privacy",
     description:
-      "Privacy policy for Shank Strategy Ops covering contact form data, bot protection, hosting logs, and advertising disclosures.",
+      "Understand how Shank Strategy Ops handles contact form submissions, bot protection, hosting logs, and advertising-related disclosures.",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "PrivacyPolicy",

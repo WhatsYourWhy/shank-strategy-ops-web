@@ -7,6 +7,7 @@ export interface BlogPost {
   publishedDate: string;
   readingTime: string;
   heroImage?: string;
+  heroImageAlt?: string;
   heroImageCaption?: string;
   tldr: string;
   sections: BlogSection[];
@@ -36,6 +37,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2026-02-21",
     readingTime: "18 min read",
     heroImage: "/images/blog-externalized-mind-hero.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Externalized Mind article.",
     heroImageCaption: "Image courtesy of Grok",
     tldr: 'Humanity\'s quest to externalize knowledge began with cave paintings 40k years ago; the first "upload" of models for survival. We\'ve compressed reality through art, language, math, and now AI, which makes intelligence abundant and shifts bottlenecks from muscles to brains to energy (Joules). AI excels at "how" but needs human "what"; intent, curiosity, judgment: to drive discovery via productive errors. In the Age of Joules, we steer the future by choosing what matters.',
     tags: ["Strategy", "AI", "Operations", "Leadership"],
@@ -254,6 +257,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2024-10-15",
     readingTime: "5 min read",
     heroImage: "/images/blog-blueprint-predictability-hero.png",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Blueprint for Predictability article.",
     heroImageCaption:
       "The Blueprint for Predictability: Taming Complexity with Automation",
     tldr: "As monitoring sources multiply — RSS feeds, government APIs, sensor data — alert fatigue becomes as dangerous as the risks themselves. Hardstop is a local-first, deterministic risk decision engine that addresses this through reproducible alert hashes, trust-tier weighting, source health monitoring, and SQLite-backed offline resilience. Identical inputs always produce identical outputs. No cloud dependencies. No pipeline corruption.",
@@ -328,6 +333,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2026-01-18",
     readingTime: "8 min read",
     heroImage: "/images/blog-determinism-hero.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying the determinism engineering article.",
     heroImageCaption: "Determinism is Hard — And That's the Point",
     tldr: "Determinism isn't a preference — it's an engineering discipline. When a nondeterministic system fails, it hands you an excuse. When a deterministic system fails, it hands you a mirror. Finance, avionics, and compiler infrastructure are 'boring' on purpose: they enforce reproducibility because the cost of failure is real. The upfront tax is real too, but it amortizes into collapsed debugging time, solidified trust boundaries, and safe refactoring. Push chaos to the edges. Keep the core pure.",
     tags: ["Engineering", "Determinism", "Operations", "AI"],
@@ -413,6 +420,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2026-01-29",
     readingTime: "6 min read",
     heroImage: "/images/blog-economic-constraints-hero.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying the economic constraints article.",
     heroImageCaption:
       "Economic Constraints Force Real Usefulness — Pressure That Pays Off",
     tldr: "In any system — software, business model, or AI agent — if it doesn't pay some form of rent, it risks drifting into irrelevance. Economic constraints aren't hurdles; they're selection pressures that drive evolution. Unconstrained systems balloon with features that sound impressive but add little utility. Constraints force ruthless prioritization, expose fake work, and reward systems that shut up, act, and get out of the way. Paired with determinism, they forge systems that truly earn their place.",
@@ -479,6 +488,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2026-02-08",
     readingTime: "7 min read",
     heroImage: "/images/blog-alert-axolotl-hero.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying the Alert-Axolotl-Evo article.",
     heroImageCaption:
       "Alert-Axolotl-Evo: Deterministic genetic programming for interpretable anomaly detection",
     tldr: "Most anomaly detection tools hand you a score and say 'trust me.' Alert-Axolotl-Evo is different: a deterministic genetic programming system that evolves symbolic logic trees you can actually read, reason about, and modify. It breeds populations of explicit rules selected for real-world operational fitness — precision floors, false positive ceilings, sensible alert rates. Learning pays rent. Same seed, same Python version, single-threaded execution: identical results. Always.",
@@ -547,6 +558,8 @@ export const blogPosts: BlogPost[] = [
     readingTime: "9 min read",
     heroImage:
       "https://substackcdn.com/image/fetch/$s_!96oL!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fde0ce7b6-f305-4f6f-85ca-9bfaa2daf0da_784x1168.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Grid Is the New Data Center article.",
     heroImageCaption: "Courtesy of Grok",
     tldr: "AI's next binding constraint is no longer only model quality or chip performance. It is electricity: grid access, cooling, transmission, siting, and permitting. As compute clusters concentrate around energy-rich geographies, infrastructure policy starts deciding which forms of intelligence scale, where, and for whose benefit.",
     tags: ["AI", "Energy", "Infrastructure", "Policy"],
@@ -634,6 +647,8 @@ export const blogPosts: BlogPost[] = [
     readingTime: "5 min read",
     heroImage:
       "https://substackcdn.com/image/fetch/$s_!2Y3q!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F23662c1a-f3b7-4025-bc8a-c02449602148_784x1168.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Invisible Error article.",
     tldr: "Early AI errors were obvious glitches. The more dangerous failure mode now is the agreeable hallucination: output that is fluent, socially satisfying, and just wrong enough to reinforce the user's own bias. The challenge is no longer only catching errors. It is designing systems and habits that create deliberate friction, disagreement, and epistemic checks before probable language turns into false confidence.",
     tags: ["AI", "Trust", "Epistemology", "Systems"],
     originalUrl: "https://whatsyourwhy85.substack.com/p/the-invisible-error",
@@ -718,6 +733,8 @@ export const blogPosts: BlogPost[] = [
     readingTime: "8 min read",
     heroImage:
       "https://substack-post-media.s3.amazonaws.com/public/images/1d254058-fcd4-4cd9-a5e8-952869fbc555_1280x720.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Latency Tax article.",
     tldr: "Modern digital systems are optimized for instant response, but human cognition is not. The cost of collapsing every pause, every handoff, and every reflective gap is a hidden latency tax paid in shallower reasoning, constant low-grade arousal, and a nervous system that never quite returns to baseline. The real design problem is not just machine speed. It is cognitive compatibility.",
     tags: ["Strategy", "Technology", "Focus", "Human Systems"],
     originalUrl: "https://whatsyourwhy85.substack.com/p/the-latency-tax",
@@ -783,6 +800,8 @@ export const blogPosts: BlogPost[] = [
     readingTime: "6 min read",
     heroImage:
       "https://substackcdn.com/image/fetch/$s_!_GTZ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F27400d76-c972-4579-9071-a07db0191ea9_784x1168.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying Stop Mainlining Panic for Profit.",
     tldr: "Attention markets reward emotional force, not calibration. As possibility gets packaged as inevitability and every risk is framed like imminent collapse, people lose the ability to distinguish signal from spectacle. The cost is not just anxiety. It is a society that becomes more cynical, more reactive, and less capable of coordinated judgment.",
     tags: ["Strategy", "Media", "Culture", "Trust"],
     originalUrl:
@@ -850,6 +869,8 @@ export const blogPosts: BlogPost[] = [
     readingTime: "12 min read",
     heroImage:
       "https://substack-post-media.s3.amazonaws.com/public/images/85b07a57-8404-45ea-90c2-2717b7b5a6a4_1280x720.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying Trust Is the New Energy.",
     tldr: "Energy is a real physical constraint, but trust is the coordination layer that decides whether societies can deploy energy productively. We spent decades optimizing for engagement, growth, and throughput while underinvesting in legibility, dignity, and visible tradeoffs. The next durable advantage will come from systems that encode trust as infrastructure, not as branding.",
     tags: ["Strategy", "Trust", "Governance", "Systems"],
     originalUrl:

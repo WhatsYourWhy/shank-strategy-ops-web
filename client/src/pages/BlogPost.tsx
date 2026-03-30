@@ -27,6 +27,7 @@ function PostHero({
   author,
   authorTitle,
   heroImage,
+  heroImageAlt,
   heroImageCaption,
 }: {
   title: string;
@@ -36,6 +37,7 @@ function PostHero({
   author: string;
   authorTitle: string;
   heroImage?: string;
+  heroImageAlt?: string;
   heroImageCaption?: string;
 }) {
   const formattedDate = new Date(publishedDate).toLocaleDateString("en-US", {
@@ -55,7 +57,7 @@ function PostHero({
         >
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 font-mono text-sm text-brand-offwhite/50 hover:text-brand-orange transition-colors mb-12"
+            className="inline-flex items-center gap-2 font-mono text-sm text-brand-offwhite/60 hover:text-brand-offwhite transition-colors mb-12"
           >
             <ArrowLeft className="h-4 w-4" />
             BACK TO BLOG
@@ -69,7 +71,7 @@ function PostHero({
           transition={{ duration: 0.6 }}
           className="flex items-center gap-4 mb-6"
         >
-          <span className="font-mono text-xs text-brand-orange tracking-widest">
+          <span className="font-mono text-xs text-brand-offwhite/78 tracking-widest">
             {formattedDate.toUpperCase()}
           </span>
           <span className="text-brand-offwhite/30">|</span>
@@ -127,7 +129,7 @@ function PostHero({
             <div className="border-4 border-brand-charcoal overflow-hidden">
               <img
                 src={heroImage}
-                alt={title}
+                alt={heroImageAlt ?? title}
                 loading="eager"
                 className="w-full max-h-[500px] object-cover"
               />
@@ -153,7 +155,7 @@ function TldrBlock({ tldr }: { tldr: string }) {
       transition={{ duration: 0.5 }}
       className="mb-16 p-8 bg-brand-charcoal border-l-4 border-brand-orange"
     >
-      <span className="font-mono text-xs text-brand-orange tracking-widest">TL;DR</span>
+      <span className="font-mono text-xs text-brand-offwhite/78 tracking-widest">TL;DR</span>
       <p className="font-body text-lg text-brand-offwhite/90 mt-4 leading-relaxed">
         {tldr}
       </p>
@@ -165,7 +167,7 @@ function SubsectionBlock({ subsection }: { subsection: BlogSubsection }) {
   return (
     <div className="mt-10">
       {subsection.title && (
-        <h4 className="font-display text-xl md:text-2xl font-bold text-brand-orange mb-6">
+        <h4 className="font-display text-xl md:text-2xl font-bold text-brand-offwhite mb-6">
           {subsection.title}
         </h4>
       )}
@@ -284,87 +286,92 @@ export default function BlogPost() {
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
       <BlogAdsScript />
       <BlogNavigation />
-
-      <PostHero
-        title={post.title}
-        subtitle={post.subtitle}
-        publishedDate={post.publishedDate}
-        readingTime={post.readingTime}
+      <main
+        id="main-content"
+        tabIndex={-1}
+      >
+        <PostHero
+          title={post.title}
+          subtitle={post.subtitle}
+          publishedDate={post.publishedDate}
+          readingTime={post.readingTime}
         author={post.author}
         authorTitle={post.authorTitle}
         heroImage={post.heroImage}
+        heroImageAlt={post.heroImageAlt}
         heroImageCaption={post.heroImageCaption}
       />
 
-      {/* Article Body */}
-      <article className="py-16 bg-brand-black">
-        <div className="container">
-          <div className="max-w-3xl mx-auto">
-            {/* TL;DR */}
-            <TldrBlock tldr={post.tldr} />
+        {/* Article Body */}
+        <article className="py-16 bg-brand-black">
+          <div className="container">
+            <div className="max-w-3xl mx-auto">
+              {/* TL;DR */}
+              <TldrBlock tldr={post.tldr} />
 
-            {post.originalUrl && (
-              <div className="mb-12 border border-brand-offwhite/10 bg-brand-charcoal/60 p-5">
-                <p className="font-body text-sm leading-relaxed text-brand-offwhite/72">
-                  This website version is the primary readable edition of the piece. If a related
-                  public post exists elsewhere, it is linked near the end for reference.
-                </p>
-              </div>
-            )}
+              {post.originalUrl && (
+                <div className="mb-12 border border-brand-offwhite/10 bg-brand-charcoal/60 p-5">
+                  <p className="font-body text-sm leading-relaxed text-brand-offwhite/72">
+                    This website version is the primary readable edition of the piece. If a related
+                    public post exists elsewhere, it is linked near the end for reference.
+                  </p>
+                </div>
+              )}
 
-            {/* Sections */}
-            {post.sections.map((section, index) => (
-              <SectionBlock key={section.id} section={section} index={index} />
-            ))}
+              {/* Sections */}
+              {post.sections.map((section, index) => (
+                <SectionBlock key={section.id} section={section} index={index} />
+              ))}
 
-            <LeadConversationCta
-              eyebrow="FROM NOTE TO EXECUTION"
-              title="If this issue is active in your organization, we can pressure-test it together."
-              body="The article is there to sharpen the model. The engagement is there to change the operating reality."
-              source={`blog-post-${post.slug}`}
-              className="mt-16"
-            />
+              <LeadConversationCta
+                eyebrow="FROM NOTE TO EXECUTION"
+                title="If this issue is active in your organization, we can pressure-test it together."
+                body="The article is there to sharpen the model. The engagement is there to change the operating reality."
+                source={`blog-post-${post.slug}`}
+                className="mt-16"
+              />
 
-            {/* Original Source Link */}
-            {post.originalUrl && (
+              {/* Original Source Link */}
+              {post.originalUrl && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="mt-16 pt-12 border-t border-brand-offwhite/20"
+                >
+                  <a
+                    href={post.originalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 font-mono text-sm text-brand-offwhite/50 hover:text-brand-offwhite transition-colors"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    RELATED PUBLIC VERSION
+                  </a>
+                </motion.div>
+              )}
+
+              {/* Back to Blog */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="mt-16 pt-12 border-t border-brand-offwhite/20"
+                className="mt-12 pt-8 border-t border-brand-offwhite/10"
               >
-                <a
-                  href={post.originalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-mono text-sm text-brand-offwhite/50 hover:text-brand-orange transition-colors"
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center gap-2 font-mono text-sm text-brand-offwhite/80 hover:text-brand-offwhite transition-colors"
                 >
-                  <ExternalLink className="h-4 w-4" />
-                  RELATED PUBLIC VERSION
-                </a>
+                  <ArrowLeft className="h-4 w-4" />
+                  BACK TO ALL POSTS
+                </Link>
               </motion.div>
-            )}
-
-            {/* Back to Blog */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="mt-12 pt-8 border-t border-brand-offwhite/10"
-            >
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-2 font-mono text-sm text-brand-orange hover:text-brand-offwhite transition-colors"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                BACK TO ALL POSTS
-              </Link>
-            </motion.div>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </main>
 
       <Footer />
     </div>

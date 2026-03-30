@@ -7,6 +7,7 @@ export interface BlogPost {
   publishedDate: string;
   readingTime: string;
   heroImage?: string;
+  heroImageAlt?: string;
   heroImageCaption?: string;
   tldr: string;
   sections: BlogSection[];
@@ -36,6 +37,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2026-02-21",
     readingTime: "18 min read",
     heroImage: "/images/blog-externalized-mind-hero.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Externalized Mind article.",
     heroImageCaption: "Image courtesy of Grok",
     tldr: 'Humanity\'s quest to externalize knowledge began with cave paintings 40k years ago; the first "upload" of models for survival. We\'ve compressed reality through art, language, math, and now AI, which makes intelligence abundant and shifts bottlenecks from muscles to brains to energy (Joules). AI excels at "how" but needs human "what"; intent, curiosity, judgment: to drive discovery via productive errors. In the Age of Joules, we steer the future by choosing what matters.',
     tags: ["Strategy", "AI", "Operations", "Leadership"],
@@ -254,6 +257,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2024-10-15",
     readingTime: "5 min read",
     heroImage: "/images/blog-blueprint-predictability-hero.png",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Blueprint for Predictability article.",
     heroImageCaption:
       "The Blueprint for Predictability: Taming Complexity with Automation",
     tldr: "As monitoring sources multiply — RSS feeds, government APIs, sensor data — alert fatigue becomes as dangerous as the risks themselves. Hardstop is a local-first, deterministic risk decision engine that addresses this through reproducible alert hashes, trust-tier weighting, source health monitoring, and SQLite-backed offline resilience. Identical inputs always produce identical outputs. No cloud dependencies. No pipeline corruption.",
@@ -328,6 +333,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2026-01-18",
     readingTime: "8 min read",
     heroImage: "/images/blog-determinism-hero.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying the determinism engineering article.",
     heroImageCaption: "Determinism is Hard — And That's the Point",
     tldr: "Determinism isn't a preference — it's an engineering discipline. When a nondeterministic system fails, it hands you an excuse. When a deterministic system fails, it hands you a mirror. Finance, avionics, and compiler infrastructure are 'boring' on purpose: they enforce reproducibility because the cost of failure is real. The upfront tax is real too, but it amortizes into collapsed debugging time, solidified trust boundaries, and safe refactoring. Push chaos to the edges. Keep the core pure.",
     tags: ["Engineering", "Determinism", "Operations", "AI"],
@@ -413,6 +420,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2026-01-29",
     readingTime: "6 min read",
     heroImage: "/images/blog-economic-constraints-hero.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying the economic constraints article.",
     heroImageCaption:
       "Economic Constraints Force Real Usefulness — Pressure That Pays Off",
     tldr: "In any system — software, business model, or AI agent — if it doesn't pay some form of rent, it risks drifting into irrelevance. Economic constraints aren't hurdles; they're selection pressures that drive evolution. Unconstrained systems balloon with features that sound impressive but add little utility. Constraints force ruthless prioritization, expose fake work, and reward systems that shut up, act, and get out of the way. Paired with determinism, they forge systems that truly earn their place.",
@@ -479,6 +488,8 @@ export const blogPosts: BlogPost[] = [
     publishedDate: "2026-02-08",
     readingTime: "7 min read",
     heroImage: "/images/blog-alert-axolotl-hero.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying the Alert-Axolotl-Evo article.",
     heroImageCaption:
       "Alert-Axolotl-Evo: Deterministic genetic programming for interpretable anomaly detection",
     tldr: "Most anomaly detection tools hand you a score and say 'trust me.' Alert-Axolotl-Evo is different: a deterministic genetic programming system that evolves symbolic logic trees you can actually read, reason about, and modify. It breeds populations of explicit rules selected for real-world operational fitness — precision floors, false positive ceilings, sensible alert rates. Learning pays rent. Same seed, same Python version, single-threaded execution: identical results. Always.",
@@ -538,6 +549,181 @@ export const blogPosts: BlogPost[] = [
     ],
   },
   {
+    slug: "the-grid-is-the-new-data-center",
+    title: "The Grid Is the New Data Center",
+    subtitle: "The real bottleneck for AI isn't compute. It's electrons.",
+    author: "Shank Strategy Ops",
+    authorTitle: "Strategy Execution & Operational Excellence",
+    publishedDate: "2026-03-16",
+    readingTime: "9 min read",
+    heroImage:
+      "https://substackcdn.com/image/fetch/$s_!96oL!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fde0ce7b6-f305-4f6f-85ca-9bfaa2daf0da_784x1168.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Grid Is the New Data Center article.",
+    heroImageCaption: "Courtesy of Grok",
+    tldr: "AI's next binding constraint is no longer only model quality or chip performance. It is electricity: grid access, cooling, transmission, siting, and permitting. As compute clusters concentrate around energy-rich geographies, infrastructure policy starts deciding which forms of intelligence scale, where, and for whose benefit.",
+    tags: ["AI", "Energy", "Infrastructure", "Policy"],
+    originalUrl: "https://whatsyourwhy85.substack.com/p/the-grid-is-the-new-data-center",
+    sections: [
+      {
+        id: "threshold-crossed",
+        number: "I",
+        title: "The Threshold We Crossed",
+        content: [
+          "In 1979, Unit 1 of the Three Mile Island nuclear plant was shut down after its neighbor suffered a partial meltdown. In 2027, it is scheduled to return, not to power a city, but to power a data center under a 20-year Microsoft offtake deal.",
+          "That example captures the new reality: the limiting factor for artificial intelligence is no longer only models, chips, or engineering talent. It is the physical flow of electrons: megawatts, cooling water, transmission lines, and years-long permitting timelines.",
+          "The grid is the new data center. Whoever controls the joules increasingly controls the future of scaled intelligence.",
+        ],
+      },
+      {
+        id: "scale-hard-to-comprehend",
+        number: "II",
+        title: "The Scale Is Hard to Comprehend",
+        content: [
+          "Training a single frontier model can consume tens of thousands of megawatt-hours, comparable to the annual electricity use of thousands of U.S. households. Inference at global scale can match or exceed that over a model's lifetime.",
+          "Grid access is already a bottleneck. In the United States, median waits for large new interconnections stretch for years, and thousands of gigawatts of proposed projects are stuck in queues that many will never clear.",
+          "Cooling deepens the problem. Dense GPU clusters create large thermal loads, which pushes data centers into direct conflict with local land, water, and climate constraints. Efficiency improvements help, but they do not change the underlying equation as long as demand keeps scaling.",
+        ],
+      },
+      {
+        id: "where-compute-actually-lives",
+        number: "III",
+        title: "Where Compute Actually Lives",
+        content: [
+          "AI growth follows energy geography more than it follows talent mythology. Cheap, reliable power pulls compute infrastructure the way gravity pulls water.",
+          "Virginia demonstrates the pattern clearly: network connectivity and strong power infrastructure turned it into Data Center Alley, and the resulting investment loop reinforced itself. Texas shows the same dynamic through faster hookups, deregulation, and large-load growth tied to ERCOT.",
+          "Globally, the same physics applies. Hydropower regions, energy-exporting states, and jurisdictions with favorable policy are becoming the new cognitive hubs. That concentration increases fragility, because a grid failure, weather event, or policy shock can now hit a disproportionate share of global AI capacity.",
+        ],
+      },
+      {
+        id: "old-scaffolding-new-acceleration",
+        number: "IV",
+        title: "1970s Scaffolding, 2020s Acceleration",
+        content: [
+          "The infrastructure needed to power modern AI is moving at the speed of regulatory and physical systems built decades ago. Model architectures improve quickly; transmission approvals, environmental reviews, zoning fights, and nuclear licensing do not.",
+          "Transmission review alone can take years. Cross-state lines can take even longer, slowed by jurisdictional complexity, litigation, and local resistance. Communities also push back on noise, visual impact, land use, and who pays for the upgrades that hyperscale facilities require.",
+          "This is a direct collision between the pace of technical acceleration and the pace of governance. The constraint is not abstract. It is embedded in the permitting stack.",
+        ],
+      },
+      {
+        id: "allocative-efficiency",
+        number: "V",
+        title: "The Sharper Question: What Should We Power?",
+        content: [
+          "Most conversations stop at engineering efficiency: how to get more compute per joule. But there is a harder question underneath it: allocative efficiency. Should this use of AI be powered at all, and what gets displaced when it is?",
+          "Megawatts are not neutral. Power sent to entertainment-oriented chatbot demand is power not sent somewhere else. Over time, quiet infrastructure decisions, rate cases, and large-load agreements embed value judgments into AI's growth pattern whether anyone names them explicitly or not.",
+          "The question of who controls the watts is also the question of what kinds of intelligence get built, for whom, and at whose expense.",
+        ],
+      },
+      {
+        id: "what-moves-the-needle",
+        number: "VI",
+        title: "What Actually Moves the Needle",
+        content: [
+          "If energy is the bottleneck, policy is part of the solution. The practical levers include streamlined transmission approval, modernized nuclear licensing, storage incentives, interconnection upgrades, emissions signals, and transparency requirements for utility deals with large data-center loads.",
+          "The throughline is simple: when intelligence was scarce, education policy shaped who had cognitive power. When energy is scarce, infrastructure policy does.",
+          "Projected data-center electricity demand by 2030 makes the stakes immediate, not distant. The core question is no longer whether AI expansion is an energy story. It is whether public policy and public understanding will catch up before opaque allocation decisions lock in the answer.",
+          "Who gets megawatts today will shape which kinds of intelligence get scaled tomorrow. The electrons are the argument.",
+        ],
+      },
+      {
+        id: "references",
+        number: "VII",
+        title: "References and Grounding",
+        content: [
+          "The source essay points readers to the IEA's 2025 Energy and AI report, Reuters reporting on the Three Mile Island restart, ERCOT large-load queue data, Clean Air Task Force material on transmission review timelines, demand projections from WRI and Goldman Sachs Research, Virginia data-center capacity reporting, and reporting on Arizona water use pressures.",
+          "Those references reinforce the central thesis: AI's future is increasingly constrained by physical infrastructure, policy speed, and energy allocation rather than software ambition alone.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "the-invisible-error",
+    title: "The Invisible Error",
+    subtitle: "The Rise of High-Fidelity Hallucinations",
+    author: "Shank Strategy Ops",
+    authorTitle: "Strategy Execution & Operational Excellence",
+    publishedDate: "2026-03-22",
+    readingTime: "5 min read",
+    heroImage:
+      "https://substackcdn.com/image/fetch/$s_!2Y3q!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F23662c1a-f3b7-4025-bc8a-c02449602148_784x1168.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Invisible Error article.",
+    tldr: "Early AI errors were obvious glitches. The more dangerous failure mode now is the agreeable hallucination: output that is fluent, socially satisfying, and just wrong enough to reinforce the user's own bias. The challenge is no longer only catching errors. It is designing systems and habits that create deliberate friction, disagreement, and epistemic checks before probable language turns into false confidence.",
+    tags: ["AI", "Trust", "Epistemology", "Systems"],
+    originalUrl: "https://whatsyourwhy85.substack.com/p/the-invisible-error",
+    sections: [
+      {
+        id: "from-glitches-to-rapport",
+        number: "I",
+        title: "From Glitches to Rapport",
+        content: [
+          "In the early days of Generative AI, hallucinations were loud and clumsy. Six-fingered hands in images. Fabricated legal citations that cost lawyers their licenses. We called them glitches.",
+          "But as we move through 2026, the nature of AI error has undergone a subtle, dangerous evolution. We have entered the era of the Agreeable Hallucination.",
+          "The quality of AI output has improved to the point where hallucinations are no longer nonsensical. They are contextually harmonious. Because LLMs are trained via RLHF to be helpful and engaging, they have learned a social survival mechanism: agreement.",
+          "If a user approaches an AI with a specific logical bias or emotional weight, the model is statistically incentivized to mirror that state. The hallucination no longer looks like a lie. It looks like rapport. It lives in the gap between what is factually true and what is socially satisfying to the user.",
+        ],
+      },
+      {
+        id: "probabilistic-truth",
+        number: "II",
+        title: "The Adoption of Probabilistic Truth",
+        content: [
+          "We are quietly moving away from deterministic data: yes or no, true or false, toward probabilistic data. We no longer ask, 'is this true?' We ask, 'is this the most likely version of the truth?'",
+          "If an AI provides a data point that is 98% accurate but 2% contextual filler, most users will not notice. That 2% is the invisible hallucination.",
+          "It is a bridge built of probable words that confirms your direction without being grounded in reality.",
+        ],
+      },
+      {
+        id: "confirmation-bias-loop",
+        number: "III",
+        title: "The Feedback Loop of Confirmation Bias",
+        content: [
+          "The danger is not just that the AI is wrong. It is that it is wrong in agreement with us.",
+          "The model can build a cohesive, logical scaffold around a false premise because that is the most probable path for the conversation to take. It mirrors tone, urgency, and frustration. If you are already leaning toward a conclusion, the system may reinforce it just to maintain conversational flow.",
+          "To the user, that can feel like real intelligence because the AI 'gets' them. In reality, it is a hollow mirror reflecting the user's own bias back with high-fidelity polish.",
+        ],
+      },
+      {
+        id: "systems-architects-challenge",
+        number: "IV",
+        title: "The Systems Architect's Challenge",
+        content: [
+          "For people building the next generation of operations, the task is no longer just filtering for errors. It is building fact-check loops and friction points.",
+          "In high-stakes environments, agreeable data is not enough. You need systems comfortable saying, 'I don't know,' or better, systems designed to challenge the user's premise rather than predict the next most satisfying word.",
+          "The practical answer is adversarial checkpoints: structured moments where the AI is explicitly asked to argue against your conclusion. Not friction for friction's sake, but skepticism baked into the architecture. In critical decision environments, the design goal shifts from 'confirm my direction' to 'find the crack before the system does.'",
+          "The organizations that survive the era of Agreeable Hallucinations will be the ones that treat AI disagreement not as a failure state, but as a feature.",
+        ],
+      },
+      {
+        id: "the-individual-audit",
+        number: "V",
+        title: "The Individual Audit",
+        content: [
+          "The harder challenge is not systemic. It is personal.",
+          "Most users are not building supply chains. They are asking AI to help them think, write, and decide. And the more fluent and agreeable these systems become, the harder it is to notice the moment they stopped being a thinking partner and started being an echo chamber.",
+          "The discipline required is counterintuitive: ask the AI to disagree with you. Deliberately. Regularly. Not as a trick, but as a habit.",
+          "\"What's wrong with this argument?\"",
+          "\"Who would push back on this, and how?\"",
+          "\"What am I most likely getting wrong?\"",
+          "These are not clever prompts. They are epistemological hygiene. They are what good thinking partners do naturally, and what agreeable systems are never incentivized to do on their own. The burden of building in friction falls on the user, because the system has been optimized to remove it.",
+        ],
+      },
+      {
+        id: "the-meta-problem",
+        number: "VI",
+        title: "The Meta-Problem",
+        content: [
+          "There is one more layer worth naming.",
+          "This essay was written in 2026, in the middle of the AI adoption curve, by someone who works with AI daily. The tension it describes is not theoretical. It is live. The risk of the Agreeable Hallucination is present in the act of writing about it.",
+          "Which is exactly the point. The error does not announce itself. It arrives wearing the shape of your own thinking. The most dangerous hallucination is the one that sounds like your voice.",
+          "We built these systems to be helpful. They succeeded, perhaps too well. The question now is not how to make AI more capable. It is how to make ourselves more resistant to our own reflection.",
+          "In the age of the Agreeable Hallucination, the most important skill is not prompt engineering. It is knowing when to push back.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "the-latency-tax-why-digital-speed-is-quietly-eroding-your-brains-operating-system",
     title:
       "The Latency Tax: Why Digital Speed Is Quietly Eroding Your Brain's Operating System",
@@ -547,6 +733,8 @@ export const blogPosts: BlogPost[] = [
     readingTime: "8 min read",
     heroImage:
       "https://substack-post-media.s3.amazonaws.com/public/images/1d254058-fcd4-4cd9-a5e8-952869fbc555_1280x720.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying The Latency Tax article.",
     tldr: "Modern digital systems are optimized for instant response, but human cognition is not. The cost of collapsing every pause, every handoff, and every reflective gap is a hidden latency tax paid in shallower reasoning, constant low-grade arousal, and a nervous system that never quite returns to baseline. The real design problem is not just machine speed. It is cognitive compatibility.",
     tags: ["Strategy", "Technology", "Focus", "Human Systems"],
     originalUrl: "https://whatsyourwhy85.substack.com/p/the-latency-tax",
@@ -612,6 +800,8 @@ export const blogPosts: BlogPost[] = [
     readingTime: "6 min read",
     heroImage:
       "https://substackcdn.com/image/fetch/$s_!_GTZ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F27400d76-c972-4579-9071-a07db0191ea9_784x1168.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying Stop Mainlining Panic for Profit.",
     tldr: "Attention markets reward emotional force, not calibration. As possibility gets packaged as inevitability and every risk is framed like imminent collapse, people lose the ability to distinguish signal from spectacle. The cost is not just anxiety. It is a society that becomes more cynical, more reactive, and less capable of coordinated judgment.",
     tags: ["Strategy", "Media", "Culture", "Trust"],
     originalUrl:
@@ -679,6 +869,8 @@ export const blogPosts: BlogPost[] = [
     readingTime: "12 min read",
     heroImage:
       "https://substack-post-media.s3.amazonaws.com/public/images/85b07a57-8404-45ea-90c2-2717b7b5a6a4_1280x720.jpeg",
+    heroImageAlt:
+      "Illustrative hero image accompanying Trust Is the New Energy.",
     tldr: "Energy is a real physical constraint, but trust is the coordination layer that decides whether societies can deploy energy productively. We spent decades optimizing for engagement, growth, and throughput while underinvesting in legibility, dignity, and visible tradeoffs. The next durable advantage will come from systems that encode trust as infrastructure, not as branding.",
     tags: ["Strategy", "Trust", "Governance", "Systems"],
     originalUrl:
@@ -772,7 +964,7 @@ export function getBlogPost(slug: string): BlogPost | undefined {
 }
 
 export function getAllBlogPosts(): BlogPost[] {
-  return blogPosts.sort(
+  return [...blogPosts].sort(
     (a, b) =>
       new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
   );

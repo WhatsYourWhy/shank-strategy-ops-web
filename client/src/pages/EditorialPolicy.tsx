@@ -1,22 +1,9 @@
 import { InfoCard, InfoPageLayout } from "@/components/layout/InfoPageLayout";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl } from "@/lib/site";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
 
 export default function EditorialPolicy() {
-  usePageMetadata({
-    title: "Editorial Policy",
-    path: "/editorial-policy",
-    description:
-      "Editorial standards for originality, authorship, corrections, disclosures, and publishing quality on Shank Strategy Ops.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Editorial Policy",
-      url: absoluteUrl("/editorial-policy"),
-      description:
-        "Editorial policy for Shank Strategy Ops covering originality, disclosures, and correction practices.",
-    },
-  });
+  usePageMetadata(getStaticPageMetadata("/editorial-policy"));
 
   return (
     <InfoPageLayout

@@ -1,22 +1,9 @@
 import { InfoCard, InfoPageLayout } from "@/components/layout/InfoPageLayout";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl } from "@/lib/site";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
 
 export default function Methodology() {
-  usePageMetadata({
-    title: "Methodology",
-    path: "/methodology",
-    description:
-      "How Shank Strategy Ops develops essays, evaluates tools, handles sources, and reviews content before publication.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Methodology",
-      url: absoluteUrl("/methodology"),
-      description:
-        "Methodology page describing sourcing, testing, review, and update standards for Shank Strategy Ops.",
-    },
-  });
+  usePageMetadata(getStaticPageMetadata("/methodology"));
 
   return (
     <InfoPageLayout

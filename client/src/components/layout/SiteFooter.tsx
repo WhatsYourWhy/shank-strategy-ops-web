@@ -29,13 +29,13 @@ export default function SiteFooter() {
           </div>
 
           <div>
-            <p className="font-mono text-xs tracking-[0.24em] text-brand-orange">SITE</p>
+            <p className="font-mono text-xs tracking-[0.24em] text-brand-offwhite/72">SITE</p>
             <div className="mt-4 flex flex-col gap-3">
               {footerLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="font-body text-sm text-brand-offwhite/65 transition-colors hover:text-brand-orange"
+                  className="font-body text-sm text-brand-offwhite/65 transition-colors hover:text-brand-offwhite"
                 >
                   {link.label}
                 </Link>
@@ -44,17 +44,20 @@ export default function SiteFooter() {
           </div>
 
           <div>
-            <p className="font-mono text-xs tracking-[0.24em] text-brand-orange">CONTACT</p>
+            <p className="font-mono text-xs tracking-[0.24em] text-brand-offwhite/72">CONTACT</p>
             <div className="mt-4 space-y-3">
               <p className="font-body text-sm text-brand-offwhite/65">
                 Editorial, business, and partnership inquiries:
               </p>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="font-body text-sm text-brand-offwhite transition-colors hover:text-brand-orange"
+                className="font-body text-sm text-brand-offwhite transition-colors hover:text-brand-offwhite"
               >
                 {siteConfig.email}
               </a>
+              <p className="font-body text-sm text-brand-offwhite/50">
+                Best route for new work, editorial questions, and partnerships.
+              </p>
             </div>
           </div>
         </div>

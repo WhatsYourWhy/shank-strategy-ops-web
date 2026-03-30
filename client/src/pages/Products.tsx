@@ -7,13 +7,18 @@
  * - Hard edges, no soft shadows, mechanical interactions
  */
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import BlogNavigation from "@/components/blog/BlogNavigation";
+import LeadConversationCta from "@/components/LeadConversationCta";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl } from "@/lib/site";
+import { analyticsEvents, trackEvent } from "@/lib/analytics";
+import { queueHomeSectionNavigation } from "@/lib/homeNavigation";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
+import { STACKED_HEADER_OFFSET, replaceHash, scrollToElementWithOffset } from "@/lib/scroll";
 
 // ─── Product Data ────────────────────────────────────────────────────────────
 
@@ -28,9 +33,10 @@ interface Product {
   differentiator: string;
   whoItsFor: string;
   tags: string[];
-  githubUrl: string;
+  githubUrl?: string;
   pypiUrl?: string;
-  status: "PRODUCTION" | "BETA" | "RESEARCH";
+  gumroadUrl?: string;
+  status: "PRODUCTION" | "BETA" | "RESEARCH" | "AVAILABLE";
 }
 
 const products: Product[] = [
@@ -146,8 +152,36 @@ const products: Product[] = [
     status: "BETA",
   },
   {
+    id: "operator-toolkit",
+    number: "06",
+    name: "OPERATOR TOOLKIT",
+    tagline: "9 Templates for Managers Who Run Real Operations",
+    oneLiner:
+      "A ready-to-use bundle of operations templates for daily management, shift handoffs, weekly reviews, 1:1s, action tracking, issue visibility, KPI review, and staffing stability.",
+    problem:
+      "Most managers are running on memory, scattered sheets, messy handoffs, and weekly reviews that produce more heat than follow-through. The result: dropped actions, unclear ownership, repeated problems, and reactive leadership that stays vague until it becomes a fire.",
+    whatItDoes: [
+      "Daily Leader Checklist — start every shift with clear visibility",
+      "Shift Handoff Template — hand off reality cleanly, not from memory",
+      "Weekly Operations Review — review patterns instead of just reacting to them",
+      "Manager 1:1 Template — coach people with more clarity and less vagueness",
+      "Action Tracker — track commitments across time without losing them",
+      "Issue & Escalation Log — spot recurring problems before they spread",
+      "KPI Review Sheet — measure what matters without dashboard bloat",
+      "Staffing Stability Review — see staffing pressure before it becomes a fire",
+      "Start Here guide + License and Use Notes included",
+    ],
+    differentiator:
+      "This is not a giant operating system. It is a simple working layer for managers who are tired of rebuilding the same tools every week. Start with the spine — Daily Checklist, Shift Handoff, Action Tracker — and layer in the rest as needed.",
+    whoItsFor:
+      "Warehouse managers, operations managers, site leaders, assistant general managers, and team leaders who need more structure without more bureaucracy.",
+    tags: ["OPERATIONS", "MANAGEMENT", "TEMPLATES", "EDITABLE"],
+    gumroadUrl: "https://whatsyourwhy85.gumroad.com/l/ftpcj",
+    status: "AVAILABLE",
+  },
+  {
     id: "topoguard",
-    number: "05",
+    number: "07",
     name: "TOPOGUARD",
     tagline: "Topology-Gated Refusal for Dynamical Systems",
     oneLiner:
@@ -192,7 +226,7 @@ function ProductsHero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="font-mono text-brand-orange text-sm tracking-widest">
+          <span className="font-mono text-brand-offwhite/80 text-sm tracking-widest">
             INSTRUMENTS
           </span>
         </motion.div>
@@ -212,9 +246,9 @@ function ProductsHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-body text-xl md:text-2xl text-brand-offwhite/70 mt-8 max-w-2xl leading-relaxed"
         >
-          Every tool here was built to solve a real problem. No dashboards. No
-          vibes. Deterministic outputs, local-first architecture, and zero
-          tolerance for systems that can't explain themselves.
+          These tools are the product side of the same operating model: systems
+          built for real constraints, explicit tradeoffs, and outputs a team can
+          actually trust.
         </motion.p>
 
         {/* Divider */}
@@ -245,6 +279,10 @@ function StatusBadge({ status }: { status: Product["status"] }) {
       className:
         "bg-transparent text-brand-offwhite/50 border border-brand-offwhite/20",
     },
+    AVAILABLE: {
+      label: "AVAILABLE",
+      className: "bg-brand-orange text-brand-black",
+    },
   };
   const { label, className } = config[status];
   return (
@@ -262,7 +300,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, delay: 0.1 }}
-      className="py-20 border-b border-border last:border-b-0"
+      className="scroll-mt-44 py-20 border-b border-border last:border-b-0"
     >
       <div className="container">
         {/* Header row */}
@@ -276,10 +314,14 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
               <div className="flex items-center gap-4 mb-3">
                 <StatusBadge status={product.status} />
               </div>
-              <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">
+              <h2
+                id={`${product.id}-heading`}
+                tabIndex={-1}
+                className="font-display text-3xl md:text-5xl font-bold leading-tight"
+              >
                 {product.name}
               </h2>
-              <p className="font-mono text-brand-orange text-sm mt-2 tracking-wide">
+              <p className="font-mono text-brand-offwhite/78 text-sm mt-2 tracking-wide">
                 {product.tagline}
               </p>
             </div>
@@ -287,24 +329,55 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
           {/* Links */}
           <div className="flex items-center gap-4 flex-shrink-0 lg:mt-2">
-            <a
-              href={product.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
-            >
-              <Github className="h-4 w-4" />
-              GITHUB
-            </a>
+            {product.githubUrl && (
+              <a
+                href={product.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent(analyticsEvents.toolOutboundClicked, {
+                    product: product.id,
+                    destination: "github",
+                  })
+                }
+                className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-offwhite transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
+              >
+                <Github className="h-4 w-4" />
+                GITHUB
+              </a>
+            )}
             {product.pypiUrl && (
               <a
                 href={product.pypiUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-orange transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
+                onClick={() =>
+                  trackEvent(analyticsEvents.toolOutboundClicked, {
+                    product: product.id,
+                    destination: "pypi",
+                  })
+                }
+                className="flex items-center gap-2 font-mono text-sm text-brand-offwhite/70 hover:text-brand-offwhite transition-colors border border-brand-offwhite/20 hover:border-brand-orange px-4 py-2"
               >
                 <ExternalLink className="h-4 w-4" />
                 PYPI
+              </a>
+            )}
+            {product.gumroadUrl && (
+              <a
+                href={product.gumroadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent(analyticsEvents.toolOutboundClicked, {
+                    product: product.id,
+                    destination: "gumroad",
+                  })
+                }
+                className="flex items-center gap-2 font-mono text-sm bg-brand-orange text-brand-black hover:bg-brand-offwhite transition-colors px-4 py-2"
+              >
+                <ExternalLink className="h-4 w-4" />
+                GET IT — $17
               </a>
             )}
           </div>
@@ -324,7 +397,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           {/* Problem + Differentiator */}
           <div className={`space-y-8 ${isEven ? "" : "lg:col-start-2"}`}>
             <div>
-              <h3 className="font-mono text-xs text-brand-orange tracking-widest mb-4">
+              <h3 className="font-mono text-xs text-brand-offwhite/78 tracking-widest mb-4">
                 THE PROBLEM
               </h3>
               <p className="font-body text-brand-offwhite/80 leading-relaxed">
@@ -333,7 +406,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             </div>
 
             <div>
-              <h3 className="font-mono text-xs text-brand-orange tracking-widest mb-4">
+              <h3 className="font-mono text-xs text-brand-offwhite/78 tracking-widest mb-4">
                 THE DIFFERENTIATOR
               </h3>
               <p className="font-body text-brand-offwhite/80 leading-relaxed">
@@ -342,7 +415,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             </div>
 
             <div>
-              <h3 className="font-mono text-xs text-brand-orange tracking-widest mb-4">
+              <h3 className="font-mono text-xs text-brand-offwhite/78 tracking-widest mb-4">
                 WHO IT'S FOR
               </h3>
               <p className="font-body text-brand-offwhite/80 leading-relaxed">
@@ -353,13 +426,13 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
           {/* What it does */}
           <div className={`${isEven ? "" : "lg:col-start-1 lg:row-start-1"}`}>
-            <h3 className="font-mono text-xs text-brand-orange tracking-widest mb-6">
+            <h3 className="font-mono text-xs text-brand-offwhite/78 tracking-widest mb-6">
               WHAT IT DOES
             </h3>
             <div className="space-y-3">
               {product.whatItDoes.map((item, i) => (
                 <div key={i} className="flex items-start gap-4">
-                  <span className="font-mono text-xs text-brand-orange mt-1 flex-shrink-0 w-5">
+                  <span className="font-mono text-xs text-brand-offwhite/78 mt-1 flex-shrink-0 w-5">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="font-body text-brand-offwhite/80 leading-relaxed text-sm">
@@ -399,7 +472,15 @@ function ProductsNav() {
             <a
               key={p.id}
               href={`#${p.id}`}
-              className="font-mono text-xs text-brand-offwhite/60 hover:text-brand-orange transition-colors px-4 py-2 border border-brand-offwhite/15 hover:border-brand-orange flex-shrink-0 whitespace-nowrap"
+              onClick={(event) => {
+                event.preventDefault();
+                replaceHash(p.id);
+                scrollToElementWithOffset(p.id, {
+                  focusTarget: `${p.id}-heading`,
+                  offset: STACKED_HEADER_OFFSET,
+                });
+              }}
+              className="font-mono text-xs text-brand-offwhite/60 hover:text-brand-offwhite transition-colors px-4 py-2 border border-brand-offwhite/15 hover:border-brand-orange flex-shrink-0 whitespace-nowrap"
             >
               {p.number} {p.name}
             </a>
@@ -411,6 +492,8 @@ function ProductsNav() {
 }
 
 function ProductsCTA() {
+  const [, setLocation] = useLocation();
+
   return (
     <section className="py-24 bg-brand-charcoal">
       <div className="container">
@@ -421,7 +504,7 @@ function ProductsCTA() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="font-mono text-brand-orange text-sm tracking-widest">
+            <span className="font-mono text-brand-offwhite/80 text-sm tracking-widest">
               ENGAGEMENT
             </span>
             <h2 className="font-display text-4xl md:text-6xl font-bold mt-4 leading-tight">
@@ -436,16 +519,17 @@ function ProductsCTA() {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <a
-                href="/#contact"
+              <button
+                type="button"
+                onClick={() => queueHomeSectionNavigation("contact", setLocation)}
                 className="inline-flex items-center gap-3 font-mono text-sm bg-brand-orange text-brand-black px-8 py-4 hover:bg-brand-offwhite transition-colors"
               >
                 START A CONVERSATION
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </button>
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-3 font-mono text-sm border border-brand-offwhite/30 text-brand-offwhite px-8 py-4 hover:border-brand-orange hover:text-brand-orange transition-colors"
+                className="inline-flex items-center gap-3 font-mono text-sm border border-brand-offwhite/30 text-brand-offwhite px-8 py-4 hover:border-brand-orange hover:text-brand-offwhite transition-colors"
               >
                 READ THE BLOG
                 <ArrowRight className="h-4 w-4" />
@@ -465,35 +549,53 @@ function Footer() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Products() {
-  usePageMetadata({
-    title: "Tools",
-    path: "/tools",
-    description:
-      "Production-shaped tools from Shank Strategy Ops for supply chain risk, anomaly detection, offline document intelligence, salience-aware compute scheduling, and topology-gated control.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: "Shank Strategy Ops Tools",
-      url: absoluteUrl("/tools"),
-      description:
-        "Production-shaped tools from Shank Strategy Ops for operations and engineering teams.",
-    },
-  });
+  useEffect(() => {
+    if (!window.location.hash.startsWith("#")) {
+      return;
+    }
+
+    const hashTarget = window.location.hash.slice(1);
+    window.setTimeout(() => {
+      scrollToElementWithOffset(hashTarget, {
+        focusTarget: `${hashTarget}-heading`,
+        offset: STACKED_HEADER_OFFSET,
+      });
+    }, 0);
+  }, []);
+
+  usePageMetadata(getStaticPageMetadata("/tools"));
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
       <BlogNavigation />
-      <ProductsHero />
-      <ProductsNav />
+      <main
+        id="main-content"
+        tabIndex={-1}
+      >
+        <ProductsHero />
+        <ProductsNav />
 
-      {/* Product Cards */}
-      <div className="bg-brand-black">
-        {products.map((product, index) => (
-          <ProductCard key={product.id} product={product} index={index} />
-        ))}
-      </div>
+        {/* Product Cards */}
+        <div className="bg-brand-black">
+          {products.map((product, index) => (
+            <ProductCard key={product.id} product={product} index={index} />
+          ))}
+        </div>
 
-      <ProductsCTA />
+        <section className="bg-brand-black">
+          <div className="container pb-24">
+            <LeadConversationCta
+              eyebrow="OPERATOR TO OPERATOR"
+              title="If one of these tools maps to a live operating problem, that is usually where the engagement starts."
+              body="The open-source layer proves how the system thinks. The consulting layer adapts that logic to your environment, constraints, and decision structure."
+              source="tools-page"
+              eventName={analyticsEvents.toolCtaClicked}
+            />
+          </div>
+        </section>
+
+        <ProductsCTA />
+      </main>
       <Footer />
     </div>
   );

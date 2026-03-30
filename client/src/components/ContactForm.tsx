@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { TurnstileWidget } from "@/components/TurnstileWidget";
+import { analyticsEvents, trackEvent } from "@/lib/analytics";
 
 const schema = z.object({
   name: z.string().max(120).optional(),
@@ -46,6 +47,9 @@ export function ContactForm() {
 
   async function onSubmit(values: Values) {
     if (turnstileEnabled && !turnstileToken) {
+      trackEvent(analyticsEvents.contactSubmitFailed, {
+        reason: "missing-turnstile-token",
+      });
       toast.error("Please complete the bot check before sending.");
       return;
     }
@@ -65,14 +69,19 @@ export function ContactForm() {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
+        trackEvent(analyticsEvents.contactSubmitFailed, {
+          reason: typeof data.error === "string" ? data.error : `http-${res.status}`,
+        });
         toast.error(data.error ?? "Something went wrong. Try emailing directly.");
         return;
       }
+      trackEvent(analyticsEvents.contactSubmitSucceeded, { source: "contact-form" });
       toast.success("Message sent. We'll respond within 48 hours.");
       form.reset();
       setTurnstileToken(null);
       setTurnstileResetKey((current) => current + 1);
     } catch {
+      trackEvent(analyticsEvents.contactSubmitFailed, { reason: "network-error" });
       toast.error("Failed to send. Try emailing directly.");
     } finally {
       setSubmitting(false);

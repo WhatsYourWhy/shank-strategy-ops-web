@@ -10,11 +10,13 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
 import { Link } from "wouter";
+import BlogAdsScript from "@/components/BlogAdsScript";
 import BlogNavigation from "@/components/blog/BlogNavigation";
+import LeadConversationCta from "@/components/LeadConversationCta";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { getAllBlogPosts } from "@/data/blogPosts";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl } from "@/lib/site";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
 
 function BlogHero() {
   return (
@@ -25,7 +27,7 @@ function BlogHero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="font-mono text-brand-orange text-sm tracking-widest">
+          <span className="font-mono text-brand-offwhite/80 text-sm tracking-widest">
             DISPATCHES
           </span>
         </motion.div>
@@ -45,8 +47,9 @@ function BlogHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-body text-xl md:text-2xl text-brand-offwhite/70 mt-8 max-w-2xl leading-relaxed"
         >
-          Strategy, operations, and the forces reshaping how work gets done.
-          Long-form thinking for people who build things that matter.
+          Essays here are the evidence layer behind the consulting practice:
+          operating notes, system arguments, and tool breakdowns for people who
+          have to make real execution decisions.
         </motion.p>
       </div>
     </section>
@@ -82,7 +85,8 @@ function BlogPostCard({
               <div className="lg:w-80 flex-shrink-0 overflow-hidden">
                 <img
                   src={post.heroImage}
-                  alt={post.title}
+                  alt={post.heroImageAlt ?? post.title}
+                  loading="lazy"
                   className="w-full h-48 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -92,7 +96,7 @@ function BlogPostCard({
             <div className="p-8 flex-1">
               {/* Meta */}
               <div className="flex items-center gap-4 mb-4">
-                <span className="font-mono text-xs text-brand-orange tracking-widest">
+                <span className="font-mono text-xs text-brand-offwhite/78 tracking-widest">
                   {formattedDate.toUpperCase()}
                 </span>
                 <span className="text-brand-offwhite/30">|</span>
@@ -125,7 +129,7 @@ function BlogPostCard({
               </div>
 
               {/* Read More */}
-              <div className="mt-6 flex items-center gap-2 font-mono text-sm text-brand-orange group-hover:gap-4 transition-all">
+              <div className="mt-6 flex items-center gap-2 font-mono text-sm text-brand-offwhite/80 group-hover:gap-4 transition-all">
                 READ ARTICLE
                 <ArrowRight className="h-4 w-4" />
               </div>
@@ -144,52 +148,61 @@ function Footer() {
 export default function Blog() {
   const posts = getAllBlogPosts();
 
-  usePageMetadata({
-    title: "Blog",
-    path: "/blog",
-    description:
-      "Original essays and field notes from Shank Strategy Ops on strategy, operations, deterministic systems, and open-source tools.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "Blog",
-      name: "Shank Strategy Ops Blog",
-      url: absoluteUrl("/blog"),
-      description:
-        "Original essays and field notes on strategy, operations, deterministic systems, and tools.",
-    },
-  });
+  usePageMetadata(getStaticPageMetadata("/blog"));
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
+      <BlogAdsScript />
       <BlogNavigation />
-      <BlogHero />
+      <main
+        id="main-content"
+        tabIndex={-1}
+      >
+        <BlogHero />
 
-      {/* Posts List */}
-      <section className="py-16 bg-brand-black">
-        <div className="container">
-          <div className="mb-10 max-w-3xl border border-brand-offwhite/10 bg-brand-charcoal p-6">
-            <p className="font-body text-base leading-relaxed text-brand-offwhite/75">
-              This archive is intentionally small and publisher-owned. Posts are selected for
-              depth, not frequency, and each article is expected to stand on its own as a useful
-              resource rather than a thin summary page.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {posts.map((post, index) => (
-              <BlogPostCard key={post.slug} post={post} index={index} />
-            ))}
-          </div>
-
-          {posts.length === 0 && (
-            <div className="text-center py-20">
-              <p className="font-mono text-brand-offwhite/50 text-lg">
-                No posts yet. Check back soon.
+        {/* Posts List */}
+        <section className="py-16 bg-brand-black">
+          <div className="container">
+            <div className="mb-10 max-w-3xl border border-brand-offwhite/10 bg-brand-charcoal p-6">
+              <p className="font-body text-base leading-relaxed text-brand-offwhite/75">
+                This archive is intentionally small and publisher-owned. Posts are selected for
+                depth, not frequency, and each article is expected to stand on its own as a useful
+                resource rather than a thin summary page.
               </p>
             </div>
-          )}
-        </div>
-      </section>
+
+            <LeadConversationCta
+              eyebrow="TURN READING INTO ACTION"
+              title="If this problem is live inside your organization, start the conversation there."
+              body="The archive is public on purpose: it should help you decide whether the way we think matches the problem you need solved."
+              source="blog-index"
+              className="mb-10"
+            />
+
+            <div className="space-y-6">
+              {posts.map((post, index) => (
+                <BlogPostCard key={post.slug} post={post} index={index} />
+              ))}
+            </div>
+
+            {posts.length === 0 && (
+              <div className="text-center py-20">
+                <p className="font-mono text-brand-offwhite/50 text-lg">
+                  No posts yet. Check back soon.
+                </p>
+              </div>
+            )}
+
+            <LeadConversationCta
+              eyebrow="READY TO TALK"
+              title="Useful writing is not the end state. Better execution is."
+              body="If the article helped define the problem more clearly, we can use that clarity to decide whether a bounded engagement makes sense."
+              source="blog-index-bottom"
+              className="mt-10"
+            />
+          </div>
+        </section>
+      </main>
 
       <Footer />
     </div>

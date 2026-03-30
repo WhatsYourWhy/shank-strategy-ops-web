@@ -8,11 +8,13 @@
   },
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build": "pnpm generate:sitemap && vite build && pnpm generate:route-html && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
+    "generate:sitemap": "tsx scripts/generate-sitemap.ts",
+    "generate:route-html": "tsx scripts/generate-route-html.ts",
     "render:ad": "tsx scripts/render-ad.ts --config scripts/ad-manifests/shank-investor-ad.json"
   },
   "dependencies": {
@@ -43,6 +45,7 @@
     "@radix-ui/react-toggle": "^1.1.10",
     "@radix-ui/react-toggle-group": "^1.1.11",
     "@radix-ui/react-tooltip": "^1.2.8",
+    "@vercel/analytics": "^2.0.1",
     "axios": "^1.13.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

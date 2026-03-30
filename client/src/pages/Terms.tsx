@@ -1,21 +1,10 @@
 import { InfoCard, InfoPageLayout } from "@/components/layout/InfoPageLayout";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { getStaticPageMetadata } from "@/lib/pageMetadata";
+import { siteConfig } from "@/lib/site";
 
 export default function Terms() {
-  usePageMetadata({
-    title: "Terms of Use",
-    path: "/terms",
-    description:
-      "Terms of use for Shank Strategy Ops covering informational content, intellectual property, external links, and contact.",
-    structuredData: {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Terms of Use",
-      url: absoluteUrl("/terms"),
-      description: "Terms of use for the Shank Strategy Ops website.",
-    },
-  });
+  usePageMetadata(getStaticPageMetadata("/terms"));
 
   return (
     <InfoPageLayout

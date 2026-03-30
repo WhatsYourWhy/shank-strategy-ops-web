@@ -37,7 +37,7 @@ function stripManagedSeoTags(html: string) {
       .replace(/<meta\s+name="twitter:description"[^>]*>\s*/gi, "")
       .replace(/<meta\s+name="twitter:image"[^>]*>\s*/gi, "")
       .replace(/<link\s+rel="canonical"[^>]*>\s*/gi, "")
-      .replace(/<script\s+id="structured-data"[\s\S]*?<\/script>\s*/gi, "");
+      .replace(/<script\s+id="structured-data"[^>]*>[\s\S]*?<\/script>\s*/gi, ""); // codeql[js/incomplete-multi-character-sanitization] - input is trusted build output, not user-supplied
   } while (html !== previous);
   return html;
 }

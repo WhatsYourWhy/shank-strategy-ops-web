@@ -28,6 +28,7 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
           src="/images/hero-bg.webp"
           alt=""
           aria-hidden="true"
+          role="presentation"
           loading="eager"
           fetchPriority="high"
           className="h-full w-full object-cover opacity-28"
@@ -42,7 +43,7 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
               initial={{ opacity: 0, x: -24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="font-mono text-sm tracking-[0.28em] text-brand-orange"
+              className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/80"
             >
               STRATEGY EXECUTION AND OPERATIONAL REPAIR
             </motion.p>
@@ -66,6 +67,16 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
               transition={{ duration: 0.6, delay: 0.16 }}
               className="mt-8 max-w-2xl font-body text-xl leading-relaxed text-brand-offwhite/76 md:text-2xl"
             >
+              Strategic operations consulting for leadership teams dealing with stalled
+              execution, unclear ownership, and systems that create more noise than control.
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-4 max-w-2xl font-body text-lg leading-relaxed text-brand-offwhite/68"
+            >
               Shank Strategy Ops steps into messy, high-stakes work, clarifies ownership,
               stabilizes the operating rhythm, and leaves the team stronger than it was
               when we arrived.
@@ -74,7 +85,7 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
             <motion.div
               initial={{ opacity: 0, x: -24 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.24 }}
+              transition={{ duration: 0.6, delay: 0.28 }}
               className="mt-10 flex flex-col gap-4 sm:flex-row"
             >
               <Button
@@ -104,7 +115,9 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="border border-brand-offwhite/10 bg-brand-black/65 p-6 backdrop-blur-sm"
           >
-            <p className="font-mono text-xs tracking-[0.28em] text-brand-orange">WHY CLIENTS CALL</p>
+            <h2 className="font-mono text-xs tracking-[0.28em] text-brand-offwhite/78">
+              WHY CLIENTS CALL
+            </h2>
             <div className="mt-5 space-y-5">
               {[
                 "A strategy exists, but no one can make the work move cleanly.",
@@ -138,7 +151,7 @@ export function HomeProofStrip() {
               transition={{ duration: 0.45, delay: index * 0.06 }}
               className="bg-brand-charcoal p-6"
             >
-              <p className="font-mono text-xs tracking-[0.24em] text-brand-orange">{item.label}</p>
+              <p className="font-mono text-xs tracking-[0.24em] text-brand-offwhite/78">{item.label}</p>
               <p className="mt-4 font-body text-base leading-relaxed text-brand-offwhite/78">
                 {item.value}
               </p>
@@ -156,7 +169,7 @@ export function HomeOutcomesSection() {
       <div className="container">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
-            <p className="font-mono text-sm tracking-[0.28em] text-brand-orange">WHY CLIENTS HIRE US</p>
+            <p className="font-mono text-sm tracking-[0.28em] text-brand-black/72">WHY CLIENTS HIRE US</p>
             <h2 className="mt-4 font-display text-4xl font-bold leading-tight md:text-6xl">
               CLEARER OPERATING
               <br />
@@ -184,7 +197,7 @@ export function HomeOutcomesSection() {
             </div>
 
             <div className="border border-brand-black/10 bg-brand-black p-8 text-brand-offwhite">
-              <p className="font-mono text-xs tracking-[0.28em] text-brand-orange">
+              <p className="font-mono text-xs tracking-[0.28em] text-brand-offwhite/78">
                 SAMPLE OUTPUTS
               </p>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -207,10 +220,10 @@ export function HomeOutcomesSection() {
 
 export function HomePrinciplesSection() {
   return (
-    <section id="principles" className="bg-brand-charcoal py-24">
+    <section id="principles" className="scroll-mt-28 bg-brand-charcoal py-24">
       <div className="container">
         <div className="max-w-3xl">
-          <p className="font-mono text-sm tracking-[0.28em] text-brand-orange">ENGAGEMENT PRINCIPLES</p>
+          <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">ENGAGEMENT PRINCIPLES</p>
           <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
             THE RULES THAT KEEP THE
             <br />
@@ -243,11 +256,11 @@ export function HomePrinciplesSection() {
 
 export function HomeEngagementSection() {
   return (
-    <section id="engagement" className="relative overflow-hidden bg-brand-black py-24">
+    <section id="engagement" className="scroll-mt-28 relative overflow-hidden bg-brand-black py-24">
       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(212,98,43,0.08),transparent_35%),linear-gradient(0deg,rgba(245,242,235,0.02),rgba(245,242,235,0.02))]" />
       <div className="container relative">
         <div className="max-w-3xl">
-          <p className="font-mono text-sm tracking-[0.28em] text-brand-orange">STANDARD ENGAGEMENT FLOW</p>
+          <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">STANDARD ENGAGEMENT FLOW</p>
           <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
             DIAGNOSE. COMMIT.
             <br />
@@ -289,10 +302,10 @@ export function HomeEngagementSection() {
 
 export function HomeModelsSection() {
   return (
-    <section id="models" className="bg-brand-black py-24">
+    <section id="models" className="scroll-mt-28 bg-brand-black py-24">
       <div className="container">
         <div className="max-w-3xl">
-          <p className="font-mono text-sm tracking-[0.28em] text-brand-orange">ENGAGEMENT MODELS</p>
+          <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">ENGAGEMENT MODELS</p>
           <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
             STRUCTURE SHOULD MATCH
             <br />
@@ -312,7 +325,7 @@ export function HomeModelsSection() {
             >
               <h3 className="font-display text-3xl font-bold text-brand-offwhite">{model.title}</h3>
               <p className="mt-4 font-body text-base leading-relaxed text-brand-offwhite/74">
-                <span className="text-brand-orange">Use when:</span> {model.useWhen}
+                <span className="text-brand-offwhite font-semibold">Use when:</span> {model.useWhen}
               </p>
               <div className="mt-6 space-y-3">
                 {model.typicalUses.map((item) => (
@@ -336,7 +349,7 @@ export function HomePublishingSection() {
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div>
-            <p className="font-mono text-sm tracking-[0.28em] text-brand-orange">PUBLIC EVIDENCE LAYER</p>
+            <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">PUBLIC EVIDENCE LAYER</p>
             <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
               THE BLOG AND TOOLS ARE
               <br />
@@ -371,7 +384,7 @@ export function HomeInsightsSection({ posts }: { posts: BlogPost[] }) {
       <div className="container">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
-            <p className="font-mono text-sm tracking-[0.28em] text-brand-orange">RECENT WRITING</p>
+            <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">RECENT WRITING</p>
             <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
               FIELD NOTES, ESSAYS,
               <br />
@@ -385,7 +398,7 @@ export function HomeInsightsSection({ posts }: { posts: BlogPost[] }) {
 
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 font-mono text-sm text-brand-orange transition-colors hover:text-brand-offwhite"
+            className="inline-flex items-center gap-2 font-mono text-sm text-brand-offwhite/80 transition-colors hover:text-brand-offwhite"
           >
             VIEW ALL POSTS
             <ArrowRight className="h-4 w-4" />
@@ -396,7 +409,7 @@ export function HomeInsightsSection({ posts }: { posts: BlogPost[] }) {
           {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <article className="group flex h-full flex-col border border-brand-offwhite/10 bg-brand-charcoal p-6 transition-colors hover:border-brand-orange">
-                <p className="font-mono text-xs tracking-widest text-brand-orange">
+                <p className="font-mono text-xs tracking-widest text-brand-offwhite/78">
                   {new Date(post.publishedDate).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -445,7 +458,7 @@ export function HomeStandardsSection() {
     <section className="bg-brand-offwhite py-24 text-brand-black">
       <div className="container">
         <div className="max-w-3xl">
-          <p className="font-mono text-sm tracking-[0.28em] text-brand-orange">TRUST SIGNALS</p>
+          <p className="font-mono text-sm tracking-[0.28em] text-brand-black/72">TRUST SIGNALS</p>
           <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
             IF TRUST MATTERS,
             <br />
@@ -463,7 +476,7 @@ export function HomeStandardsSection() {
                 <p className="mt-4 font-body text-base leading-relaxed text-brand-black/72">
                   {item.description}
                 </p>
-                <div className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-brand-orange">
+                <div className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-brand-black/72">
                   READ PAGE
                   <ArrowRight className="h-4 w-4" />
                 </div>
@@ -478,10 +491,10 @@ export function HomeStandardsSection() {
 
 export function HomeContactSection() {
   return (
-    <section id="contact" className="bg-brand-offwhite py-24 text-brand-black">
+    <section id="contact" className="scroll-mt-28 bg-brand-offwhite py-24 text-brand-black">
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="font-mono text-sm tracking-[0.28em] text-brand-orange">READY TO TALK</p>
+          <p className="font-mono text-sm tracking-[0.28em] text-brand-black/72">READY TO TALK</p>
           <h2 className="mt-4 font-display text-4xl font-bold md:text-6xl">
             START A CONVERSATION.
           </h2>
@@ -489,12 +502,15 @@ export function HomeContactSection() {
             If the problem is real, the stakes are live, and there is authority to act, we can
             decide fit quickly and move from there.
           </p>
+          <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-brand-black/62">
+            First step is a short operator-to-operator fit check focused on the work, not a sales funnel.
+          </p>
 
           <ContactForm />
 
           <p className="mt-8 font-body text-base text-brand-black/56">
             Or email{" "}
-            <a href={`mailto:${siteConfig.email}`} className="text-brand-orange hover:underline">
+            <a href={`mailto:${siteConfig.email}`} className="font-semibold text-brand-black hover:underline">
               {siteConfig.email}
             </a>
             . We respond {siteConfig.responseWindow}.

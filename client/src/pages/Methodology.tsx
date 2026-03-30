@@ -4,10 +4,10 @@ import { absoluteUrl } from "@/lib/site";
 
 export default function Methodology() {
   usePageMetadata({
-    title: "Methodology",
+    title: "Content Methodology and Review Standards",
     path: "/methodology",
     description:
-      "How Shank Strategy Ops develops essays, evaluates tools, handles sources, and reviews content before publication.",
+      "See how Shank Strategy Ops researches, reviews, updates, and quality-checks essays and tool writeups before publication.",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebPage",

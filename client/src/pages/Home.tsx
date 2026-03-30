@@ -15,14 +15,12 @@ import {
 import { getAllBlogPosts } from "@/data/blogPosts";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { consumeHomeSectionNavigation } from "@/lib/homeNavigation";
+import { FIXED_HEADER_OFFSET, scrollToElementWithOffset } from "@/lib/scroll";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 import { useEffect } from "react";
 
 function scrollToSection(id: string) {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
-  }
+  scrollToElementWithOffset(id, FIXED_HEADER_OFFSET);
 }
 
 export default function Home() {
@@ -41,9 +39,9 @@ export default function Home() {
 
   usePageMetadata({
     path: "/",
-    title: "Strategy execution, operator notes, and deterministic tools",
+    title: "Strategic Operations Consulting, Operator Notes, and Tools",
     description:
-      "Shank Strategy Ops helps leaders repair execution drift, clarify decision rights, and install operating systems that hold under real conditions.",
+      "Shank Strategy Ops provides strategic operations consulting for leaders fixing execution drift, decision bottlenecks, and operating systems that no longer hold under real conditions.",
     structuredData: [
       {
         "@context": "https://schema.org",
@@ -71,16 +69,21 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
       <BlogNavigation />
-      <HomeHeroSection scrollToSection={scrollToSection} />
-      <HomeProofStrip />
-      <HomeOutcomesSection />
-      <HomePrinciplesSection />
-      <HomeEngagementSection />
-      <HomeModelsSection />
-      <HomePublishingSection />
-      <HomeInsightsSection posts={posts} />
-      <HomeStandardsSection />
-      <HomeContactSection />
+      <main
+        id="main-content"
+        tabIndex={-1}
+      >
+        <HomeHeroSection scrollToSection={scrollToSection} />
+        <HomeProofStrip />
+        <HomeOutcomesSection />
+        <HomePrinciplesSection />
+        <HomeEngagementSection />
+        <HomeModelsSection />
+        <HomePublishingSection />
+        <HomeInsightsSection posts={posts} />
+        <HomeStandardsSection />
+        <HomeContactSection />
+      </main>
       <SiteFooter />
     </div>
   );

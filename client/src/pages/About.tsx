@@ -5,10 +5,10 @@ import { absoluteUrl } from "@/lib/site";
 
 export default function About() {
   usePageMetadata({
-    title: "About",
+    title: "About the Practice",
     path: "/about",
     description:
-      "What Shank Strategy Ops publishes, who it serves, and how the consulting practice, essays, and open-source tools fit together.",
+      "Learn how Shank Strategy Ops combines strategic operations consulting, original essays, and working tools to help leaders repair execution drift.",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "AboutPage",

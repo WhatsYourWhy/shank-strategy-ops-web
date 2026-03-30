@@ -101,15 +101,18 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
   }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: -0.02em;
   }
+
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
@@ -120,6 +123,17 @@
   input[type="checkbox"]:not(:disabled),
   input[type="radio"]:not(:disabled) {
     @apply cursor-pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid oklch(0.96 0.01 80);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px oklch(0.60 0.18 45 / 0.35);
+  }
+
+  main:focus-visible {
+    outline: none;
+    box-shadow: none;
   }
 }
 
@@ -196,6 +210,27 @@
   
   .border-brand-orange {
     border-color: oklch(0.60 0.18 45);
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 100;
+    transform: translateY(-160%);
+    border: 2px solid oklch(0.96 0.01 80);
+    background-color: oklch(0.15 0.01 60);
+    color: oklch(0.96 0.01 80);
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: transform 150ms ease;
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
   }
   
   /* Brutalist design elements */

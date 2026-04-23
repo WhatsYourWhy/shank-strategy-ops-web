@@ -199,6 +199,17 @@ export default function BlogNavigation() {
               TOOLS
             </Link>
             <Link
+              href="/operator-audit"
+              aria-current={location === "/operator-audit" ? "page" : undefined}
+              className={`font-mono text-sm transition-colors ${
+                location === "/operator-audit"
+                  ? "text-brand-offwhite"
+                  : "text-brand-offwhite/72 hover:text-brand-offwhite"
+              }`}
+            >
+              AUDIT
+            </Link>
+            <Link
               href="/blog"
               aria-current={location.startsWith("/blog") ? "page" : undefined}
               className={`font-mono text-sm transition-colors ${
@@ -316,6 +327,18 @@ export default function BlogNavigation() {
                 onClick={() => closeMobileMenu()}
               >
                 TOOLS
+              </Link>
+              <Link
+                href="/operator-audit"
+                aria-current={location === "/operator-audit" ? "page" : undefined}
+                className={`font-mono text-sm transition-colors text-left ${
+                  location === "/operator-audit"
+                    ? "text-brand-offwhite"
+                    : "text-brand-offwhite/72 hover:text-brand-offwhite"
+                }`}
+                onClick={() => closeMobileMenu()}
+              >
+                AUDIT
               </Link>
               <Link
                 href="/blog"

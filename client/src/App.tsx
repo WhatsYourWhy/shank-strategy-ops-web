@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Products from "@/pages/Products";
+import OperatorAudit from "@/pages/OperatorAudit";
 import About from "@/pages/About";
 import Methodology from "@/pages/Methodology";
 import EditorialPolicy from "@/pages/EditorialPolicy";
@@ -27,6 +28,7 @@ function Router() {
       <Route path={"/blog"} component={Blog} />
       <Route path={"/blog/:slug"} component={BlogPost} />
       <Route path={"/tools"} component={Products} />
+      <Route path={"/operator-audit"} component={OperatorAudit} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

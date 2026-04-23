@@ -9,6 +9,9 @@ export const analyticsEvents = {
   toolOutboundClicked: "Tool Outbound Clicked",
   contactSubmitSucceeded: "Contact Submit Succeeded",
   contactSubmitFailed: "Contact Submit Failed",
+  operatorAuditCtaClicked: "Operator Audit CTA Clicked",
+  operatorAuditSubmitSucceeded: "Operator Audit Submit Succeeded",
+  operatorAuditSubmitFailed: "Operator Audit Submit Failed",
 } as const;
 
 export function trackEvent(name: string, properties?: TrackProperties) {

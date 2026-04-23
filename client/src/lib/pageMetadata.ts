@@ -31,6 +31,7 @@ export const staticRenderablePaths = [
   "/terms",
   "/blog",
   "/tools",
+  "/operator-audit",
 ] as const;
 
 export type StaticRenderablePath = (typeof staticRenderablePaths)[number];
@@ -176,6 +177,37 @@ export function getStaticPageMetadata(path: StaticRenderablePath): PageMetadata 
             description:
               "Original essays and field notes on strategy, operations, deterministic systems, and tools.",
             publisher: siteConfig.publisher,
+          },
+          {
+            "@context": "https://schema.org",
+            ...siteConfig.publisher,
+          },
+        ],
+      };
+    case "/operator-audit":
+      return {
+        title: "The $500 Operator Audit",
+        path: "/operator-audit",
+        description:
+          "A focused outside read on where your operation is losing clarity, time, and trust. A written diagnosis of structural drag and prioritized next moves, delivered within 5 business days.",
+        structuredData: [
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Operator Audit",
+            serviceType: "Operations diagnostic",
+            provider: siteConfig.publisher,
+            url: absoluteUrl("/operator-audit"),
+            areaServed: "United States",
+            description:
+              "A focused diagnostic of how an operation is functioning, with a written audit identifying structural drag and prioritized next moves.",
+            offers: {
+              "@type": "Offer",
+              price: "500",
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+              url: absoluteUrl("/operator-audit"),
+            },
           },
           {
             "@context": "https://schema.org",

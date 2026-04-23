@@ -24,18 +24,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { TurnstileWidget } from "@/components/TurnstileWidget";
 import { analyticsEvents, trackEvent } from "@/lib/analytics";
 
+// Backend /api/contact caps: name ≤ 120, message ≤ 5000.
+// We append " — OPERATOR AUDIT" (17 chars) to name before POSTing, so cap name at 100.
+// Per-field caps below keep the composed message body well under the 5000 limit
+// even when every field is filled (3×800 required + 5×400 optional + ~500 overhead).
+const NAME_SUFFIX = " — OPERATOR AUDIT";
+
 const schema = z.object({
-  name: z.string().trim().min(1, "Name required").max(120),
+  name: z.string().trim().min(1, "Name required").max(100, "Max 100 characters"),
   email: z.string().trim().email("Valid email required").max(254),
   company: z.string().trim().max(200).optional().or(z.literal("")),
-  operation: z.string().trim().min(10, "A sentence or two helps").max(2000),
-  reason: z.string().trim().min(10, "A sentence or two helps").max(2000),
-  drag: z.string().trim().min(5).max(2000),
-  repeating: z.string().trim().max(2000).optional().or(z.literal("")),
-  stuck: z.string().trim().max(2000).optional().or(z.literal("")),
-  materials: z.string().trim().max(2000).optional().or(z.literal("")),
-  outcome: z.string().trim().max(2000).optional().or(z.literal("")),
-  notThis: z.string().trim().max(2000).optional().or(z.literal("")),
+  operation: z.string().trim().min(10, "A sentence or two helps").max(800, "Max 800 characters"),
+  reason: z.string().trim().min(10, "A sentence or two helps").max(800, "Max 800 characters"),
+  drag: z.string().trim().min(5).max(800, "Max 800 characters"),
+  repeating: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
+  stuck: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
+  materials: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
+  outcome: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
+  notThis: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
 });
 
 type Values = z.infer<typeof schema>;
@@ -105,11 +111,21 @@ export function OperatorAuditIntakeForm() {
     setSubmitting(true);
     try {
       const message = buildMessageBody(values);
+      if (message.length > 5000) {
+        trackEvent(analyticsEvents.operatorAuditSubmitFailed, {
+          reason: "message-too-long",
+        });
+        toast.error(
+          "Intake is too long to send. Please shorten your answers."
+        );
+        setSubmitting(false);
+        return;
+      }
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: `${values.name} — OPERATOR AUDIT`,
+          name: `${values.name}${NAME_SUFFIX}`,
           email: values.email,
           message,
           ...(turnstileEnabled && turnstileToken ? { turnstileToken } : {}),

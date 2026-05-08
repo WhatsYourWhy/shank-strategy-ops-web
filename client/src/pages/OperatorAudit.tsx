@@ -36,6 +36,7 @@ const auditLooksAt = [
   "accountability drift",
   "recurring operational friction",
   "where work gets stuck between discussion and completion",
+  "where AI tools are introducing false coherence, soft handoffs, or unaccountable work",
 ];
 
 const deliverable = [
@@ -86,7 +87,8 @@ function Hero() {
           className="font-body text-xl md:text-2xl text-brand-offwhite/75 mt-8 max-w-3xl leading-relaxed"
         >
           A focused outside read on where your operation is losing clarity,
-          time, and trust.
+          time, and trust, including where AI is quietly reshaping your
+          handoffs, reviews, and decisions.
         </motion.p>
 
         <motion.div
@@ -278,11 +280,40 @@ export default function OperatorAudit() {
           </div>
         </section>
 
-        {/* Deliverable */}
+        {/* On AI in your operation */}
         <section className="py-20 border-b border-border bg-brand-charcoal">
           <div className="container max-w-4xl">
             <SectionHeading
-              eyebrow="05 / DELIVERABLE"
+              eyebrow="05 / AI"
+              title="On AI in your operation"
+            />
+            <div className="space-y-5 font-body text-lg text-brand-offwhite/85 leading-relaxed">
+              <p>
+                AI is in your stack already: in the drafts your team sends, the
+                summaries you read, the replies the system handles before you see
+                them, the memos that read clean but don&apos;t actually decide
+                anything.
+              </p>
+              <p>
+                The audit reads it the same way it reads any other source of
+                drift: where is it making the work clearer, and where is it
+                making the work <em>look</em> clearer while the underlying
+                problem keeps moving?
+              </p>
+              <p>
+                The point is not to add AI or remove AI. The point is to know
+                what it&apos;s actually doing to your handoffs, your decisions,
+                and the trust your team places in the output.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Deliverable */}
+        <section className="py-20 border-b border-border">
+          <div className="container max-w-4xl">
+            <SectionHeading
+              eyebrow="06 / DELIVERABLE"
               title="What you receive"
             />
             <p className="font-body text-lg text-brand-offwhite/80 leading-relaxed mb-8">
@@ -301,7 +332,7 @@ export default function OperatorAudit() {
         <section className="py-20 border-b border-border">
           <div className="container max-w-4xl">
             <SectionHeading
-              eyebrow="06 / TURNAROUND"
+              eyebrow="07 / TURNAROUND"
               title="Within 5 business days"
             />
             <div className="space-y-4 font-body text-lg text-brand-offwhite/85 leading-relaxed">
@@ -324,7 +355,7 @@ export default function OperatorAudit() {
         <section className="py-20 border-b border-border bg-brand-charcoal">
           <div className="container max-w-4xl">
             <SectionHeading
-              eyebrow="07 / INPUTS"
+              eyebrow="08 / INPUTS"
               title="What I need from you"
             />
             <div className="space-y-4 font-body text-brand-offwhite/85 leading-relaxed">
@@ -367,7 +398,7 @@ export default function OperatorAudit() {
           <div className="container max-w-3xl">
             <div className="mb-10">
               <p className="font-mono text-xs tracking-[0.28em] text-brand-offwhite/70">
-                08 / READY TO START
+                09 / READY TO START
               </p>
               <h2 className="mt-4 font-display text-3xl md:text-5xl font-bold leading-tight">
                 Start the audit.

@@ -27,7 +27,7 @@ import { analyticsEvents, trackEvent } from "@/lib/analytics";
 // Backend /api/contact caps: name ≤ 120, message ≤ 5000.
 // We append " — OPERATOR AUDIT" (17 chars) to name before POSTing, so cap name at 100.
 // Per-field caps below keep the composed message body well under the 5000 limit
-// even when every field is filled (3×800 required + 5×400 optional + ~500 overhead).
+// even when every field is filled (3×800 required + 6×300 optional + ~500 overhead).
 const NAME_SUFFIX = " — OPERATOR AUDIT";
 
 const schema = z.object({
@@ -37,11 +37,12 @@ const schema = z.object({
   operation: z.string().trim().min(10, "A sentence or two helps").max(800, "Max 800 characters"),
   reason: z.string().trim().min(10, "A sentence or two helps").max(800, "Max 800 characters"),
   drag: z.string().trim().min(5).max(800, "Max 800 characters"),
-  repeating: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
-  stuck: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
-  materials: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
-  outcome: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
-  notThis: z.string().trim().max(400, "Max 400 characters").optional().or(z.literal("")),
+  repeating: z.string().trim().max(300, "Max 300 characters").optional().or(z.literal("")),
+  stuck: z.string().trim().max(300, "Max 300 characters").optional().or(z.literal("")),
+  aiPresence: z.string().trim().max(300, "Max 300 characters").optional().or(z.literal("")),
+  materials: z.string().trim().max(300, "Max 300 characters").optional().or(z.literal("")),
+  outcome: z.string().trim().max(300, "Max 300 characters").optional().or(z.literal("")),
+  notThis: z.string().trim().max(300, "Max 300 characters").optional().or(z.literal("")),
 });
 
 type Values = z.infer<typeof schema>;
@@ -70,6 +71,7 @@ function buildMessageBody(values: Values): string {
   section("Where is the biggest recurring drag?", values.drag);
   section("What problems keep repeating?", values.repeating);
   section("Where does work get stuck?", values.stuck);
+  section("Where is AI currently showing up?", values.aiPresence);
   section("What materials can you share?", values.materials);
   section("What outcome would make this audit feel useful?", values.outcome);
   section("What should this audit not become?", values.notThis);
@@ -93,6 +95,7 @@ export function OperatorAuditIntakeForm() {
       drag: "",
       repeating: "",
       stuck: "",
+      aiPresence: "",
       materials: "",
       outcome: "",
       notThis: "",
@@ -347,6 +350,27 @@ export function OperatorAuditIntakeForm() {
                   rows={3}
                   className="rounded-none border-2 border-brand-offwhite/30 bg-brand-black font-body text-brand-offwhite placeholder:text-brand-offwhite/30 resize-none"
                   placeholder="Between idea and assignment, execution and review, review and closure..."
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="aiPresence"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="font-mono text-xs tracking-widest text-brand-offwhite/70">
+                WHERE IS AI SHOWING UP IN YOUR OPERATION? (OPTIONAL)
+              </FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  rows={3}
+                  className="rounded-none border-2 border-brand-offwhite/30 bg-brand-black font-body text-brand-offwhite placeholder:text-brand-offwhite/30 resize-none"
+                  placeholder="Drafts, summaries, replies, decision memos, customer-facing replies, internal knowledge base, none yet, and anything you tried that didn't stick."
                 />
               </FormControl>
               <FormMessage />

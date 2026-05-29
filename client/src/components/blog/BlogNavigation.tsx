@@ -225,7 +225,7 @@ export default function BlogNavigation() {
               onClick={() => scrollToSection("contact")}
               className="font-mono text-sm bg-brand-orange text-brand-black px-6 py-2 hover:bg-brand-offwhite transition-colors"
             >
-              START CONVERSATION
+              REQUEST A REALITY CHECK
             </button>
           </div>
 
@@ -357,7 +357,7 @@ export default function BlogNavigation() {
                 onClick={() => scrollToSection("contact")}
                 className="font-mono text-sm bg-brand-orange text-brand-black px-6 py-3 hover:bg-brand-offwhite transition-colors text-left"
               >
-                START CONVERSATION
+                REQUEST A REALITY CHECK
               </button>
             </div>
           </motion.div>

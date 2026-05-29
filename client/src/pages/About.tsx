@@ -12,6 +12,28 @@ export default function About() {
       title="Strategic operations consulting for leaders repairing execution drift."
       lede="Shank Strategy Ops combines diagnostic consulting, operator notes, and working tools to help leadership teams clarify ownership, rebuild operating cadences, and leave the system stronger than they found it."
     >
+      <section className="md:col-span-12 bg-brand-charcoal border border-brand-orange p-8">
+        <p className="font-mono text-xs tracking-[0.24em] text-brand-offwhite/70">
+          WHO RUNS THIS
+        </p>
+        <h2 className="mt-4 font-display text-3xl font-bold leading-tight">
+          Justin Shank
+        </h2>
+        <p className="mt-2 font-display text-xl font-bold text-brand-orange">
+          Founder, Shank Strategy Ops
+        </p>
+        <p className="mt-1 font-mono text-sm tracking-wide text-brand-offwhite/80">
+          Forward-Deployed AI Systems Engineer
+        </p>
+        <p className="mt-5 max-w-3xl font-body text-base leading-relaxed text-brand-offwhite/80">
+          I work as a forward-deployed AI systems engineer: diagnosing
+          operational drift, building local-first tools, and translating messy
+          workflows into reliable, auditable systems. The founder title is the
+          umbrella; the forward-deployed engineer title is what the work
+          actually looks like on the ground.
+        </p>
+      </section>
+
       <InfoCard
         title="What this site is for"
         body={[

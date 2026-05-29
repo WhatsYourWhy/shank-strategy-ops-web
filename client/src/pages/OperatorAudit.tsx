@@ -5,6 +5,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 import BlogNavigation from "@/components/blog/BlogNavigation";
 import SiteFooter from "@/components/layout/SiteFooter";
 import { OperatorAuditIntakeForm } from "@/components/OperatorAuditIntakeForm";
@@ -275,6 +276,19 @@ export default function OperatorAudit() {
                 your environment and works toward the pattern underneath it.
                 The recommendations come out of the real shape of the problem,
                 not from a borrowed framework.
+              </p>
+              <p>
+                The audit is the diagnostic layer; the tools are the
+                implementation layer. When a workflow needs more than advice, I
+                can prototype, adapt, or deploy lightweight systems shaped by the
+                same operating principles shown on the{" "}
+                <Link
+                  href="/tools"
+                  className="text-brand-orange underline-offset-4 hover:underline"
+                >
+                  Tools page
+                </Link>
+                .
               </p>
             </div>
           </div>

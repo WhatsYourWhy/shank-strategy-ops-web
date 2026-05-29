@@ -95,7 +95,7 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
                 }}
                 className="rounded-none bg-brand-orange px-8 py-6 font-mono text-sm text-brand-black hover:bg-brand-offwhite"
               >
-                START A CONVERSATION
+                REQUEST A REALITY CHECK
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
 
@@ -344,6 +344,20 @@ export function HomeModelsSection() {
             <br />
             THE PROBLEM.
           </h2>
+          <p className="mt-6 max-w-2xl font-body text-xl leading-relaxed text-brand-offwhite/72">
+            Most engagements start with the{" "}
+            <Link
+              href="/operator-audit"
+              className="text-brand-orange underline-offset-4 hover:underline"
+            >
+              Operator Audit
+            </Link>{" "}
+            — a bounded $500 read on where the operation is actually losing
+            clarity, time, and trust. From there, the work scales to fit the
+            problem: a focused sprint on a single workflow, a wider build-out,
+            or bounded ongoing support. Every model inherits the same exit
+            discipline.
+          </p>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -537,7 +551,7 @@ export function HomeContactSection() {
             tabIndex={-1}
             className="mt-4 font-display text-4xl font-bold md:text-6xl"
           >
-            START A CONVERSATION.
+            REQUEST A REALITY CHECK.
           </h2>
           <p className="mx-auto mt-6 max-w-2xl font-body text-xl leading-relaxed text-brand-black/72">
             If the problem is real, the stakes are live, and there is authority to act, we can

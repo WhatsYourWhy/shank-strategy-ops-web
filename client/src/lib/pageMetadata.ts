@@ -228,7 +228,7 @@ export function getStaticPageMetadata(path: StaticRenderablePath): PageMetadata 
             name: "Shank Strategy Ops Tools",
             url: absoluteUrl("/tools"),
             description:
-              "Production-shaped tools from Shank Strategy Ops for operations and engineering teams.",
+              "The instruments Shank Strategy Ops uses in consulting engagements, described honestly by maturity, from consulting-ready to in-validation.",
             publisher: siteConfig.publisher,
           },
           {

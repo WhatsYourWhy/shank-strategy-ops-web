@@ -36,7 +36,7 @@ interface Product {
   githubUrl?: string;
   pypiUrl?: string;
   gumroadUrl?: string;
-  status: "PRODUCTION" | "BETA" | "RESEARCH" | "AVAILABLE";
+  status: "CONSULTING-READY" | "RESEARCH" | "NEEDS VALIDATION" | "AVAILABLE";
 }
 
 const products: Product[] = [
@@ -63,7 +63,7 @@ const products: Product[] = [
       "Operations leaders, supply chain managers, and risk officers at mid-market companies who need daily situational awareness without a six-figure software contract.",
     tags: ["SUPPLY CHAIN", "RISK INTELLIGENCE", "LOCAL-FIRST", "DETERMINISTIC"],
     githubUrl: "https://github.com/WhatsYourWhy/Hardstop",
-    status: "PRODUCTION",
+    status: "CONSULTING-READY",
   },
   {
     id: "alert-axolotl-evo",
@@ -94,7 +94,7 @@ const products: Product[] = [
     ],
     githubUrl: "https://github.com/WhatsYourWhy/Alert-Axolotl-Evo",
     pypiUrl: "https://pypi.org/project/alert-axolotl-evo/1.0.0/",
-    status: "PRODUCTION",
+    status: "NEEDS VALIDATION",
   },
   {
     id: "strainer-cli",
@@ -119,7 +119,7 @@ const products: Product[] = [
       "Knowledge workers, analysts, and teams managing large document repositories who need structured, machine-readable summaries without sending documents to third-party services.",
     tags: ["DOCUMENT INTELLIGENCE", "LOCAL-FIRST", "PIPELINES", "PRIVACY"],
     githubUrl: "https://github.com/WhatsYourWhy/strainer-cli",
-    status: "PRODUCTION",
+    status: "NEEDS VALIDATION",
   },
   {
     id: "temporal-gradient",
@@ -149,7 +149,7 @@ const products: Product[] = [
       "RESEARCH",
     ],
     githubUrl: "https://github.com/WhatsYourWhy/The-Temporal-Gradient",
-    status: "BETA",
+    status: "NEEDS VALIDATION",
   },
   {
     id: "operator-toolkit",
@@ -207,7 +207,7 @@ const products: Product[] = [
       "INTERPRETABLE AI",
     ],
     githubUrl: "https://github.com/WhatsYourWhy/TopoGuard",
-    status: "BETA",
+    status: "NEEDS VALIDATION",
   },
 ];
 
@@ -265,14 +265,14 @@ function ProductsHero() {
 
 function StatusBadge({ status }: { status: Product["status"] }) {
   const config = {
-    PRODUCTION: {
-      label: "PRODUCTION",
+    "CONSULTING-READY": {
+      label: "CONSULTING-READY V1",
       className: "bg-brand-orange text-brand-black",
     },
-    BETA: {
-      label: "BETA",
+    "NEEDS VALIDATION": {
+      label: "CLAIM NEEDS VALIDATION",
       className:
-        "bg-brand-offwhite/20 text-brand-offwhite border border-brand-offwhite/40",
+        "bg-transparent text-brand-offwhite/50 border border-brand-offwhite/20",
     },
     RESEARCH: {
       label: "RESEARCH",
@@ -512,10 +512,14 @@ function ProductsCTA() {
               <span className="text-brand-orange">HOW I WORK</span>
             </h2>
             <p className="font-body text-xl text-brand-offwhite/70 mt-6 leading-relaxed">
-              These tools are open source and production-shaped. They're also
-              the instruments I use in consulting engagements — when I recommend
-              a solution, I've already built and run it. If any of these could
-              solve a problem in your organization, let's talk.
+              These are the instruments I use in consulting engagements — when I
+              recommend a solution, I've already built and run it. HARDSTOP is
+              consulting-ready today; the rest are open and in active validation,
+              and I describe their maturity honestly rather than overselling it.
+              This is the engineering proof behind the Operator Audit: I do not
+              just identify operational drift; I build instruments that make the
+              system easier to see, trust, and run. If any of these could solve a
+              problem in your organization, let's talk.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -524,7 +528,7 @@ function ProductsCTA() {
                 onClick={() => queueHomeSectionNavigation("contact", setLocation)}
                 className="inline-flex items-center gap-3 font-mono text-sm bg-brand-orange text-brand-black px-8 py-4 hover:bg-brand-offwhite transition-colors"
               >
-                START A CONVERSATION
+                REQUEST A REALITY CHECK
                 <ArrowRight className="h-4 w-4" />
               </button>
               <Link

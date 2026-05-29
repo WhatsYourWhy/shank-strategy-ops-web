@@ -41,7 +41,7 @@ export default function LeadConversationCta({
           }}
           className="mt-8 inline-flex items-center gap-3 bg-brand-orange px-6 py-3 font-mono text-sm text-brand-black transition-colors hover:bg-brand-offwhite"
         >
-          START A CONVERSATION
+          REQUEST A REALITY CHECK
           <ArrowRight className="h-4 w-4" />
         </button>
       </div>

@@ -18,7 +18,11 @@ import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { analyticsEvents, trackEvent } from "@/lib/analytics";
 import { queueHomeSectionNavigation } from "@/lib/homeNavigation";
 import { getStaticPageMetadata } from "@/lib/pageMetadata";
-import { STACKED_HEADER_OFFSET, replaceHash, scrollToElementWithOffset } from "@/lib/scroll";
+import {
+  STACKED_HEADER_OFFSET,
+  replaceHash,
+  scrollToElementWithOffset,
+} from "@/lib/scroll";
 
 // ─── Product Data ────────────────────────────────────────────────────────────
 
@@ -472,7 +476,7 @@ function ProductsNav() {
             <a
               key={p.id}
               href={`#${p.id}`}
-              onClick={(event) => {
+              onClick={event => {
                 event.preventDefault();
                 replaceHash(p.id);
                 scrollToElementWithOffset(p.id, {
@@ -514,18 +518,22 @@ function ProductsCTA() {
             <p className="font-body text-xl text-brand-offwhite/70 mt-6 leading-relaxed">
               These are the instruments I use in consulting engagements — when I
               recommend a solution, I've already built and run it. HARDSTOP is
-              consulting-ready today; the rest are open and in active validation,
-              and I describe their maturity honestly rather than overselling it.
-              This is the engineering proof behind the Operator Audit: I do not
-              just identify operational drift; I build instruments that make the
-              system easier to see, trust, and run. If any of these could solve a
-              problem in your organization, let's talk.
+              consulting-ready today; Operator Toolkit is available as a paid
+              template bundle; the remaining software instruments are open and
+              in active validation. I describe each product's maturity and
+              availability honestly rather than overselling it. This is the
+              engineering proof behind the Operator Audit: I do not just
+              identify operational drift; I build instruments that make the
+              system easier to see, trust, and run. If any of these could solve
+              a problem in your organization, let's talk.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <button
                 type="button"
-                onClick={() => queueHomeSectionNavigation("contact", setLocation)}
+                onClick={() =>
+                  queueHomeSectionNavigation("contact", setLocation)
+                }
                 className="inline-flex items-center gap-3 font-mono text-sm bg-brand-orange text-brand-black px-8 py-4 hover:bg-brand-offwhite transition-colors"
               >
                 REQUEST A REALITY CHECK
@@ -572,10 +580,7 @@ export default function Products() {
   return (
     <div className="min-h-screen bg-brand-black text-brand-offwhite">
       <BlogNavigation />
-      <main
-        id="main-content"
-        tabIndex={-1}
-      >
+      <main id="main-content" tabIndex={-1}>
         <ProductsHero />
         <ProductsNav />
 

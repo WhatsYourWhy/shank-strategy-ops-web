@@ -1,7 +1,9 @@
 import { blogPosts, type BlogPost } from "../data/blogPosts";
 import { absoluteUrl, siteConfig } from "./site";
 
-export type StructuredData = Record<string, unknown> | Array<Record<string, unknown>>;
+export type StructuredData =
+  | Record<string, unknown>
+  | Array<Record<string, unknown>>;
 
 export interface PageMetadata {
   title?: string;
@@ -36,7 +38,9 @@ export const staticRenderablePaths = [
 
 export type StaticRenderablePath = (typeof staticRenderablePaths)[number];
 
-export function resolvePageMetadata(metadata: PageMetadata): ResolvedPageMetadata {
+export function resolvePageMetadata(
+  metadata: PageMetadata
+): ResolvedPageMetadata {
   const description = metadata.description ?? siteConfig.defaultDescription;
   const path = metadata.path ?? "/";
   const type = metadata.type ?? "website";
@@ -56,7 +60,9 @@ export function resolvePageMetadata(metadata: PageMetadata): ResolvedPageMetadat
   };
 }
 
-export function getStaticPageMetadata(path: StaticRenderablePath): PageMetadata {
+export function getStaticPageMetadata(
+  path: StaticRenderablePath
+): PageMetadata {
   switch (path) {
     case "/":
       return {
@@ -228,7 +234,7 @@ export function getStaticPageMetadata(path: StaticRenderablePath): PageMetadata 
             name: "Shank Strategy Ops Tools",
             url: absoluteUrl("/tools"),
             description:
-              "The instruments Shank Strategy Ops uses in consulting engagements, described honestly by maturity, from consulting-ready to in-validation.",
+              "The instruments Shank Strategy Ops uses in consulting engagements, described honestly by maturity and availability, including consulting-ready, paid-template, and open in-validation products.",
             publisher: siteConfig.publisher,
           },
           {
@@ -286,11 +292,11 @@ export function getBlogPostMetadata(
 
 export function getAllRenderablePageMetadata() {
   return [
-    ...staticRenderablePaths.map((path) => ({
+    ...staticRenderablePaths.map(path => ({
       path,
       metadata: getStaticPageMetadata(path),
     })),
-    ...blogPosts.map((post) => ({
+    ...blogPosts.map(post => ({
       path: `/blog/${post.slug}`,
       metadata: getBlogPostMetadata(post),
     })),

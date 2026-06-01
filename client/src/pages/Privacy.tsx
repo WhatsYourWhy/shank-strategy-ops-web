@@ -29,6 +29,14 @@ export default function Privacy() {
       />
 
       <InfoCard
+        title="Analytics"
+        body={[
+          "The site uses Google Analytics (GA4) to understand aggregate traffic patterns, such as which pages are read and where visitors come from. Google Analytics sets cookies and may receive information including IP-derived approximate location, device and browser details, and pages viewed. This data is used to measure site performance, not to build advertising profiles.",
+          "Readers who prefer not to be measured can install the Google Analytics opt-out browser add-on or block analytics cookies using their browser or extension of choice.",
+        ]}
+      />
+
+      <InfoCard
         title="Cookies and advertising"
         body={[
           "The site is designed to function without requiring user accounts. If advertising is enabled through Google AdSense, Google may use cookies or similar technologies to serve and measure ads according to its own policies and user controls.",

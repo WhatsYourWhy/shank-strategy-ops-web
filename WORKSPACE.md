@@ -45,6 +45,7 @@ Copy `.env.example` to `.env.local` for local dev. **Do not commit** `.env` or `
 ### Variables (see `.env.example`)
 
 - **Contact form (Resend):** `RESEND_API_KEY`, `CONTACT_EMAIL` (and optional `RESEND_FROM_EMAIL`).
+- **Bot protection (Cloudflare Turnstile):** optional `TURNSTILE_SECRET_KEY` server-side and `VITE_TURNSTILE_SITE_KEY` browser-side. If the secret is set, `/api/contact` requires a valid Turnstile token.
 - **Maps (if you use Map):** `VITE_FRONTEND_FORGE_API_KEY`, `VITE_FRONTEND_FORGE_API_URL` (client-side, so `VITE_` prefix).
 - **Legacy (can remove if unused):** Any `VITE_OAUTH_*` / `VITE_APP_ID` from old Manus auth are no longer used.
 
@@ -55,8 +56,15 @@ Copy `.env.example` to `.env.local` for local dev. **Do not commit** `.env` or `
 ### Email (contact form → your inbox)
 
 - **Resend** (recommended): [resend.com](https://resend.com) → sign up, create API key, add a domain (or use their sandbox “onboarding@resend.dev” for testing).
-- In **Vercel**: add `RESEND_API_KEY` and `CONTACT_EMAIL` (the address that receives the form submissions).
-- The serverless function lives in `api/contact.ts` and only runs when the form POSTs to `/api/contact`.
+- In **Vercel**: add `RESEND_API_KEY` and `CONTACT_EMAIL` (the address that receives the form and Operator Audit submissions).
+- Optional anti-spam: add `TURNSTILE_SECRET_KEY` in Vercel and `VITE_TURNSTILE_SITE_KEY` in the browser env. Set both together so the client can collect a token and the API can verify it.
+- The serverless function lives in `api/contact.ts` and only runs when a form POSTs JSON to `/api/contact`.
+
+### Analytics
+
+- `client/index.html` loads the Google tag `GT-MR5X4ZRK` and configures Google Ads destination `AW-18044101045`.
+- Custom funnel events are sent through Vercel Analytics from `client/src/lib/analytics.ts`.
+- Use `docs/weekly-measurement-dashboard.md` as the runbook for reviewing CTA, contact, and Operator Audit funnel metrics.
 
 ### Vercel
 
@@ -79,7 +87,8 @@ Copy `.env.example` to `.env.local` for local dev. **Do not commit** `.env` or `
 
 2. **Contact form**
    - Resend: create account, get API key, set `RESEND_API_KEY` and `CONTACT_EMAIL` in Vercel.
-   - Frontend: add a contact form that POSTs to `/api/contact` (or keep mailto and add the API for a future form).
+   - Turnstile: if enabling bot protection, set both `TURNSTILE_SECRET_KEY` and `VITE_TURNSTILE_SITE_KEY`.
+   - Frontend: the standard contact form and Operator Audit intake already POST to `/api/contact`.
 
 3. **Vercel behavior**
    - Each push to the production branch triggers a new build and deploy.

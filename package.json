@@ -84,7 +84,7 @@
     "@vitejs/plugin-react": "^6.0.1",
     "add": "^2.0.6",
     "autoprefixer": "^10.4.27",
-    "esbuild": "^0.25.12",
+    "esbuild": "^0.28.1",
     "ffmpeg-static": "^5.3.0",
     "ffprobe-static": "^3.1.0",
     "pnpm": "^10.32.1",
@@ -104,7 +104,7 @@
     },
     "overrides": {
       "tailwindcss>nanoid": "3.3.7",
-      "esbuild": "^0.25.12",
+      "esbuild": "^0.28.1",
       "lodash-es": "^4.18.1",
       "qs": "^6.15.2",
       "uuid": "^11.1.1"

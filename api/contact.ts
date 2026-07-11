@@ -203,7 +203,9 @@ function getClientIp(request: Request): string {
 function isSameOriginRequest(request: Request): boolean {
   const origin = request.headers.get("origin");
   if (!origin) {
-    return true;
+    // Fail closed: browsers always send Origin on POST; a missing header
+    // means a non-browser client (curl/scripts).
+    return false;
   }
 
   let originUrl: URL;

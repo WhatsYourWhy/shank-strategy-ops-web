@@ -12,4 +12,12 @@ updates:
           - "@radix-ui/*"
       dev-tooling:
         dependency-type: "development"
+    ignore:
+      # TypeScript 7 is the native (tsgo) compiler and breaks Vercel's build;
+      # pnpm 11 stops reading the package.json "pnpm" field (overrides/patches).
+      # Revisit both deliberately, not via auto-bumps.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "pnpm"
+        update-types: ["version-update:semver-major"]
     # Security PRs ignore this and open immediately regardless of schedule

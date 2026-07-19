@@ -1,0 +1,32 @@
+# Shank Strategy Ops
+
+> Strategic operations consulting and AI-enabled operations implementation for small business owners, founders, and leadership teams. Put AI to work inside the business you already run — starting with a bounded $500 diagnostic, not a transformation program.
+
+Shank Strategy Ops helps leaders whose teams are busy but stuck: work blurs between owners, decisions stall, and AI tools are everywhere without making the week any lighter. The practice diagnoses the real bottleneck, names the one workflow AI should carry first, and installs the ownership and operating rhythm that keeps work moving. Engagements are bounded by design: explicit entry, exit, and success criteria, with no open-ended dependency.
+
+## The front door
+
+- [The $500 Operator Audit](https://shankstrategy.com/operator-audit): A fixed-price, fixed-scope reality check on where an operation is losing clarity, time, and trust — and where AI can take real work off the owner's plate. Written diagnosis with prioritized next moves within 5 business days. Complete on its own; nothing further is proposed unless the diagnosis earns it.
+
+After the audit, the path is explicit: AI Workflow Sprint (make the highest-leverage workflow run), AI Operations Buildout (the wider install), or AI Operator Retainer (bounded ongoing support). Pricing for these is scoped from what the audit finds.
+
+## Who it's for
+
+- Owners, operators, and managers carrying too much coordination load
+- Owners who know AI should be helping by now but can't point to one workflow where it actually is
+- Teams that function, but with more friction than they should have
+- Businesses where handoffs, follow-through, prioritization, or review quality are slipping
+
+## Key pages
+
+- [Home](https://shankstrategy.com/): Positioning, offer ladder, engagement principles, and contact
+- [Operator Audit](https://shankstrategy.com/operator-audit): The $500 diagnostic — what you get, scope, turnaround, intake
+- [Blog](https://shankstrategy.com/blog): Original operator notes and essays on strategy execution, operations, deterministic systems, and AI in real workflows
+- [Tools](https://shankstrategy.com/tools): Operational tools and systems used in consulting engagements
+- [About](https://shankstrategy.com/about): How the consulting practice, essays, and tools fit together
+- [Methodology](https://shankstrategy.com/methodology): How content is sourced, reviewed, and updated
+
+## Contact
+
+- Email: contact@shankstrategy.com (response within 48 hours)
+- Start here: https://shankstrategy.com/operator-audit

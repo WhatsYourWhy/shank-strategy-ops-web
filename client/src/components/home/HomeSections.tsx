@@ -8,7 +8,7 @@ import {
   homeDeliverables,
   homeEngagementPhases,
   homeHiringReasons,
-  homeModels,
+  homeOfferLadder,
   homePrinciples,
   homeProofStrip,
   homePublishingStandards,
@@ -45,7 +45,7 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
               transition={{ duration: 0.5 }}
               className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/80"
             >
-              STRATEGY EXECUTION AND OPERATIONAL REPAIR
+              AI-ENABLED OPERATIONS IMPLEMENTATION
             </motion.p>
 
             <motion.h1
@@ -54,11 +54,11 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
               transition={{ duration: 0.6, delay: 0.08 }}
               className="mt-6 font-display text-5xl font-bold leading-[0.88] tracking-tight md:text-7xl xl:text-8xl"
             >
-              WHEN EXECUTION
+              PUT AI TO WORK
               <br />
-              <span className="text-brand-orange">STARTS TO DRIFT,</span>
+              <span className="text-brand-orange">INSIDE THE BUSINESS</span>
               <br />
-              WE REBUILD THE SYSTEM.
+              YOU ALREADY RUN.
             </motion.h1>
 
             <motion.p
@@ -67,8 +67,9 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
               transition={{ duration: 0.6, delay: 0.16 }}
               className="mt-8 max-w-2xl font-body text-xl leading-relaxed text-brand-offwhite/76 md:text-2xl"
             >
-              Strategic operations consulting for leadership teams dealing with stalled
-              execution, unclear ownership, and operating cadences that create more noise than control.
+              Strategic operations consulting for owners and leadership teams who know
+              AI should be taking real work off their plate — and can't get it past
+              the demo stage.
             </motion.p>
 
             <motion.p
@@ -77,9 +78,10 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-4 max-w-2xl font-body text-lg leading-relaxed text-brand-offwhite/68"
             >
-              Shank Strategy Ops steps into messy, high-stakes work, clarifies ownership,
-              stabilizes the operating rhythm, and leaves the team stronger than it was
-              when we arrived.
+              We don't sell "AI transformation." We pick one workflow that matters,
+              put AI and clear ownership against it, prove it under real conditions,
+              and move to the next. The discipline underneath doesn't change: bounded
+              scope, explicit authority, clean exits.
             </motion.p>
 
             <motion.div
@@ -88,23 +90,23 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
               transition={{ duration: 0.6, delay: 0.28 }}
               className="mt-10 flex flex-col gap-4 sm:flex-row"
             >
-              <Button
+              <Link
+                href="/operator-audit"
                 onClick={() => {
                   trackEvent(analyticsEvents.heroCtaClicked, { source: "home-hero-primary" });
-                  scrollToSection("contact");
                 }}
-                className="rounded-none bg-brand-orange px-8 py-6 font-mono text-sm text-brand-black hover:bg-brand-offwhite"
+                className="inline-flex items-center justify-center rounded-none bg-brand-orange px-8 py-4 font-mono text-sm text-brand-black transition-colors hover:bg-brand-offwhite"
               >
-                REQUEST A REALITY CHECK
+                START WITH THE $500 AUDIT
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              </Link>
 
               <Button
-                onClick={() => scrollToSection("engagement")}
+                onClick={() => scrollToSection("models")}
                 variant="outline"
                 className="rounded-none border-brand-offwhite text-brand-offwhite hover:bg-brand-offwhite hover:text-brand-black"
               >
-                SEE THE ENGAGEMENT MODEL
+                SEE THE OFFER LADDER
               </Button>
             </motion.div>
           </div>
@@ -120,8 +122,8 @@ export function HomeHeroSection({ scrollToSection }: ScrollProps) {
             </h2>
             <div className="mt-5 space-y-5">
               {[
+                "AI is everywhere in the business — drafts, summaries, replies — and the week didn't get any lighter.",
                 "A strategy exists, but no one can make the work move cleanly.",
-                "Teams are busy, but the system is producing noise instead of leverage.",
                 "Leadership needs a bounded operator, not another permanent dependency.",
               ].map((item) => (
                 <div key={item} className="flex gap-3">
@@ -334,54 +336,61 @@ export function HomeModelsSection() {
     >
       <div className="container">
         <div className="max-w-3xl">
-          <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">ENGAGEMENT MODELS</p>
+          <p className="font-mono text-sm tracking-[0.28em] text-brand-offwhite/78">THE OFFER LADDER</p>
           <h2
             id="models-heading"
             tabIndex={-1}
             className="mt-4 font-display text-4xl font-bold md:text-6xl"
           >
-            STRUCTURE SHOULD MATCH
+            START BOUNDED.
             <br />
-            THE PROBLEM.
+            SCALE ON PROOF.
           </h2>
           <p className="mt-6 max-w-2xl font-body text-xl leading-relaxed text-brand-offwhite/72">
-            Most engagements start with the{" "}
+            Every engagement starts with the{" "}
             <Link
               href="/operator-audit"
               className="text-brand-orange underline-offset-4 hover:underline"
             >
               Operator Audit
             </Link>{" "}
-            — a bounded $500 read on where the operation is actually losing
-            clarity, time, and trust. From there, the work scales to fit the
-            problem: a focused sprint on a single workflow, a wider build-out,
-            or bounded ongoing support. Every model inherits the same exit
-            discipline.
+            — a bounded $500 reality check on where the operation is actually
+            losing clarity, time, and trust, and where AI can take real work
+            off the plate. From there the ladder is explicit. Pricing for the
+            later rungs is scoped from what the audit finds — no packages, no
+            surprise retainers. Every rung inherits the same exit discipline.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {homeModels.map((model, index) => (
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {homeOfferLadder.map((offer, index) => (
             <motion.article
-              key={model.title}
+              key={offer.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.05 }}
-              className="border border-brand-offwhite/10 bg-brand-charcoal p-8"
+              className="flex flex-col border border-brand-offwhite/10 bg-brand-charcoal p-8"
             >
-              <h3 className="font-display text-3xl font-bold text-brand-offwhite">{model.title}</h3>
-              <p className="mt-4 font-body text-base leading-relaxed text-brand-offwhite/74">
-                <span className="text-brand-offwhite font-semibold">Use when:</span> {model.useWhen}
+              <p className="font-mono text-4xl font-bold text-brand-orange">{offer.step}</p>
+              <h3 className="mt-5 font-display text-2xl font-bold text-brand-offwhite">
+                {offer.title}
+              </h3>
+              <p className="mt-2 font-mono text-xs tracking-[0.18em] text-brand-offwhite/64">
+                {offer.tag}
               </p>
-              <div className="mt-6 space-y-3">
-                {model.typicalUses.map((item) => (
-                  <div key={item} className="flex gap-3">
-                    <div className="mt-1.5 h-2 w-2 flex-shrink-0 bg-brand-orange" />
-                    <p className="font-body text-sm leading-relaxed text-brand-offwhite/70">{item}</p>
-                  </div>
-                ))}
-              </div>
+              <p className="mt-4 flex-1 font-body text-base leading-relaxed text-brand-offwhite/74">
+                {offer.description}
+              </p>
+              {"href" in offer && (
+                <Link
+                  href={offer.href}
+                  className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-brand-orange transition-colors hover:text-brand-offwhite"
+                >
+                  START HERE
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              )}
             </motion.article>
           ))}
         </div>

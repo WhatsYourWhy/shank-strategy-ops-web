@@ -67,9 +67,9 @@ export function getStaticPageMetadata(
     case "/":
       return {
         path: "/",
-        title: "Strategic Operations Consulting, Operator Notes, and Tools",
+        title: "Put AI to Work Inside the Business You Already Run",
         description:
-          "Shank Strategy Ops provides strategic operations consulting for leaders fixing execution drift, decision bottlenecks, and operating cadences that no longer hold under real conditions.",
+          "AI-enabled operations implementation and strategic operations consulting. Start with the bounded $500 Operator Audit: find the workflow AI should carry, and fix the execution drift underneath.",
         structuredData: [
           {
             "@context": "https://schema.org",
@@ -82,7 +82,7 @@ export function getStaticPageMetadata(
             url: absoluteUrl("/"),
             email: siteConfig.email,
             description:
-              "Strategic operations consulting and operational repair for leaders who need clearer control, stronger operating cadences, and durable systems.",
+              "AI-enabled operations implementation and strategic operations consulting for owners and leadership teams — starting with a bounded $500 Operator Audit, scaling to workflow sprints, buildouts, and bounded advisory.",
             areaServed: "United States",
           },
           {
@@ -192,21 +192,22 @@ export function getStaticPageMetadata(
       };
     case "/operator-audit":
       return {
-        title: "The $500 Operator Audit",
+        title: "The $500 Operator Audit — an AI Workflow Reality Check",
         path: "/operator-audit",
         description:
-          "A focused outside read on where your operation is losing clarity, time, and trust. A written diagnosis of structural drag and prioritized next moves, delivered within 5 business days.",
+          "A focused outside read on where your operation is losing clarity, time, and trust — and where AI can take real work off your plate. Written diagnosis and prioritized next moves within 5 business days.",
         structuredData: [
           {
             "@context": "https://schema.org",
             "@type": "Service",
             name: "Operator Audit",
-            serviceType: "Operations diagnostic",
+            alternateName: "AI Workflow Reality Check",
+            serviceType: "Operations and AI workflow diagnostic",
             provider: siteConfig.publisher,
             url: absoluteUrl("/operator-audit"),
             areaServed: "United States",
             description:
-              "A focused diagnostic of how an operation is functioning, with a written audit identifying structural drag and prioritized next moves.",
+              "A focused diagnostic of how an operation is functioning, with a written audit identifying structural drag, where AI can carry real work, and prioritized next moves.",
             offers: {
               "@type": "Offer",
               price: "500",

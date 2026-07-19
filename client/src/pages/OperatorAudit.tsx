@@ -17,11 +17,13 @@ const whatYouGet = [
   "a close read of your current operating reality",
   "a written diagnosis of the main sources of drag, ambiguity, or breakdown",
   "a clear statement of the structural issues underneath the symptoms",
+  "a straight read on where AI can take real work off your plate first — and where it should not",
   "practical next-step recommendations",
 ];
 
 const whoItsFor = [
   "owners, operators, and managers carrying too much coordination load",
+  "owners who know AI should be helping by now, but can't point to one workflow where it actually is",
   "teams that are functioning, but with more friction than they should have",
   "leaders who can feel the drag but have not yet named the pattern clearly",
   "businesses where handoff, follow-through, prioritization, or review quality are slipping",
@@ -68,7 +70,7 @@ function Hero() {
           transition={{ duration: 0.6 }}
         >
           <span className="font-mono text-brand-offwhite/80 text-sm tracking-widest">
-            SERVICE — $500
+            SERVICE — $500 · THE AI WORKFLOW REALITY CHECK
           </span>
         </motion.div>
 
@@ -88,8 +90,8 @@ function Hero() {
           className="font-body text-xl md:text-2xl text-brand-offwhite/75 mt-8 max-w-3xl leading-relaxed"
         >
           A focused outside read on where your operation is losing clarity,
-          time, and trust, including where AI is quietly reshaping your
-          handoffs, reviews, and decisions.
+          time, and trust — and where AI can take real work off your plate
+          instead of just redecorating it.
         </motion.p>
 
         <motion.div
@@ -111,7 +113,13 @@ function Hero() {
           <p>
             It is a close read of where work is getting blurred, delayed, or
             absorbed by the system around it — and a written set of
-            recommendations for what to simplify, clarify, or change next.
+            recommendations for what to simplify, clarify, automate, or change
+            next.
+          </p>
+          <p>
+            It is also the reality check most owners need on AI: what it is
+            actually doing inside your operation today, and the one workflow
+            where it could carry real weight first.
           </p>
         </motion.div>
 
@@ -213,10 +221,46 @@ export default function OperatorAudit() {
           </div>
         </section>
 
+        {/* Where AI fits */}
+        <section className="py-20 border-b border-border bg-brand-charcoal">
+          <div className="container max-w-4xl">
+            <SectionHeading
+              eyebrow="02 / WHERE AI FITS"
+              title="On AI in your operation"
+            />
+            <div className="space-y-5 font-body text-lg text-brand-offwhite/85 leading-relaxed">
+              <p>
+                AI is in your stack already: in the drafts your team sends, the
+                summaries you read, the replies the system handles before you see
+                them, the memos that read clean but don&apos;t actually decide
+                anything.
+              </p>
+              <p>
+                The audit reads it the same way it reads any other part of the
+                operation: where is it making the work clearer, and where is it
+                making the work <em>look</em> clearer while the underlying
+                problem keeps moving?
+              </p>
+              <p>
+                And it names where AI could carry more. The audit identifies the
+                single workflow where AI plus clear ownership would remove the
+                most load — the natural first move if you decide to go further
+                than the audit.
+              </p>
+              <p>
+                The point is not to add AI or remove AI. The point is to know
+                what it&apos;s actually doing to your handoffs, your decisions,
+                and the trust your team places in the output — and what it could
+                be doing instead.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Who this is for */}
         <section className="py-20 border-b border-border">
           <div className="container max-w-4xl">
-            <SectionHeading eyebrow="02 / AUDIENCE" title="Who this is for" />
+            <SectionHeading eyebrow="03 / AUDIENCE" title="Who this is for" />
             <BulletList items={whoItsFor} />
             <div className="mt-10 space-y-4 font-body text-brand-offwhite/80 leading-relaxed">
               <p>
@@ -235,7 +279,7 @@ export default function OperatorAudit() {
         <section className="py-20 border-b border-border bg-brand-charcoal">
           <div className="container max-w-4xl">
             <SectionHeading
-              eyebrow="03 / SCOPE"
+              eyebrow="04 / SCOPE"
               title="What the audit looks at"
             />
             <p className="font-body text-lg text-brand-offwhite/80 leading-relaxed mb-8">
@@ -265,7 +309,7 @@ export default function OperatorAudit() {
         <section className="py-20 border-b border-border">
           <div className="container max-w-4xl">
             <SectionHeading
-              eyebrow="04 / APPROACH"
+              eyebrow="05 / APPROACH"
               title="What makes this different"
             />
             <div className="space-y-5 font-body text-lg text-brand-offwhite/85 leading-relaxed">
@@ -289,35 +333,6 @@ export default function OperatorAudit() {
                   Tools page
                 </Link>
                 .
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* On AI in your operation */}
-        <section className="py-20 border-b border-border bg-brand-charcoal">
-          <div className="container max-w-4xl">
-            <SectionHeading
-              eyebrow="05 / AI"
-              title="On AI in your operation"
-            />
-            <div className="space-y-5 font-body text-lg text-brand-offwhite/85 leading-relaxed">
-              <p>
-                AI is in your stack already: in the drafts your team sends, the
-                summaries you read, the replies the system handles before you see
-                them, the memos that read clean but don&apos;t actually decide
-                anything.
-              </p>
-              <p>
-                The audit reads it the same way it reads any other source of
-                drift: where is it making the work clearer, and where is it
-                making the work <em>look</em> clearer while the underlying
-                problem keeps moving?
-              </p>
-              <p>
-                The point is not to add AI or remove AI. The point is to know
-                what it&apos;s actually doing to your handoffs, your decisions,
-                and the trust your team places in the output.
               </p>
             </div>
           </div>
@@ -404,6 +419,60 @@ export default function OperatorAudit() {
           </div>
         </section>
 
+        {/* After the audit */}
+        <section className="py-20 border-b border-border">
+          <div className="container max-w-4xl">
+            <SectionHeading
+              eyebrow="09 / AFTER THE AUDIT"
+              title="What happens after"
+            />
+            <div className="space-y-4 font-body text-lg text-brand-offwhite/85 leading-relaxed">
+              <p>
+                The audit is complete on its own. You can take the diagnosis and
+                run with it — that is a legitimate outcome, not a failed sale.
+              </p>
+              <p>If you want help acting on it, the path is explicit:</p>
+            </div>
+            <div className="mt-8 grid gap-3">
+              {[
+                {
+                  title: "AI Workflow Sprint",
+                  description:
+                    "a short, bounded engagement that takes the highest-leverage workflow from the audit and makes it run",
+                },
+                {
+                  title: "AI Operations Buildout",
+                  description:
+                    "the wider install: connected workflows, operating cadence, and the documentation your team needs to run it without me",
+                },
+                {
+                  title: "AI Operator Retainer",
+                  description:
+                    "bounded ongoing support for leaders who want a senior operator watching the system",
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="border border-brand-offwhite/15 bg-brand-charcoal px-5 py-4"
+                >
+                  <span className="font-display text-lg font-bold text-brand-offwhite">
+                    {item.title}
+                  </span>
+                  <span className="font-body text-brand-offwhite/78">
+                    {" "}
+                    — {item.description}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 font-body text-brand-offwhite/75 leading-relaxed">
+              Pricing for these is scoped from what the audit finds — no
+              packages, no surprise retainers. Nothing past the audit is
+              proposed unless the diagnosis earns it.
+            </p>
+          </div>
+        </section>
+
         {/* Intake / CTA */}
         <section
           id="intake"
@@ -412,7 +481,7 @@ export default function OperatorAudit() {
           <div className="container max-w-3xl">
             <div className="mb-10">
               <p className="font-mono text-xs tracking-[0.28em] text-brand-offwhite/70">
-                09 / READY TO START
+                10 / READY TO START
               </p>
               <h2 className="mt-4 font-display text-3xl md:text-5xl font-bold leading-tight">
                 Start the audit.

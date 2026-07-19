@@ -1,15 +1,15 @@
 export const homeProofStrip = [
   {
     label: "WHO WE HELP",
-    value: "Founder-led firms, operators, and executives who can actually change the system.",
+    value: "Owners, founder-led firms, and small leadership teams who can actually change how the business runs.",
   },
   {
     label: "WHAT WE FIX",
-    value: "Execution drift, unclear ownership, noisy reporting, and operating models that no longer hold.",
+    value: "Workflows AI should be carrying but isn't — and the execution drift, unclear ownership, and noisy cadences underneath.",
   },
   {
     label: "HOW WE ENGAGE",
-    value: "Bounded diagnostic and execution work with explicit entry, exit, and success criteria.",
+    value: "Start with a bounded $500 audit. Scale only when the diagnosis earns it. Explicit entry, exit, and success criteria.",
   },
   {
     label: "RESPONSE TIME",
@@ -21,7 +21,7 @@ export const homeHiringReasons = [
   {
     title: "Operator-level diagnosis",
     description:
-      "We do not begin with theater. We map the actual decision flow, where the work stalls, and what is creating avoidable entropy.",
+      "We do not begin with theater. We map the actual decision flow, where the work stalls, and where AI is helping, pretending to help, or quietly making things worse.",
   },
   {
     title: "Bounded execution",
@@ -36,8 +36,9 @@ export const homeHiringReasons = [
 ] as const;
 
 export const homeDeliverables = [
-  "Operational diagnostic with pressure points and decision bottlenecks",
+  "Operational diagnostic with pressure points, decision bottlenecks, and where AI can carry real load",
   "Ownership map with escalation paths and handoff rules",
+  "One working AI-backed workflow with explicit ownership — not a pilot deck",
   "Execution cadence that makes progress visible without dashboard theater",
   "Transition package so the team can keep moving without us",
 ] as const;
@@ -108,21 +109,35 @@ export const homeEngagementPhases = [
   },
 ] as const;
 
-export const homeModels = [
+export const homeOfferLadder = [
   {
-    title: "Fixed-scope intervention",
-    useWhen: "The problem is legible, urgency is real, and a defined reset is more useful than an indefinite retainer.",
-    typicalUses: ["Operational diagnostics", "Decision-rights reset", "Execution system repair"],
+    step: "01",
+    title: "Operator Audit",
+    tag: "$500 · THE FRONT DOOR",
+    href: "/operator-audit",
+    description:
+      "A bounded reality check on how the operation actually functions: where work blurs, stalls, or gets absorbed — and which single workflow AI should take over first.",
   },
   {
-    title: "Strategic advisory retainer",
-    useWhen: "Leadership needs a senior operating counterpart for ongoing judgment, escalation, and execution pressure.",
-    typicalUses: ["Executive operating support", "Cross-functional decision hygiene", "Program oversight"],
+    step: "02",
+    title: "AI Workflow Sprint",
+    tag: "SCOPED FROM THE AUDIT",
+    description:
+      "A short, bounded engagement that takes the highest-leverage workflow from the audit and makes it run: AI where it earns its place, ownership and handoffs made explicit, proven under live conditions.",
   },
   {
-    title: "Embedded build-out",
-    useWhen: "A new operating motion, reporting structure, or toolchain has to be installed before internal ownership can fully absorb it.",
-    typicalUses: ["New cadence design", "Control layers", "Tool-backed operating workflows"],
+    step: "03",
+    title: "AI Operations Buildout",
+    tag: "SCOPED FROM THE AUDIT",
+    description:
+      "The wider install: connected workflows, operating cadence, control layers, and the documentation a team needs to run the system without us.",
+  },
+  {
+    step: "04",
+    title: "AI Operator Retainer",
+    tag: "BY FIT ONLY",
+    description:
+      "Bounded ongoing support for leaders who want a senior operator watching the system: judgment, escalation, and follow-through, reviewed regularly for leverage over load.",
   },
 ] as const;
 

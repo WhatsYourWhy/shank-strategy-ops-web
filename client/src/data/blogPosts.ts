@@ -30,6 +30,190 @@ export interface BlogSubsection {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "why-ai-hasnt-made-your-business-faster-yet",
+    title: "Why AI Hasn't Made Your Business Faster Yet",
+    subtitle: "The tool was never the bottleneck.",
+    author: "Shank Strategy Ops",
+    authorTitle: "Strategy Execution & Operational Excellence",
+    publishedDate: "2026-07-19",
+    readingTime: "8 min read",
+    tldr:
+      "Most small businesses are \"using AI\" everywhere and saving time nowhere, because AI compresses tasks while the real cost of work lives in coordination: ownership, handoffs, and decisions. Worse, AI output often reads clean while deciding nothing, hiding the stall. The fix isn't a transformation program — it's one workflow, with AI on the parts it can carry and a named owner on the parts it can't, proven under live conditions before you touch the next one.",
+    tags: ["AI", "Operations", "Strategy"],
+    sections: [
+      {
+        id: "the-pattern",
+        number: "I",
+        title: "The Pattern",
+        content: [
+          "Here is a conversation happening in thousands of small businesses right now. The owner says: we're using AI. The team is drafting emails with it, summarizing meetings with it, writing proposals with it. Someone bought the subscriptions. Someone ran a lunch-and-learn. By every visible measure, the business has adopted AI.",
+          "And the owner's week is exactly as heavy as it was a year ago.",
+          "The proposals go out faster, but deals don't close faster. The meeting summaries are tidy, but the same decisions get revisited next week. The inbox drafts are instant, but the inbox itself has not shrunk. Everyone is demonstrably using the tools, and nothing about how the business actually runs has changed.",
+          "If that describes your operation, the natural conclusion is that you're doing AI wrong — wrong tools, wrong prompts, wrong training. The market is happy to sell you that conclusion, because every version of it ends with buying something else.",
+          "The actual explanation is simpler and cheaper, but it requires looking somewhere less comfortable: not at the tools, but at the structure of the work the tools were dropped into.",
+        ],
+      },
+      {
+        id: "where-the-time-actually-goes",
+        number: "II",
+        title: "Where the Time Actually Goes",
+        content: [
+          "Break any piece of knowledge work into its parts and you find two different kinds of cost. There is the task itself — drafting the email, building the estimate, writing the summary. And there is everything around the task: figuring out who should do it, waiting for the information it needs, handing it to the next person, deciding whether it's good enough, and confirming it actually happened.",
+          "Call the first kind task time and the second kind coordination time. In a small business with more than a couple of people, coordination time dominates — not because anyone is lazy, but because coordination scales with every person, tool, and decision you add. The estimate that takes forty minutes to build spends three days in motion: waiting for the site notes, waiting for the owner to review it, waiting for someone to notice it never went out.",
+          "AI compresses task time. It is genuinely excellent at this — a strong draft in seconds, a summary in one pass. But it does almost nothing for coordination time on its own, because coordination is not a writing problem. It is a structure problem: who owns this, what happens next, who decides.",
+          "So when a business adopts AI tool-by-tool, it speeds up the forty minutes and leaves the three days untouched. The math is brutal. You can compress task time to zero and the work still takes three days. That is why the week doesn't get lighter: the bottleneck was never the part AI accelerates.",
+        ],
+      },
+      {
+        id: "false-coherence",
+        number: "III",
+        title: "False Coherence",
+        content: [
+          "There is a second effect, and it is sneakier, because it doesn't just fail to help — it actively hides the problem.",
+          "AI output is fluent. The status update it drafts has confident topic sentences and a tidy summary. The proposal reads like a proposal. The meeting recap looks like the work of someone on top of things. Language models are, by construction, extremely good at producing text with the surface texture of competence.",
+          "But fluency and resolution are different things. A report can read clean and decide nothing. An update can cover every project and leave every open question open. Before AI, a vague update looked vague — the owner read it and knew something was off. Now the vague update reads beautifully, and the signal is gone.",
+          "Call this false coherence: work that looks finished at the level of language while the underlying question — who does what by when — is still unanswered. It produces soft handoffs, where a polished document moves to the next person without anyone agreeing on what they're supposed to do with it. It produces unaccountable work, where \"the tool wrote it\" quietly replaces a person standing behind it.",
+          "This is why some operations actually feel slower after adopting AI. Not because the tools are bad, but because the drift that used to be visible now wears a good suit.",
+        ],
+      },
+      {
+        id: "why-ai-pilots-fail",
+        number: "IV",
+        title: "Why the Pilot Didn't Stick",
+        content: [
+          "Most small-business AI adoption follows the same arc: someone champions a tool, a pilot gets run, the demo impresses, and three months later usage has quietly decayed back to whoever personally likes the tool. The post-mortem usually blames the technology or the team's willingness to change.",
+          "But look at what the pilot actually tested. It tested whether the tool works — and the tool almost always works. What it never tested is the workflow: whether a named person owns the output, whether the handoff into and out of the AI step is defined, whether anyone agreed what \"working\" means under live conditions, on a bad week, with a real customer waiting.",
+          "A demo runs under demo conditions — someone attentive at the keyboard, a forgiving audience, no deadline. An operation runs under live conditions — interruptions, edge cases, handoffs to people who weren't in the room. A pilot that doesn't name an owner and an exit standard isn't a test of anything. It's a rehearsal for the decay.",
+          "This is also why the phrase \"AI transformation\" should make any operator reach for their wallet with both hands. A transformation program multiplies the pilot problem across the whole business at once: many tools, many workflows, no owners, all at demo fidelity. The roadmap deck is fluent, too.",
+        ],
+      },
+      {
+        id: "one-workflow-that-works",
+        number: "V",
+        title: "One Workflow That Works",
+        content: [
+          "The alternative is almost embarrassingly modest, which is exactly why it works.",
+          "Pick one workflow. Not five. The right candidate is the one costing you the most time and trust — usually something recurring, cross-person, and quietly resented: the estimate process, the weekly client update, intake and triage of new requests, the handoff between sales and delivery.",
+          "Split it honestly into what AI can carry and what it cannot. AI carries drafting, summarizing, triaging, formatting, first-pass extraction. It cannot carry ownership, judgment, or the decision. Those stay with a named person — one name, not a team.",
+          "Then make the structure explicit. Where does the work enter? What does the AI step produce, and who is accountable for it as if they wrote it themselves? What does the next person receive, and what are they supposed to do with it? What does done mean, and who confirms it?",
+          "Then prove it under live conditions. Not in a demo — in three real weeks, with real interruptions, measured against the thing you actually cared about: the estimate that used to take three days going out in one, the update that used to generate a clarifying-questions thread generating none.",
+          "Only after it holds do you touch the second workflow. The discipline of sequence is the whole method. Each workflow that genuinely works builds the operational muscle — and the trust — that the next one borrows.",
+        ],
+      },
+      {
+        id: "what-to-do-this-week",
+        number: "VI",
+        title: "What To Do This Week",
+        content: [
+          "If you want to test this against your own operation, you don't need a program. You need an hour and three honest questions.",
+          "First: list every place AI is already being used in your business — including the uses nobody announced. Drafts, summaries, replies, research. Most owners are surprised by the length of this list, and by how little of it they chose.",
+          "Second: for each use, ask who owns the output. Not who runs the tool — who stands behind what it produces, the way they'd stand behind their own work. Every blank in that column is a place where false coherence can hide.",
+          "Third: name the one workflow that, if it ran without you for a month, would change what your week feels like. That's your candidate. That's where AI plus explicit ownership is worth proving first.",
+          "If you can answer all three cleanly, you likely don't need outside help — you need a quiet afternoon and the discipline to fix the first workflow before the second. If the answers blur — if you can't say where the work stalls or who owns what the tools produce — that's the diagnosis worth paying for before any implementation. It's the reason our engagements start with a bounded, fixed-price read of the operation rather than a proposal: the one workflow that matters is only obvious after someone names the actual bottleneck.",
+          "Either way, the principle holds. AI will not make your business faster. A workflow that works — with AI carrying what it can and a person owning what it can't — will. One at a time.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "the-founder-bottleneck-six-questions",
+    title: "The Founder Bottleneck: Six Questions That Find Where Work Actually Gets Stuck",
+    subtitle: "You can't fix what you haven't named.",
+    author: "Shank Strategy Ops",
+    authorTitle: "Strategy Execution & Operational Excellence",
+    publishedDate: "2026-07-20",
+    readingTime: "7 min read",
+    tldr:
+      "Stuck teams almost never lack effort — they lack a named bottleneck, and the misdiagnosis (\"we need better people / more tools / more hours\") is what keeps them stuck. Six questions locate where work actually stalls: where decisions wait, where handoffs blur, what gets discussed twice, what only the owner can touch, where done goes fuzzy, and where AI runs without an owner. In founder-led businesses the honest answer to several of them is usually the founder.",
+    tags: ["Operations", "Leadership", "Strategy"],
+    sections: [
+      {
+        id: "the-misdiagnosis",
+        number: "I",
+        title: "The Misdiagnosis",
+        content: [
+          "When a small business feels stuck, the explanations on offer are always the same. We need better people. We need better tools. We just need to get through this busy stretch. Each of these has the ring of a diagnosis, and each conveniently locates the problem somewhere that doesn't require changing how the business is actually structured.",
+          "But watch a stuck team closely and you almost never find a shortage of effort. You find effort pouring into a system that loses it — work that blurs between people, decisions that wait in someone's head, the same ground covered in meeting after meeting. The team is rowing hard. The boat is taking on water through joints nobody has inspected.",
+          "A bottleneck, properly understood, is not the busiest person or the most annoying process. It is the specific point where work accumulates faster than it flows through — and everything downstream of it starves no matter how hard anyone works. Every operation has one. Most operations have never named theirs.",
+          "In founder-led businesses there is an additional, awkward fact: the bottleneck is very often the founder. Not because founders are incompetent — because the business grew around them. Every path was originally routed through the person who could do everything, and nobody re-routed the paths when the volume outgrew the person.",
+          "The questions below are the ones that surface it. They work best answered in writing, honestly, with specific recent examples rather than general impressions. Vague answers are themselves data.",
+        ],
+      },
+      {
+        id: "six-questions",
+        number: "II",
+        title: "The Six Questions",
+        subsections: [
+          {
+            title: "1. Where do decisions wait?",
+            content: [
+              "Take the last ten meaningful decisions in your business — pricing a job, hiring, approving an exception, greenlighting a purchase. For each: how long did the decision take once the information was available? Not the analysis. The waiting.",
+              "Decisions that wait are the purest form of bottleneck, because everything attached to them waits too. And decisions usually wait in one of two places: in a queue in front of one person, or in ambiguity, where nobody is sure they're allowed to make the call. Both are structural. Neither is fixed by working harder.",
+            ],
+          },
+          {
+            title: "2. Where does work change hands — and what happens to it there?",
+            content: [
+              "Follow one recent piece of work — a customer request, a project, an estimate — from entry to completion, and mark every handoff. At each one: did the receiving person know it was theirs? Did they know what done looks like? Did anything have to be re-explained, re-formatted, or chased?",
+              "Handoffs are where operations quietly bleed. Work that moves cleanly between people needs a shared definition of what's being handed over; work that doesn't gets absorbed — it sits in the gap between two people, each assuming it's the other's, until a customer asks about it.",
+            ],
+          },
+          {
+            title: "3. What gets discussed more than once?",
+            content: [
+              "Pull up your last month of meetings and find the repeat topics — the initiative that gets 'aligned on' every week, the policy question that keeps resurfacing, the project whose status is always 'in progress.'",
+              "A topic that gets discussed twice without changing is not being discussed. It's being deferred with ceremony. Recurring discussion is the sound of a missing decision right: no one in the room is sure they own the call, so the group re-litigates instead. The cost isn't the meeting time — it's everything that stayed frozen between the meetings.",
+            ],
+          },
+          {
+            title: "4. What can only you touch?",
+            content: [
+              "List everything in the business that stops moving when you're unavailable for three days. Quotes? Approvals? Client communication? Payroll? The answer to a specific technical question that lives only in your head?",
+              "This is the founder-bottleneck question, and the honest version of the list is usually longer than the flattering version. Some of it is genuinely yours to hold. Most of it is routing that made sense at half your current size and was never revisited. The tell is emotional: the items you'd defend hardest as 'faster if I just do it' are usually the ones most worth moving.",
+            ],
+          },
+          {
+            title: "5. Where does 'done' go blurry?",
+            content: [
+              "Find the work in your operation that is chronically ninety percent finished — the proposal that's 'basically ready,' the process that's 'mostly rolled out,' the hire that's 'nearly onboarded.'",
+              "Work stalls at ninety percent when nobody defined the last ten — when done means 'when it feels done' rather than a state someone can verify. Blurry completion is expensive twice: the work delivers no value while it hovers, and it occupies attention the whole time. An operation with crisp definitions of done feels lighter at the same workload.",
+            ],
+          },
+          {
+            title: "6. Where is AI running without an owner?",
+            content: [
+              "The newest version of an old problem. List where AI is producing work in your business — drafts, summaries, replies, research — and for each, name the person who stands behind the output as if they'd made it themselves.",
+              "Every blank on that list is a soft spot. AI-produced work without a named owner reads finished while committing no one, and it quietly converts your operation's drift into confident-sounding prose. The bottleneck questions above get harder to answer in an operation where the paper trail is fluent and accountable to nobody.",
+            ],
+          },
+        ],
+        content: [],
+      },
+      {
+        id: "reading-your-answers",
+        number: "III",
+        title: "Reading Your Answers",
+        content: [
+          "Patterns matter more than any single answer.",
+          "If decisions wait mostly on you, and the only-you list is long, the constraint is routing: the business still runs on paths drawn when you were half this size. The fix is not delegation as a virtue — it's explicitly moving specific decision rights, with the authority to be wrong, one category at a time.",
+          "If handoffs blur and done is fuzzy, the constraint is definition: work isn't specified crisply enough to move between people without losing shape. The fix is unglamorous — owners on recurring work, entry and exit criteria on the handoffs that bleed the most.",
+          "If topics repeat and meetings multiply, the constraint is decision rights: your operating rhythm has plenty of ceremony and no mechanism for closure. The fix is deciding who decides, then letting the meetings shrink to fit.",
+          "And if the AI column is full of blanks, resist the urge to ban or evangelize the tools. The tools are revealing a structure problem that predates them. Fix the ownership, and the tools become genuinely useful; skip it, and they become a fog machine.",
+        ],
+      },
+      {
+        id: "naming-it",
+        number: "IV",
+        title: "Naming It Is the Hard Part",
+        content: [
+          "None of the fixes above are exotic. Decision rights, clean handoffs, crisp definitions of done, named owners — every operator has heard all of it. The hard part is never the fix. It's the naming: seeing your own operation clearly enough to say 'this specific point is where our work goes to wait' — especially when the honest answer implicates the person doing the naming.",
+          "That's the case for an outside read, and it's the reason our work starts with one — a bounded, fixed-price diagnostic rather than a proposal. Not because the questions are secret; they're printed above. Because the founder answering them alone is grading their own homework, on the precise subject where self-grading fails.",
+          "But start with the questions. An hour of honest written answers will tell you more about why your business feels heavy than a quarter of pushing harder. Effort was never the missing ingredient. A named bottleneck, and the nerve to fix that one first — that's the whole game.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "the-externalized-mind-from-cave-walls-to-the-age-of-joules",
     title: "The Externalized Mind: From Cave Walls to the Age of Joules",
     author: "Shank Strategy Ops",

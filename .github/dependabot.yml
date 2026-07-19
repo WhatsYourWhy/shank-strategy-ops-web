@@ -7,6 +7,15 @@ updates:
       day: "monday"
     open-pull-requests-limit: 5
     groups:
+      # react and react-dom MUST bump together — mismatched versions throw
+      # React error #527 at boot and blank the whole site (2026-07-19 outage).
+      # Listed first so @types/react* land here, not in dev-tooling.
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
       radix:
         patterns:
           - "@radix-ui/*"

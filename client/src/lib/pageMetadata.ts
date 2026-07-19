@@ -218,6 +218,52 @@ export function getStaticPageMetadata(
           },
           {
             "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What do you get for the $500 Operator Audit?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "A close read of your current operating reality, a written diagnosis of the main sources of drag, ambiguity, or breakdown, a clear statement of the structural issues underneath the symptoms, a straight read on where AI can take real work off your plate first — and where it should not — and practical next-step recommendations.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How long does the Operator Audit take?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Standard turnaround is within 5 business days of receiving the needed materials. If a faster turnaround is needed, that can be discussed before purchase.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Who is the Operator Audit for?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Owners, operators, and managers carrying too much coordination load; owners who know AI should be helping by now but can't point to one workflow where it actually is; teams functioning with more friction than they should have; and businesses where handoffs, follow-through, prioritization, or review quality are slipping.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How does the audit handle AI in my operation?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The audit reads AI the same way it reads any other part of the operation: where it is making the work clearer, and where it is making the work look clearer while the underlying problem keeps moving. It also names the single workflow where AI plus clear ownership would remove the most load.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What happens after the audit?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "The audit is complete on its own. If you want help acting on it, the path is explicit: an AI Workflow Sprint, an AI Operations Buildout, or an AI Operator Retainer. Pricing for these is scoped from what the audit finds, and nothing past the audit is proposed unless the diagnosis earns it.",
+                },
+              },
+            ],
+          },
+          {
+            "@context": "https://schema.org",
             ...siteConfig.publisher,
           },
         ],

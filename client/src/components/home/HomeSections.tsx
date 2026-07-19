@@ -560,11 +560,11 @@ export function HomeContactSection() {
             tabIndex={-1}
             className="mt-4 font-display text-4xl font-bold md:text-6xl"
           >
-            REQUEST A REALITY CHECK.
+            OR START WITH A CONVERSATION.
           </h2>
           <p className="mx-auto mt-6 max-w-2xl font-body text-xl leading-relaxed text-brand-black/72">
-            If the problem is real, the stakes are live, and there is authority to act, we can
-            decide fit quickly and move from there.
+            Not sure the audit is the right first step? If the problem is real, the stakes are
+            live, and there is authority to act, we can decide fit quickly and move from there.
           </p>
           <p className="mx-auto mt-4 max-w-2xl font-body text-base leading-relaxed text-brand-black/62">
             First step is a short operator-to-operator fit check focused on the work, not a sales funnel.

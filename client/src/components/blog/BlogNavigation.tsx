@@ -220,13 +220,12 @@ export default function BlogNavigation() {
             >
               BLOG
             </Link>
-            <button
-              type="button"
-              onClick={() => scrollToSection("contact")}
+            <Link
+              href="/operator-audit"
               className="font-mono text-sm bg-brand-orange text-brand-black px-6 py-2 hover:bg-brand-offwhite transition-colors"
             >
-              REQUEST A REALITY CHECK
-            </button>
+              START THE $500 AUDIT
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -352,13 +351,13 @@ export default function BlogNavigation() {
               >
                 BLOG
               </Link>
-              <button
-                type="button"
-                onClick={() => scrollToSection("contact")}
+              <Link
+                href="/operator-audit"
+                onClick={() => closeMobileMenu()}
                 className="font-mono text-sm bg-brand-orange text-brand-black px-6 py-3 hover:bg-brand-offwhite transition-colors text-left"
               >
-                REQUEST A REALITY CHECK
-              </button>
+                START THE $500 AUDIT
+              </Link>
             </div>
           </motion.div>
         )}

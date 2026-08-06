@@ -37,10 +37,10 @@ export default function Privacy() {
       />
 
       <InfoCard
-        title="Cookies and advertising"
+        title="Cookies"
         body={[
-          "The site is designed to function without requiring user accounts. If advertising is enabled through Google AdSense, Google may use cookies or similar technologies to serve and measure ads according to its own policies and user controls.",
-          "Readers can learn more about how Google uses information from sites or apps in its services through Google's published privacy materials and ad settings.",
+          "The site is designed to function without requiring user accounts. The only cookies set are the analytics cookies described above.",
+          "The site does not run advertising. If that changes, this page will say so before it happens, not after.",
         ]}
       />
 

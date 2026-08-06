@@ -23,8 +23,9 @@ After the audit, the path is explicit: AI Workflow Sprint (make the highest-leve
 - [Operator Audit](https://shankstrategy.com/operator-audit): The $500 diagnostic — what you get, scope, turnaround, intake
 - [Blog](https://shankstrategy.com/blog): Original operator notes and essays on strategy execution, operations, deterministic systems, and AI in real workflows
 - [Tools](https://shankstrategy.com/tools): Operational tools and systems used in consulting engagements
-- [About](https://shankstrategy.com/about): How the consulting practice, essays, and tools fit together
-- [Methodology](https://shankstrategy.com/methodology): How content is sourced, reviewed, and updated
+- [About](https://shankstrategy.com/about): Who runs the practice, what it does, and how to check the standard
+- [Methodology](https://shankstrategy.com/methodology): Evidence standards, AI usage, and a documented case of a published number that was never measured
+- [Editorial Policy](https://shankstrategy.com/editorial-policy): Originality, authorship, quality bar, disclosure, and corrections
 
 ## Contact
 

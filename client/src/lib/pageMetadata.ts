@@ -95,48 +95,48 @@ export function getStaticPageMetadata(
       };
     case "/about":
       return {
-        title: "Strategic Operations Consulting Practice",
+        title: "About Justin Shank",
         path: "/about",
         description:
-          "Learn how Shank Strategy Ops combines strategic operations consulting, operator notes, and working tools to help leaders repair execution drift.",
+          "Justin Shank is a forward-deployed AI systems engineer who diagnoses where work stalls inside businesses that already run, then builds what removes it. Entry point is the $500 Operator Audit.",
         structuredData: {
           "@context": "https://schema.org",
           "@type": "AboutPage",
           name: "About Shank Strategy Ops",
           url: absoluteUrl("/about"),
           description:
-            "About page for Shank Strategy Ops covering consulting focus, editorial approach, and intended audience.",
+            "About page for Shank Strategy Ops covering who runs the practice, what it does, what the site publishes, and how to check the standard.",
           isPartOf: absoluteUrl("/"),
         },
       };
     case "/methodology":
       return {
-        title: "Content Methodology and Review Standards",
+        title: "Methodology and Evidence Standards",
         path: "/methodology",
         description:
-          "See how Shank Strategy Ops researches, reviews, updates, and quality-checks essays and tool writeups before publication.",
+          "How essays here get built, what counts as evidence, how AI is used, and a documented case of a published number that was never measured.",
         structuredData: {
           "@context": "https://schema.org",
           "@type": "WebPage",
           name: "Methodology",
           url: absoluteUrl("/methodology"),
           description:
-            "Methodology page describing sourcing, testing, review, and update standards for Shank Strategy Ops.",
+            "Methodology page describing sourcing, evidence order, AI usage, and correction standards for Shank Strategy Ops, with a worked example of a corrected error.",
         },
       };
     case "/editorial-policy":
       return {
-        title: "Editorial Standards and Corrections",
+        title: "Editorial Policy",
         path: "/editorial-policy",
         description:
-          "Review the editorial standards Shank Strategy Ops uses for originality, disclosures, corrections, authorship, and publishing quality.",
+          "Originality, authorship, quality bar, disclosure, and corrections for Shank Strategy Ops, including which of the two properties carries which kind of writing.",
         structuredData: {
           "@context": "https://schema.org",
           "@type": "WebPage",
           name: "Editorial Policy",
           url: absoluteUrl("/editorial-policy"),
           description:
-            "Editorial policy for Shank Strategy Ops covering originality, disclosures, and correction practices.",
+            "Editorial policy for Shank Strategy Ops covering originality, publishing lanes, authorship, disclosure, and correction practices.",
         },
       };
     case "/privacy":

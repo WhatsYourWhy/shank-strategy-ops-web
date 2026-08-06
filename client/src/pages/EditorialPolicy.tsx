@@ -7,52 +7,86 @@ export default function EditorialPolicy() {
 
   return (
     <InfoPageLayout
-      eyebrow="EDITORIAL STANDARDS"
-      title="This site publishes original, reviewable work with named accountability."
-      lede="The point of an editorial policy is to make the standards legible before anyone has to ask. If a page does not add clear value to a reader, it should not be published."
+      eyebrow="EDITORIAL POLICY"
+      title="Original work, one name on it, corrected in public."
+      lede="The standards should be legible before anyone has to ask. If a page doesn't give a reader something they can use, it shouldn't ship."
     >
       <InfoCard
         title="Originality"
         body={[
-          "Pages on this site should be substantially original in framing, argument, or practical interpretation. Republishing public ideas without adding perspective, evidence, or clearer models is not enough.",
-          "Short external posts may point to a related idea, but the website edition should stand on its own as the more complete and more useful version.",
+          "Pages here should be original in framing, argument, or interpretation.",
+          "Reposting a public idea without adding evidence or a clearer model doesn't clear the bar.",
+        ]}
+      />
+
+      <section className="md:col-span-6 bg-brand-charcoal border border-brand-offwhite/10 p-8">
+        <h2 className="font-display text-2xl font-bold">
+          Where things get published
+        </h2>
+        <div className="mt-5 space-y-4">
+          <p className="font-body text-base leading-relaxed text-brand-offwhite/80">
+            I run two properties and they do different jobs.
+          </p>
+          <p className="font-body text-base leading-relaxed text-brand-offwhite/80">
+            <span className="font-bold text-brand-offwhite">This site</span>{" "}
+            carries operations, engineering, and AI-implementation work: the
+            writing that comes out of client problems and tool building.
+          </p>
+          <p className="font-body text-base leading-relaxed text-brand-offwhite/80">
+            <a
+              href="https://theedgeexplored.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-brand-orange underline-offset-4 hover:underline"
+            >
+              The Edge Explored
+            </a>{" "}
+            carries the wider questions: epistemics, what systems claim versus
+            what they do, the human side of building any of this.
+          </p>
+        </div>
+        <div className="mt-6 border-l-2 border-brand-orange pl-4">
+          <p className="font-body text-sm leading-relaxed text-brand-offwhite/75">
+            Some pieces belong to both. When that happens the site edition is
+            the canonical one and links are pointed here.
+          </p>
+        </div>
+      </section>
+
+      <InfoCard
+        title="Accountability"
+        body={[
+          "Published under Shank Strategy Ops, written by me, Justin Shank.",
+          "One name, reachable, correctable.",
         ]}
       />
 
       <InfoCard
-        title="Authorship and accountability"
+        title="Quality bar"
         body={[
-          "Content is published under Shank Strategy Ops and is accountable to the business behind the site. That means readers can identify the publisher, contact the site directly, and evaluate whether the work aligns with the practice and tools being described.",
-          "Anonymous filler and page-template sprawl are explicitly out of bounds.",
-        ]}
-      />
-
-      <InfoCard
-        title="Quality threshold"
-        body={[
-          "A page should answer a real question, explain a real method, or document a real tool. Pages created only to target keywords, support ad inventory, or mimic search demand without adding substance should not ship.",
-          "The minimum quality bar is usefulness, not word count. Some pages will be short. None should be empty.",
+          "A page should answer a real question, document a real method, or explain a real tool.",
+          "Some pages will be short. None should be filler.",
         ]}
         bullets={[
-          "No scraped pages",
-          "No stitched summaries from third-party sources",
-          "No mass-produced near-duplicates with trivial wording changes",
+          "No scraped content",
+          "No stitched summaries",
+          "No near-duplicate pages built to catch search traffic",
         ]}
       />
 
       <InfoCard
-        title="Disclosures and promotions"
+        title="Disclosure"
         body={[
-          "If a page discusses a tool, product, or service offered by Shank Strategy Ops, that relationship should be obvious from context. Promotional intent should not be disguised as neutral reporting.",
-          "If advertising is enabled on the site, ads should remain secondary to the content and should not interfere with readability or mislead users about what is editorial versus sponsored.",
+          "If a page discusses a tool or service I offer, that's obvious from context.",
+          "I'm not dressing up a pitch as neutral analysis.",
         ]}
       />
 
       <InfoCard
-        title="Corrections and removals"
+        title="Corrections"
         body={[
-          "Pages that become misleading, outdated, or materially incomplete should be corrected, consolidated, or removed. A smaller trustworthy archive is better than a larger decaying one.",
-          "If a reader spots an issue, editorial questions can be sent through the public contact channel listed in the footer.",
+          "Spot something wrong: the contact link is in the footer.",
+          "Corrections get made on the page, not buried in a changelog nobody reads.",
         ]}
       />
     </InfoPageLayout>

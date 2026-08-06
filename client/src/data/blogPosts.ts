@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
     slug: "why-ai-hasnt-made-your-business-faster-yet",
     title: "Why AI Hasn't Made Your Business Faster Yet",
     subtitle: "The tool was never the bottleneck.",
-    author: "Shank Strategy Ops",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-07-19",
     readingTime: "8 min read",
@@ -119,7 +119,7 @@ export const blogPosts: BlogPost[] = [
     slug: "the-founder-bottleneck-six-questions",
     title: "The Founder Bottleneck: Six Questions That Find Where Work Actually Gets Stuck",
     subtitle: "You can't fix what you haven't named.",
-    author: "Shank Strategy Ops",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-07-20",
     readingTime: "7 min read",
@@ -216,7 +216,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "the-externalized-mind-from-cave-walls-to-the-age-of-joules",
     title: "The Externalized Mind: From Cave Walls to the Age of Joules",
-    author: "Shank Strategy Ops",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-02-21",
     readingTime: "18 min read",
@@ -512,7 +512,7 @@ export const blogPosts: BlogPost[] = [
     slug: "determinism-the-only-engineering-discipline-that-matters",
     title:
       "Determinism: The Only Engineering Discipline That Matters When Stakes Are High",
-    author: "Shank | Ops & Deterministic Tools",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-01-18",
     readingTime: "8 min read",
@@ -599,7 +599,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "economic-constraints-force-real-usefulness",
     title: "Economic Constraints Force Real Usefulness",
-    author: "Shank | Ops & Deterministic Tools",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-01-29",
     readingTime: "6 min read",
@@ -667,7 +667,7 @@ export const blogPosts: BlogPost[] = [
     slug: "alert-axolotl-evo-evolving-interpretable-alert-rules",
     title:
       "Alert-Axolotl-Evo: Evolving Interpretable Alert Rules with Genetic Programming",
-    author: "Shank | Ops & Deterministic Tools",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-02-08",
     readingTime: "7 min read",
@@ -736,7 +736,7 @@ export const blogPosts: BlogPost[] = [
     slug: "the-grid-is-the-new-data-center",
     title: "The Grid Is the New Data Center",
     subtitle: "The real bottleneck for AI isn't compute. It's electrons.",
-    author: "Shank Strategy Ops",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-03-16",
     readingTime: "9 min read",
@@ -747,7 +747,7 @@ export const blogPosts: BlogPost[] = [
     heroImageCaption: "Courtesy of Grok",
     tldr: "AI's next binding constraint is no longer only model quality or chip performance. It is electricity: grid access, cooling, transmission, siting, and permitting. As compute clusters concentrate around energy-rich geographies, infrastructure policy starts deciding which forms of intelligence scale, where, and for whose benefit.",
     tags: ["AI", "Energy", "Infrastructure", "Policy"],
-    originalUrl: "https://whatsyourwhy85.substack.com/p/the-grid-is-the-new-data-center",
+    originalUrl: "https://theedgeexplored.com/p/the-grid-is-the-new-data-center",
     sections: [
       {
         id: "threshold-crossed",
@@ -825,7 +825,7 @@ export const blogPosts: BlogPost[] = [
     slug: "the-invisible-error",
     title: "The Invisible Error",
     subtitle: "The Rise of High-Fidelity Hallucinations",
-    author: "Shank Strategy Ops",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-03-22",
     readingTime: "5 min read",
@@ -835,7 +835,7 @@ export const blogPosts: BlogPost[] = [
       "Illustrative hero image accompanying The Invisible Error article.",
     tldr: "Early AI errors were obvious glitches. The more dangerous failure mode now is the agreeable hallucination: output that is fluent, socially satisfying, and just wrong enough to reinforce the user's own bias. The challenge is no longer only catching errors. It is designing systems and habits that create deliberate friction, disagreement, and epistemic checks before probable language turns into false confidence.",
     tags: ["AI", "Trust", "Epistemology", "Systems"],
-    originalUrl: "https://whatsyourwhy85.substack.com/p/the-invisible-error",
+    originalUrl: "https://theedgeexplored.com/p/the-invisible-error",
     sections: [
       {
         id: "from-glitches-to-rapport",
@@ -911,7 +911,7 @@ export const blogPosts: BlogPost[] = [
     slug: "the-latency-tax-why-digital-speed-is-quietly-eroding-your-brains-operating-system",
     title:
       "The Latency Tax: Why Digital Speed Is Quietly Eroding Your Brain's Operating System",
-    author: "Shank Strategy Ops",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-03-11",
     readingTime: "8 min read",
@@ -921,7 +921,7 @@ export const blogPosts: BlogPost[] = [
       "Illustrative hero image accompanying The Latency Tax article.",
     tldr: "Modern digital systems are optimized for instant response, but human cognition is not. The cost of collapsing every pause, every handoff, and every reflective gap is a hidden latency tax paid in shallower reasoning, constant low-grade arousal, and a nervous system that never quite returns to baseline. The real design problem is not just machine speed. It is cognitive compatibility.",
     tags: ["Strategy", "Technology", "Focus", "Human Systems"],
-    originalUrl: "https://whatsyourwhy85.substack.com/p/the-latency-tax",
+    originalUrl: "https://theedgeexplored.com/p/the-latency-tax",
     sections: [
       {
         id: "the-mismatch",
@@ -978,7 +978,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "stop-mainlining-panic-for-profit",
     title: "Stop Mainlining Panic for Profit",
-    author: "Shank Strategy Ops",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-03-10",
     readingTime: "6 min read",
@@ -989,7 +989,7 @@ export const blogPosts: BlogPost[] = [
     tldr: "Attention markets reward emotional force, not calibration. As possibility gets packaged as inevitability and every risk is framed like imminent collapse, people lose the ability to distinguish signal from spectacle. The cost is not just anxiety. It is a society that becomes more cynical, more reactive, and less capable of coordinated judgment.",
     tags: ["Strategy", "Media", "Culture", "Trust"],
     originalUrl:
-      "https://whatsyourwhy85.substack.com/p/stop-mainlining-panic-for-profit",
+      "https://theedgeexplored.com/p/stop-mainlining-panic-for-profit",
     sections: [
       {
         id: "fear-as-product",
@@ -1047,7 +1047,7 @@ export const blogPosts: BlogPost[] = [
     slug: "trust-is-the-new-energy",
     title: "Trust Is the New Energy",
     subtitle: "Why Optimization Without Meaning Is Hollowing Civilization",
-    author: "Shank Strategy Ops",
+    author: "Justin Shank",
     authorTitle: "Strategy Execution & Operational Excellence",
     publishedDate: "2026-03-01",
     readingTime: "12 min read",
@@ -1058,7 +1058,7 @@ export const blogPosts: BlogPost[] = [
     tldr: "Energy is a real physical constraint, but trust is the coordination layer that decides whether societies can deploy energy productively. We spent decades optimizing for engagement, growth, and throughput while underinvesting in legibility, dignity, and visible tradeoffs. The next durable advantage will come from systems that encode trust as infrastructure, not as branding.",
     tags: ["Strategy", "Trust", "Governance", "Systems"],
     originalUrl:
-      "https://whatsyourwhy85.substack.com/p/trust-is-the-new-energy",
+      "https://theedgeexplored.com/p/trust-is-the-new-energy",
     sections: [
       {
         id: "wrong-objective",

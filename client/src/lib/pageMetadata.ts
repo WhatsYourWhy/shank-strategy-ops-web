@@ -324,8 +324,9 @@ export function getBlogPostMetadata(
       datePublished: post.publishedDate,
       dateModified: post.publishedDate,
       author: {
-        "@type": "Organization",
+        "@type": "Person",
         name: post.author,
+        url: absoluteUrl("/about"),
       },
       publisher: siteConfig.publisher,
       keywords: post.tags.join(", "),

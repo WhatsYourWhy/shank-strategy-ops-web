@@ -37,10 +37,10 @@ export default function Privacy() {
       />
 
       <InfoCard
-        title="Cookies and advertising"
+        title="Cookies and ad measurement"
         body={[
-          "The site is designed to function without requiring user accounts. If advertising is enabled through Google AdSense, Google may use cookies or similar technologies to serve and measure ads according to its own policies and user controls.",
-          "Readers can learn more about how Google uses information from sites or apps in its services through Google's published privacy materials and ad settings.",
+          "The site is designed to function without requiring user accounts. Two Google tags load on every page: the analytics tag described above, and a Google Ads tag that records whether a visit arrived from an ad I placed elsewhere and whether it led to a contact form submission. The Ads tag can set first-party cookies for that attribution.",
+          "That is measurement of ads I buy on other platforms. The site itself does not sell or display advertising. If that changes, this page will say so before it happens, not after.",
         ]}
       />
 

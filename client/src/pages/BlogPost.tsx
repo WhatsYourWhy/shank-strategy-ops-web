@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Clock, ExternalLink } from "lucide-react";
 import { Link, useParams, useLocation } from "wouter";
+import { formatPublishedDate } from "@/lib/dates";
 import BlogAdsScript from "@/components/BlogAdsScript";
 import BlogNavigation from "@/components/blog/BlogNavigation";
 import LeadConversationCta from "@/components/LeadConversationCta";
@@ -40,11 +41,7 @@ function PostHero({
   heroImageAlt?: string;
   heroImageCaption?: string;
 }) {
-  const formattedDate = new Date(publishedDate).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = formatPublishedDate(publishedDate);
 
   return (
     <section className="pt-32 pb-12 bg-brand-black relative">

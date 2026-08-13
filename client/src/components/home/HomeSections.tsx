@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/ContactForm";
 import type { BlogPost } from "@/data/blogPosts";
+import { formatPublishedDate } from "@/lib/dates";
 import {
   homeDeliverables,
   homeEngagementPhases,
@@ -466,11 +467,7 @@ export function HomeInsightsSection({ posts }: { posts: BlogPost[] }) {
             <Link key={post.slug} href={`/blog/${post.slug}`}>
               <article className="group flex h-full flex-col border border-brand-offwhite/10 bg-brand-charcoal p-6 transition-colors hover:border-brand-orange">
                 <p className="font-mono text-xs tracking-widest text-brand-offwhite/78">
-                  {new Date(post.publishedDate).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  {formatPublishedDate(post.publishedDate)}
                 </p>
                 <h3 className="mt-4 font-display text-2xl font-bold leading-tight transition-colors group-hover:text-brand-orange">
                   {post.title}

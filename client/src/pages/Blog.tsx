@@ -10,6 +10,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Clock } from "lucide-react";
 import { Link } from "wouter";
+import { formatPublishedDate } from "@/lib/dates";
 import BlogAdsScript from "@/components/BlogAdsScript";
 import BlogNavigation from "@/components/blog/BlogNavigation";
 import LeadConversationCta from "@/components/LeadConversationCta";
@@ -63,11 +64,7 @@ function BlogPostCard({
   post: ReturnType<typeof getAllBlogPosts>[0];
   index: number;
 }) {
-  const formattedDate = new Date(post.publishedDate).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = formatPublishedDate(post.publishedDate);
 
   return (
     <motion.article

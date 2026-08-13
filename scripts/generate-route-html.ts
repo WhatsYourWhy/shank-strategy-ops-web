@@ -1,19 +1,12 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { render } from "../dist/server/entry-server.js";
 import {
   getAllRenderablePageMetadata,
   resolvePageMetadata,
 } from "../client/src/lib/pageMetadata";
 import { siteConfig } from "../client/src/lib/site";
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+import { EMPTY_ROOT, escapeHtml, findRootSpan } from "./html";
 
 function escapeJsonForScript(value: unknown) {
   return JSON.stringify(value).replace(/</g, "\\u003c");
@@ -95,8 +88,36 @@ function injectMetadataIntoHtml(baseHtml: string, routePath: string) {
   );
 
   const cleaned = stripManagedSeoTags(withTitle);
+  const withHead = cleaned.replace("</head>", `${seoMarkup}\n  </head>`);
 
-  return cleaned.replace("</head>", `${seoMarkup}\n  </head>`);
+  return injectRenderedBody(withHead, routePath);
+}
+
+/**
+ * The base template is read from `dist/public/index.html`, which this script
+ * also overwrites for "/". Emptying the root div keeps a re-run idempotent
+ * instead of failing on already-prerendered markup.
+ */
+function emptyRootDiv(html: string) {
+  const root = findRootSpan(html);
+  if (!root) {
+    throw new Error(
+      `Could not find a balanced <div id="root"> in the built HTML. ` +
+        `The Vite template in client/index.html must contain a root div.`
+    );
+  }
+
+  return html.slice(0, root.start) + EMPTY_ROOT + html.slice(root.end);
+}
+
+function injectRenderedBody(html: string, routePath: string) {
+  if (!html.includes(EMPTY_ROOT)) {
+    throw new Error(
+      `Could not find ${EMPTY_ROOT} in the built HTML while prerendering ${routePath}.`
+    );
+  }
+
+  return html.replace(EMPTY_ROOT, `<div id="root">${render(routePath)}</div>`);
 }
 
 function getRouteOutputPath(distDir: string, routePath: string) {
@@ -110,7 +131,7 @@ function getRouteOutputPath(distDir: string, routePath: string) {
 async function main() {
   const distDir = path.resolve("dist", "public");
   const baseHtmlPath = path.join(distDir, "index.html");
-  const baseHtml = await readFile(baseHtmlPath, "utf8");
+  const baseHtml = emptyRootDiv(await readFile(baseHtmlPath, "utf8"));
 
   const routeEntries = getAllRenderablePageMetadata();
 

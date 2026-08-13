@@ -15,10 +15,10 @@ This project serves as a high-performance, modern platform for "Execution leader
 
 ## 📁 Project Structure
 
-- `client/`: React frontend application.
-- `server/`: Express backend (handling SSR and API logic).
+- `client/`: React frontend application. `client/src/entry-server.tsx` is the build-time render entry.
+- `server/`: Express static-file server for local production previews only (`pnpm start`). It is not SSR.
 - `api/`: Serverless function endpoints (e.g., contact form).
-- `scripts/`: Custom automation, including an **Ad Rendering** engine (`render-ad.ts`).
+- `scripts/`: Custom automation — sitemap generation, per-route HTML prerendering (`generate-route-html.ts`), the prerender build gate (`verify-prerender.ts`), and an **Ad Rendering** engine (`render-ad.ts`).
 - `shared/`: Shared constants and types between client and server.
 - `docs/`: Technical documentation and engagement models.
 - `out/`: Build and generated asset output (including Sora video assets).
@@ -46,6 +46,26 @@ This project serves as a high-performance, modern platform for "Execution leader
 ```bash
 pnpm build
 ```
+
+`pnpm build` runs five steps in order:
+
+1. `generate:sitemap` — writes `client/public/sitemap.xml` from the route table.
+2. `vite build` — the client bundle into `dist/public`.
+3. `build:ssr` — compiles `client/src/entry-server.tsx` into `dist/server`.
+4. `generate:route-html` — writes one `dist/public/<route>/index.html` per route with
+   per-route `<head>` metadata **and** real prerendered body HTML in `#root`.
+5. `verify:prerender` — fails the build if any route lost its body content, its title,
+   or renders the same markup as another route.
+
+The site is a client-rendered SPA that ships prerendered HTML, so crawlers and LLM
+fetchers that do not execute JavaScript still get the full page text. The client
+**hydrates** that markup (`client/src/main.tsx`), so anything rendered during the build
+must produce identical output in the browser — notably, format dates with an explicit
+`timeZone` (see `client/src/lib/dates.ts`) rather than the viewer's local zone.
+
+> `pnpm start` serves the root `index.html` for every path, so it will **not** show
+> per-route prerendering. Inspect `dist/public/<route>/index.html` directly, or use a
+> static server that resolves directory index files.
 
 ## 🧠 Strategic Assets
 This repository contains more than just code; it includes strategic frameworks used by the business:

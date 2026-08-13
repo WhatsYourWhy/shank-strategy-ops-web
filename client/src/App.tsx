@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Analytics } from "@vercel/analytics/react";
 import NotFound from "@/pages/NotFound";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -17,10 +17,15 @@ import EditorialPolicy from "@/pages/EditorialPolicy";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 
+// useLayoutEffect warns during renderToString; effects never run on the server
+// anyway, so fall back to useEffect there.
+const useIsomorphicLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
+
 function ScrollToTop() {
   const [location] = useLocation();
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 

@@ -21,9 +21,21 @@ See `package.json` `scripts` for the full list. Summary:
 - **Dev server:** `pnpm dev` (Vite on port 3000)
 - **Type check:** `pnpm check` (`tsc --noEmit`)
 - **Format:** `pnpm format` (Prettier — note: this runs `--write` by default)
-- **Build:** `pnpm build` (Vite build + esbuild server bundle)
+- **Build:** `pnpm build` (sitemap → Vite client build → Vite SSR build → per-route HTML prerender → prerender verification → esbuild server bundle)
 
 There is no ESLint config; only Prettier is used for formatting.
+
+### Prerendering
+
+`pnpm build` renders every route to static HTML at build time (`client/src/entry-server.tsx` →
+`scripts/generate-route-html.ts`) and the client hydrates it (`client/src/main.tsx`). Two consequences:
+
+- Anything rendered during the build must render identically in the browser, or hydration breaks.
+  Locale/timezone-dependent formatting is the usual culprit — use `client/src/lib/dates.ts`.
+- Page components must not touch `window`/`document`/`localStorage` outside of effects.
+
+`pnpm verify:prerender` runs inside `pnpm build` and fails it if a route ships an empty body,
+the wrong title, or markup identical to another route.
 
 ### Gotchas
 

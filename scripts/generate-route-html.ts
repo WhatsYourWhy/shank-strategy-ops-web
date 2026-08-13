@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { render } from "../dist/server/entry-server.js";
 import {
   getAllRenderablePageMetadata,
   resolvePageMetadata,
@@ -95,8 +96,65 @@ function injectMetadataIntoHtml(baseHtml: string, routePath: string) {
   );
 
   const cleaned = stripManagedSeoTags(withTitle);
+  const withHead = cleaned.replace("</head>", `${seoMarkup}\n  </head>`);
 
-  return cleaned.replace("</head>", `${seoMarkup}\n  </head>`);
+  return injectRenderedBody(withHead, routePath);
+}
+
+const EMPTY_ROOT = '<div id="root"></div>';
+const ROOT_OPEN = '<div id="root">';
+const ROOT_CLOSE = "</div>";
+
+/**
+ * The base template is read from `dist/public/index.html`, which this script
+ * also overwrites for "/". Emptying the root div keeps a re-run idempotent
+ * instead of failing on already-prerendered markup.
+ */
+function emptyRootDiv(html: string) {
+  const start = html.indexOf(ROOT_OPEN);
+  if (start === -1) {
+    throw new Error(
+      `Could not find ${ROOT_OPEN} in the built HTML. ` +
+        `The Vite template in client/index.html must contain a root div.`
+    );
+  }
+
+  // Walk to the matching close tag. React escapes text content, so a literal
+  // "<div" in prose can never appear here — only real tags.
+  let depth = 0;
+  let cursor = start;
+  while (cursor < html.length) {
+    const open = html.indexOf("<div", cursor);
+    const close = html.indexOf(ROOT_CLOSE, cursor);
+
+    if (close === -1) {
+      break;
+    }
+
+    if (open !== -1 && open < close) {
+      depth += 1;
+      cursor = open + 4;
+      continue;
+    }
+
+    depth -= 1;
+    cursor = close + ROOT_CLOSE.length;
+    if (depth === 0) {
+      return html.slice(0, start) + EMPTY_ROOT + html.slice(cursor);
+    }
+  }
+
+  throw new Error(`Unbalanced ${ROOT_OPEN} in the built HTML.`);
+}
+
+function injectRenderedBody(html: string, routePath: string) {
+  if (!html.includes(EMPTY_ROOT)) {
+    throw new Error(
+      `Could not find ${EMPTY_ROOT} in the built HTML while prerendering ${routePath}.`
+    );
+  }
+
+  return html.replace(EMPTY_ROOT, `<div id="root">${render(routePath)}</div>`);
 }
 
 function getRouteOutputPath(distDir: string, routePath: string) {
@@ -110,7 +168,7 @@ function getRouteOutputPath(distDir: string, routePath: string) {
 async function main() {
   const distDir = path.resolve("dist", "public");
   const baseHtmlPath = path.join(distDir, "index.html");
-  const baseHtml = await readFile(baseHtmlPath, "utf8");
+  const baseHtml = emptyRootDiv(await readFile(baseHtmlPath, "utf8"));
 
   const routeEntries = getAllRenderablePageMetadata();
 

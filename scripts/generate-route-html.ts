@@ -6,15 +6,7 @@ import {
   resolvePageMetadata,
 } from "../client/src/lib/pageMetadata";
 import { siteConfig } from "../client/src/lib/site";
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+import { escapeHtml } from "./html";
 
 function escapeJsonForScript(value: unknown) {
   return JSON.stringify(value).replace(/</g, "\\u003c");

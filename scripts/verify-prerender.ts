@@ -4,6 +4,7 @@ import {
   getAllRenderablePageMetadata,
   resolvePageMetadata,
 } from "../client/src/lib/pageMetadata";
+import { escapeHtml } from "./html";
 
 /**
  * Build gate for the prerender step.
@@ -39,20 +40,11 @@ function extractRootText(html: string) {
 
   const body = html.slice(start);
   return body
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, " ")
+    .replace(/<[^>]*>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-}
-
-function decodeEntities(value: string) {
-  return value
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
 }
 
 async function main() {
@@ -86,9 +78,13 @@ async function main() {
       continue;
     }
 
-    const expectedTitle = resolvePageMetadata(entry.metadata).fullTitle;
-    const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
-    const actualTitle = titleMatch ? decodeEntities(titleMatch[1]) : "";
+    // Compare in escaped form using the generator's own escapeHtml, so there is
+    // no second entity decoder here that could drift out of sync with it.
+    const expectedTitle = escapeHtml(
+      resolvePageMetadata(entry.metadata).fullTitle
+    );
+    const titleMatch = html.match(/<title>([\s\S]*?)<\/title\s*>/i);
+    const actualTitle = titleMatch ? titleMatch[1] : "";
     if (actualTitle !== expectedTitle) {
       failures.push(
         `${entry.path}: title is ${JSON.stringify(actualTitle)}, expected ${JSON.stringify(expectedTitle)}`

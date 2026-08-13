@@ -45,8 +45,9 @@ element. Two consequences:
 
 - Every page must render exactly one `<main>`, with nav and footer outside it. The build
   fails otherwise.
-- Never hand-edit `llms-full.txt`, or the block between the `<!-- generated:writing -->`
-  markers in `llms.txt`. The rest of `llms.txt` is hand-written and is preserved.
+- Never hand-edit `llms-full.txt`, or the `## Writing` section of `llms.txt` — that
+  section is rewritten from its heading to the next `## ` heading on every build. The
+  rest of `llms.txt` is hand-written and is preserved.
 
 ### Gotchas
 

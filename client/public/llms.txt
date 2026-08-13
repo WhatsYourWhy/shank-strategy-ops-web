@@ -27,7 +27,6 @@ After the audit, the path is explicit: AI Workflow Sprint (make the highest-leve
 - [Methodology](https://shankstrategy.com/methodology): Evidence standards, AI usage, and a documented case of a published number that was never measured
 - [Editorial Policy](https://shankstrategy.com/editorial-policy): Originality, authorship, quality bar, disclosure, and corrections
 
-<!-- generated:writing -->
 ## Writing
 
 Full text of every page in a single file: https://shankstrategy.com/llms-full.txt
@@ -46,7 +45,6 @@ Full text of every page in a single file: https://shankstrategy.com/llms-full.tx
 - [Economic Constraints Force Real Usefulness](https://shankstrategy.com/blog/economic-constraints-force-real-usefulness) — 2026-01-29: In any system — software, business model, or AI agent — if it doesn't pay some form of rent, it risks drifting into irrelevance. Economic constraints aren't hurdles; they're selection pressures that drive evolution. Unconstrained systems balloon with features that sound impressive but add little utility. Constraints force ruthless prioritization, expose fake work, and reward systems that shut up, act, and get out of the way. Paired with determinism, they forge systems that truly earn their place.
 - [Determinism: The Only Engineering Discipline That Matters When Stakes Are High](https://shankstrategy.com/blog/determinism-the-only-engineering-discipline-that-matters) — 2026-01-18: Determinism isn't a preference — it's an engineering discipline. When a nondeterministic system fails, it hands you an excuse. When a deterministic system fails, it hands you a mirror. Finance, avionics, and compiler infrastructure are 'boring' on purpose: they enforce reproducibility because the cost of failure is real. The upfront tax is real too, but it amortizes into collapsed debugging time, solidified trust boundaries, and safe refactoring. Push chaos to the edges. Keep the core pure.
 - [The Blueprint for Predictability: Taming Complexity with Automation](https://shankstrategy.com/blog/the-blueprint-for-predictability-taming-complexity-with-automation) — 2024-10-15: As monitoring sources multiply — RSS feeds, government APIs, sensor data — alert fatigue becomes as dangerous as the risks themselves. Hardstop is a local-first, deterministic risk decision engine that addresses this through reproducible alert hashes, trust-tier weighting, source health monitoring, and SQLite-backed offline resilience. Identical inputs always produce identical outputs. No cloud dependencies. No pipeline corruption.
-<!-- /generated:writing -->
 
 ## Contact
 

@@ -65,8 +65,10 @@ most page copy is literal JSX with no data module behind it. It extracts each pa
 `<main>` element, so the nav and footer that repeat on every route stay out. Every page
 must therefore render exactly one `<main>` — the build fails if one doesn't.
 
-Hand-written prose in `llms.txt` is preserved; only the block between
-`<!-- generated:writing -->` markers is rewritten.
+Hand-written prose in `llms.txt` is preserved; only the `## Writing` section is
+rewritten, from its heading to the next `## ` heading. These files are served as
+`text/plain`, so the managed region is bounded by real headings rather than HTML
+comment markers, which would be visible to every reader.
 
 The site is a client-rendered SPA that ships prerendered HTML, so crawlers and LLM
 fetchers that do not execute JavaScript still get the full page text. The client

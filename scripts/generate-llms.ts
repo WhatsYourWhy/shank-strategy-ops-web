@@ -27,8 +27,14 @@ import { extractMainHtml, htmlToText } from "./html";
  * and then copied into dist/public so it ships in this same build.
  */
 
-const WRITING_START = "<!-- generated:writing -->";
-const WRITING_END = "<!-- /generated:writing -->";
+/**
+ * The managed block is delimited by its own heading and the next top-level
+ * heading, not by comment markers. llms.txt is served as text/plain, so nothing
+ * renders an HTML comment away — a marker would be visible to every AI that
+ * reads the file, in a file whose whole job is to read cleanly.
+ */
+const WRITING_HEADING = "## Writing";
+const CONTACT_HEADING = "## Contact";
 
 /**
  * Pages left out of the body dump. They stay listed in llms.txt and served at
@@ -132,8 +138,7 @@ async function buildLlmsFull(distDir: string) {
 
 function buildWritingSection() {
   const lines = [
-    WRITING_START,
-    `## Writing`,
+    WRITING_HEADING,
     ``,
     `Full text of every page in a single file: ${siteConfig.url}/llms-full.txt`,
     ``,
@@ -143,35 +148,50 @@ function buildWritingSection() {
       post =>
         `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)}) — ${post.publishedDate}: ${post.tldr}`
     ),
-    WRITING_END,
   ];
 
-  return lines.join("\n");
+  return `${lines.join("\n")}\n`;
 }
 
-/** Replaces the managed block if present, otherwise inserts it before
- *  "## Contact" so the hand-written prose around it is never touched. */
+/** Start index of a top-level heading, or -1. Anchored to a line start so a
+ *  mention of the heading text mid-paragraph can't match. */
+function findHeading(llms: string, heading: string) {
+  if (llms.startsWith(heading)) {
+    return 0;
+  }
+
+  const index = llms.indexOf(`\n${heading}`);
+  return index === -1 ? -1 : index + 1;
+}
+
+/**
+ * Rewrites the Writing section in place, replacing everything from its heading
+ * up to the next top-level heading. Everything else in llms.txt is hand-written
+ * and is left exactly as-is.
+ */
 function applyWritingSection(llms: string, section: string) {
-  const start = llms.indexOf(WRITING_START);
-  const end = llms.indexOf(WRITING_END);
+  const existing = findHeading(llms, WRITING_HEADING);
 
-  if (start !== -1 && end !== -1) {
-    return (
-      llms.slice(0, start) + section + llms.slice(end + WRITING_END.length)
-    );
+  if (existing !== -1) {
+    const rest = llms.slice(existing + WRITING_HEADING.length);
+    const nextHeading = rest.indexOf("\n## ");
+
+    return nextHeading === -1
+      ? llms.slice(0, existing) + section
+      : llms.slice(0, existing) +
+          section +
+          "\n" +
+          rest.slice(nextHeading + 1) +
+          "";
   }
 
-  const contactHeading = llms.indexOf("## Contact");
-  if (contactHeading === -1) {
-    return `${llms.trimEnd()}\n\n${section}\n`;
+  // First run: insert ahead of Contact so it stays the last thing in the file.
+  const contact = findHeading(llms, CONTACT_HEADING);
+  if (contact === -1) {
+    return `${llms.trimEnd()}\n\n${section}`;
   }
 
-  return (
-    llms.slice(0, contactHeading) +
-    section +
-    "\n\n" +
-    llms.slice(contactHeading)
-  );
+  return llms.slice(0, contact) + section + "\n" + llms.slice(contact);
 }
 
 async function main() {

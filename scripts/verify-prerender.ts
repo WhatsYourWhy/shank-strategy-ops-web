@@ -4,7 +4,7 @@ import {
   getAllRenderablePageMetadata,
   resolvePageMetadata,
 } from "../client/src/lib/pageMetadata";
-import { escapeHtml } from "./html";
+import { escapeHtml, findRootSpan } from "./html";
 
 /**
  * Build gate for the prerender step.
@@ -31,17 +31,20 @@ function getRouteOutputPath(distDir: string, routePath: string) {
   return path.join(distDir, routePath.slice(1), "index.html");
 }
 
-/** Plain text inside #root, with scripts and markup removed. */
+/**
+ * Plain text rendered inside #root.
+ *
+ * Scoped to the root div's own contents rather than the rest of the file, so
+ * the page's <script> and <style> tags — all of which Vite puts in <head> —
+ * are excluded by construction instead of by stripping them back out.
+ */
 function extractRootText(html: string) {
-  const start = html.indexOf('<div id="root">');
-  if (start === -1) {
+  const root = findRootSpan(html);
+  if (!root) {
     return null;
   }
 
-  const body = html.slice(start);
-  return body
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, " ")
-    .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, " ")
+  return root.inner
     .replace(/<[^>]*>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -66,7 +69,9 @@ async function main() {
 
     const text = extractRootText(html);
     if (text === null) {
-      failures.push(`${entry.path}: no <div id="root"> in ${outputPath}`);
+      failures.push(
+        `${entry.path}: no balanced <div id="root"> in ${outputPath}`
+      );
       continue;
     }
 

@@ -6,7 +6,7 @@ import {
   resolvePageMetadata,
 } from "../client/src/lib/pageMetadata";
 import { siteConfig } from "../client/src/lib/site";
-import { escapeHtml } from "./html";
+import { EMPTY_ROOT, escapeHtml, findRootSpan } from "./html";
 
 function escapeJsonForScript(value: unknown) {
   return JSON.stringify(value).replace(/</g, "\\u003c");
@@ -93,50 +93,21 @@ function injectMetadataIntoHtml(baseHtml: string, routePath: string) {
   return injectRenderedBody(withHead, routePath);
 }
 
-const EMPTY_ROOT = '<div id="root"></div>';
-const ROOT_OPEN = '<div id="root">';
-const ROOT_CLOSE = "</div>";
-
 /**
  * The base template is read from `dist/public/index.html`, which this script
  * also overwrites for "/". Emptying the root div keeps a re-run idempotent
  * instead of failing on already-prerendered markup.
  */
 function emptyRootDiv(html: string) {
-  const start = html.indexOf(ROOT_OPEN);
-  if (start === -1) {
+  const root = findRootSpan(html);
+  if (!root) {
     throw new Error(
-      `Could not find ${ROOT_OPEN} in the built HTML. ` +
+      `Could not find a balanced <div id="root"> in the built HTML. ` +
         `The Vite template in client/index.html must contain a root div.`
     );
   }
 
-  // Walk to the matching close tag. React escapes text content, so a literal
-  // "<div" in prose can never appear here — only real tags.
-  let depth = 0;
-  let cursor = start;
-  while (cursor < html.length) {
-    const open = html.indexOf("<div", cursor);
-    const close = html.indexOf(ROOT_CLOSE, cursor);
-
-    if (close === -1) {
-      break;
-    }
-
-    if (open !== -1 && open < close) {
-      depth += 1;
-      cursor = open + 4;
-      continue;
-    }
-
-    depth -= 1;
-    cursor = close + ROOT_CLOSE.length;
-    if (depth === 0) {
-      return html.slice(0, start) + EMPTY_ROOT + html.slice(cursor);
-    }
-  }
-
-  throw new Error(`Unbalanced ${ROOT_OPEN} in the built HTML.`);
+  return html.slice(0, root.start) + EMPTY_ROOT + html.slice(root.end);
 }
 
 function injectRenderedBody(html: string, routePath: string) {

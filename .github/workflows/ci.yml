@@ -1,0 +1,61 @@
+# Runtime CI gate.
+#
+# `pnpm build` and `tsc` are both blind to hydration: a dependency bump can
+# break the client render while every existing check stays green (the
+# framer-motion 13 bump was exactly this — verified as a no-signal pass).
+# Dependabot opens up to 5 PRs a week against this repo, so the check that
+# matters most is the one that loads every prerendered route in a real browser
+# and asserts it hydrates. That is scripts/check-hydration.ts.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A newer push to the same branch makes the in-flight run irrelevant.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Before setup-node, so its `cache: pnpm` can find the pnpm store. The
+      # version comes from the `packageManager` field in package.json.
+      - name: Enable corepack
+        run: corepack enable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm check
+
+      # Also runs verify-prerender, which fails the build if any route ships an
+      # empty body, a wrong title, or duplicate markup.
+      - name: Build
+        run: pnpm build
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Check hydration
+        run: pnpm check:hydration

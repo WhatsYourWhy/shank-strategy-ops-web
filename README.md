@@ -62,6 +62,29 @@ pnpm build
    substantive page, in one fetch) and refreshes the `## Writing` index inside
    `client/public/llms.txt`, then copies both into `dist/public`.
 
+### Checking hydration
+
+```bash
+pnpm build && pnpm check:hydration
+```
+
+`pnpm build` proves the right HTML was *emitted*; it cannot prove a browser can *use* it.
+If the build-time markup and the client's first render disagree, React discards the
+prerendered HTML and re-renders from scratch — the page still looks correct, the build
+still passes, and the prerendering has silently stopped doing anything.
+
+`check:hydration` closes that gap. It serves `dist/public` the way Vercel does (no
+catch-all rewrite, real 404s), loads every route plus `/404` in headless Chromium, and
+fails on a hydration mismatch, an uncaught exception, a route where React never attached,
+or a route without exactly one `<main id="main-content">`. Requires Chromium once:
+
+```bash
+pnpm exec playwright install chromium
+```
+
+CI (`.github/workflows/ci.yml`) runs typecheck → build → hydration check on every push to
+`main` and every pull request, including Dependabot's.
+
 Step 6 reads the prerendered HTML from step 4 rather than the data modules, because
 most page copy is literal JSX with no data module behind it. It extracts each page's
 `<main>` element, so the nav and footer that repeat on every route stay out. Every page

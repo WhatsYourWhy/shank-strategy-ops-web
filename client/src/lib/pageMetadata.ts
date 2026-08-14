@@ -38,6 +38,23 @@ export const staticRenderablePaths = [
 
 export type StaticRenderablePath = (typeof staticRenderablePaths)[number];
 
+/**
+ * The not-found page is deliberately outside `staticRenderablePaths`: it must
+ * stay out of the sitemap, the prerender verification, and llms.txt. It is
+ * still prerendered, to `dist/public/404.html`, which Vercel serves with a real
+ * 404 status for any unmatched path.
+ */
+export const notFoundPath = "/404";
+
+export function getNotFoundPageMetadata(): PageMetadata {
+  return {
+    path: notFoundPath,
+    title: "Page not found",
+    description: "The requested page could not be found.",
+    robots: "noindex,follow",
+  };
+}
+
 export function resolvePageMetadata(
   metadata: PageMetadata
 ): ResolvedPageMetadata {

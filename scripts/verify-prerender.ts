@@ -14,14 +14,18 @@ import { escapeHtml, findRootSpan } from "./html";
  * healthy build. This runs inside `pnpm build` (and therefore inside the
  * Vercel build) and fails it if any route stops shipping real body HTML.
  *
- * It also catches the two failure modes that would otherwise pass a naive
+ * It also catches the failure modes that would otherwise pass a naive
  * "is the body non-empty" check:
  *   - a missing wouter `ssrPath`, which renders Home into every route
- *   - a change to vercel.json / the output layout that collapses every route
- *     back to the generic shell
+ *   - a change to the output layout that collapses every route back to the
+ *     generic shell
+ *   - a missing 404.html, which would send unmatched paths somewhere with a 200
  */
 
 const MIN_BODY_TEXT_CHARS = 500;
+
+/** The 404 page is intentionally sparse — a heading, a line, and a link home. */
+const MIN_404_TEXT_CHARS = 40;
 
 function getRouteOutputPath(distDir: string, routePath: string) {
   if (routePath === "/") {
@@ -48,6 +52,41 @@ function extractRootText(html: string) {
     .replace(/<[^>]*>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/**
+ * `vercel.json` has no catch-all rewrite, so Vercel falls back to 404.html for
+ * unmatched paths and returns a real 404. If this file goes missing or loses
+ * its noindex, the site silently reverts to answering every bogus URL with an
+ * indexable 200 — which is what it did before, and is invisible from the
+ * outside without checking status codes.
+ */
+async function checkNotFoundPage(distDir: string) {
+  const outputPath = path.join(distDir, "404.html");
+  const failures: string[] = [];
+
+  let html: string;
+  try {
+    html = await readFile(outputPath, "utf8");
+  } catch {
+    return [
+      `404.html: missing from ${distDir} — unmatched paths would fall back to a 200`,
+    ];
+  }
+
+  if (!/<meta name="robots" content="[^"]*noindex/i.test(html)) {
+    failures.push(`404.html: expected a noindex robots meta tag`);
+  }
+
+  const text = extractRootText(html);
+  if (text === null || text.length < MIN_404_TEXT_CHARS) {
+    failures.push(
+      `404.html: only ${text?.length ?? 0} chars of prerendered body text ` +
+        `(expected at least ${MIN_404_TEXT_CHARS})`
+    );
+  }
+
+  return failures;
 }
 
 async function main() {
@@ -115,6 +154,8 @@ async function main() {
       seen.set(fingerprint, routePath);
     }
   }
+
+  failures.push(...(await checkNotFoundPage(distDir)));
 
   if (failures.length > 0) {
     console.error(

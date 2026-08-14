@@ -3,10 +3,18 @@ import path from "node:path";
 import { render } from "../dist/server/entry-server.js";
 import {
   getAllRenderablePageMetadata,
+  getNotFoundPageMetadata,
+  notFoundPath,
   resolvePageMetadata,
+  type PageMetadata,
 } from "../client/src/lib/pageMetadata";
 import { siteConfig } from "../client/src/lib/site";
 import { EMPTY_ROOT, escapeHtml, findRootSpan } from "./html";
+
+interface RenderableEntry {
+  path: string;
+  metadata: PageMetadata;
+}
 
 function escapeJsonForScript(value: unknown) {
   return JSON.stringify(value).replace(/</g, "\\u003c");
@@ -30,17 +38,16 @@ function stripManagedSeoTags(html: string) {
       .replace(/<meta\s+name="twitter:description"[^>]*>\s*/gi, "")
       .replace(/<meta\s+name="twitter:image"[^>]*>\s*/gi, "")
       .replace(/<link\s+rel="canonical"[^>]*>\s*/gi, "")
-      .replace(/<script\s+id="structured-data"[^>]*>[\s\S]*?<\/script>\s*/gi, ""); // codeql[js/incomplete-multi-character-sanitization] - input is trusted build output, not user-supplied
+      .replace(
+        /<script\s+id="structured-data"[^>]*>[\s\S]*?<\/script>\s*/gi,
+        ""
+      ); // codeql[js/incomplete-multi-character-sanitization] - input is trusted build output, not user-supplied
   } while (html !== previous);
   return html;
 }
 
-function buildSeoMarkup(routePath: string) {
-  const resolved = resolvePageMetadata(
-    getAllRenderablePageMetadata().find((entry) => entry.path === routePath)?.metadata ?? {
-      path: routePath,
-    }
-  );
+function buildSeoMarkup(metadata: PageMetadata) {
+  const resolved = resolvePageMetadata(metadata);
 
   const tags = [
     `<meta name="description" content="${escapeHtml(resolved.description)}" />`,
@@ -61,8 +68,12 @@ function buildSeoMarkup(routePath: string) {
       ? resolved.image
       : new URL(resolved.image, siteConfig.url).toString();
 
-    tags.push(`<meta property="og:image" content="${escapeHtml(fullImageUrl)}" />`);
-    tags.push(`<meta name="twitter:image" content="${escapeHtml(fullImageUrl)}" />`);
+    tags.push(
+      `<meta property="og:image" content="${escapeHtml(fullImageUrl)}" />`
+    );
+    tags.push(
+      `<meta name="twitter:image" content="${escapeHtml(fullImageUrl)}" />`
+    );
   }
 
   if (resolved.structuredData) {
@@ -75,12 +86,13 @@ function buildSeoMarkup(routePath: string) {
 
   return {
     resolved,
-    seoMarkup: tags.map((tag) => `    ${tag}`).join("\n"),
+    seoMarkup: tags.map(tag => `    ${tag}`).join("\n"),
   };
 }
 
-function injectMetadataIntoHtml(baseHtml: string, routePath: string) {
-  const { resolved, seoMarkup } = buildSeoMarkup(routePath);
+function injectMetadataIntoHtml(baseHtml: string, entry: RenderableEntry) {
+  const { path: routePath, metadata } = entry;
+  const { resolved, seoMarkup } = buildSeoMarkup(metadata);
 
   const withTitle = baseHtml.replace(
     /<title>[\s\S]*?<\/title>/i,
@@ -138,13 +150,30 @@ async function main() {
   for (const entry of routeEntries) {
     const outputPath = getRouteOutputPath(distDir, entry.path);
     await mkdir(path.dirname(outputPath), { recursive: true });
-    await writeFile(outputPath, injectMetadataIntoHtml(baseHtml, entry.path), "utf8");
+    await writeFile(
+      outputPath,
+      injectMetadataIntoHtml(baseHtml, entry),
+      "utf8"
+    );
   }
 
-  console.log(`Generated ${routeEntries.length} route-specific HTML files in ${distDir}`);
+  // Served by Vercel for any unmatched path, with a real 404 status. Written to
+  // the output root rather than /404/index.html, which is the filename Vercel
+  // looks for, and kept out of routeEntries so it stays out of the sitemap,
+  // llms.txt, and the prerender route checks.
+  const notFound = { path: notFoundPath, metadata: getNotFoundPageMetadata() };
+  await writeFile(
+    path.join(distDir, "404.html"),
+    injectMetadataIntoHtml(baseHtml, notFound),
+    "utf8"
+  );
+
+  console.log(
+    `Generated ${routeEntries.length} route-specific HTML files plus 404.html in ${distDir}`
+  );
 }
 
-main().catch((error) => {
+main().catch(error => {
   console.error(error);
   process.exitCode = 1;
 });

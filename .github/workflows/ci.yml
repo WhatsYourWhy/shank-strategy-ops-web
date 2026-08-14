@@ -47,6 +47,20 @@ jobs:
       - name: Build
         run: pnpm build
 
+      # sitemap.xml, llms.txt and llms-full.txt are written by the build *and*
+      # committed, so the deployed copy is whatever is in git. If a build would
+      # regenerate them differently, the repo and the deployment have silently
+      # diverged — which is exactly how the sitemap lastmod churn survived a
+      # green build. This runner clones shallow, where lastmod is carried over
+      # from the committed file rather than recomputed, so the comparison is
+      # stable and only trips on a genuine staleness.
+      - name: Check generated files are current
+        run: |
+          if ! git diff --exit-code -- client/public/sitemap.xml client/public/llms.txt client/public/llms-full.txt; then
+            echo "::error::Generated files are out of date. Run 'pnpm build' locally and commit the changes under client/public/."
+            exit 1
+          fi
+
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         id: playwright-cache

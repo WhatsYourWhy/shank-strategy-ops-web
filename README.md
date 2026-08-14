@@ -53,9 +53,11 @@ pnpm build
 2. `vite build` — the client bundle into `dist/public`.
 3. `build:ssr` — compiles `client/src/entry-server.tsx` into `dist/server`.
 4. `generate:route-html` — writes one `dist/public/<route>/index.html` per route with
-   per-route `<head>` metadata **and** real prerendered body HTML in `#root`.
+   per-route `<head>` metadata **and** real prerendered body HTML in `#root`, plus
+   `dist/public/404.html`.
 5. `verify:prerender` — fails the build if any route lost its body content, its title,
-   or renders the same markup as another route.
+   or renders the same markup as another route, or if `404.html` is missing or lost
+   its `noindex`.
 6. `generate:llms` — writes `client/public/llms-full.txt` (the full text of every
    substantive page, in one fetch) and refreshes the `## Writing` index inside
    `client/public/llms.txt`, then copies both into `dist/public`.
@@ -76,9 +78,24 @@ fetchers that do not execute JavaScript still get the full page text. The client
 must produce identical output in the browser — notably, format dates with an explicit
 `timeZone` (see `client/src/lib/dates.ts`) rather than the viewer's local zone.
 
+### Routing and 404s
+
+`vercel.json` has **no catch-all rewrite**. Because every route is prerendered to its own
+file, Vercel serves them straight off the filesystem and falls back to `404.html` — with a
+real 404 status — for anything else.
+
+Removing that rewrite is what stopped unknown URLs from answering `200` with a full copy of
+the home page. Do not reintroduce it: a `/(.*)` → `/index.html` rewrite would make every
+typo, dead link, and probe look like a real, indexable page again, and would leave AI
+retrieval unable to tell a real page from one that never existed.
+
+The consequence is that **any new route must be prerendered to be reachable**. Add it to
+`staticRenderablePaths` in `client/src/lib/pageMetadata.ts` (or to the blog data), and the
+build will emit and verify it.
+
 > `pnpm start` serves the root `index.html` for every path, so it will **not** show
-> per-route prerendering. Inspect `dist/public/<route>/index.html` directly, or use a
-> static server that resolves directory index files.
+> per-route prerendering or 404s. Inspect `dist/public/<route>/index.html` directly, or use
+> a static server that resolves directory index files and falls back to `404.html`.
 
 ## 🧠 Strategic Assets
 This repository contains more than just code; it includes strategic frameworks used by the business:

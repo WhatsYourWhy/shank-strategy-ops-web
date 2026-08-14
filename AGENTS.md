@@ -35,7 +35,17 @@ There is no ESLint config; only Prettier is used for formatting.
 - Page components must not touch `window`/`document`/`localStorage` outside of effects.
 
 `pnpm verify:prerender` runs inside `pnpm build` and fails it if a route ships an empty body,
-the wrong title, or markup identical to another route.
+the wrong title, markup identical to another route, or a missing/indexable `404.html`.
+
+### Routing
+
+`vercel.json` has **no catch-all rewrite** — every route is prerendered to its own file, so
+Vercel serves the filesystem and falls back to `dist/public/404.html` with a real 404 status.
+
+- Any new route must be prerendered to be reachable. Add it to `staticRenderablePaths` in
+  `client/src/lib/pageMetadata.ts` (or to the blog data); the build emits and verifies it.
+- Do not add a `/(.*)` → `/index.html` rewrite back. It made every unknown URL answer 200
+  with a full copy of the home page.
 
 ### llms.txt
 

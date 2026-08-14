@@ -1,0 +1,20 @@
+# Normalize line endings to LF everywhere.
+#
+# Without this, a Windows checkout with `core.autocrlf=true` gets CRLF working
+# copies while the build generators (generate-sitemap, generate-llms) write LF.
+# The result is that every `pnpm build` leaves client/public/sitemap.xml,
+# llms.txt, and llms-full.txt showing as modified in `git status` with an empty
+# `git diff` — pure line-ending noise that hides real changes to those files and
+# invites an accidental CRLF-flip commit via `git add .`.
+#
+# LF is also load-bearing for patches/*.patch: pnpm applies those at install
+# time and a CRLF conversion would break them.
+* text=auto eol=lf
+
+# Binary assets — never touch these.
+*.mp4  binary
+*.webp binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.ico  binary

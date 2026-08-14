@@ -37,6 +37,14 @@ There is no ESLint config; only Prettier is used for formatting.
 `pnpm verify:prerender` runs inside `pnpm build` and fails it if a route ships an empty body,
 the wrong title, markup identical to another route, or a missing/indexable `404.html`.
 
+`pnpm check:hydration` proves the emitted HTML actually *works* in a browser, which
+`pnpm build` and `tsc` cannot: it serves `dist/public` the way Vercel does, loads all 22
+routes in headless Chromium, and fails on a React hydration mismatch, an uncaught
+exception, a route that never hydrated, or a route without exactly one
+`<main id="main-content">`. It needs a build first (`pnpm build && pnpm check:hydration`)
+and Chromium (`pnpm exec playwright install chromium`). CI runs it on every PR — this is
+the only check that catches a dependency bump breaking the client render.
+
 ### Routing
 
 `vercel.json` has **no catch-all rewrite** — every route is prerendered to its own file, so

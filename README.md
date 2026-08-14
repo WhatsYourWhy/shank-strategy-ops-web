@@ -49,7 +49,11 @@ pnpm build
 
 `pnpm build` runs six steps in order:
 
-1. `generate:sitemap` — writes `client/public/sitemap.xml` from the route table.
+1. `generate:sitemap` — writes `client/public/sitemap.xml` from the route table. Each
+   static page's `lastmod` is the date of the last commit touching its page component
+   (see `ROUTE_SOURCES` in the script), so the field only moves when the page does;
+   blog posts use their `publishedDate`. Adding a route to `staticRenderablePaths`
+   without adding it to `ROUTE_SOURCES` fails `pnpm check`.
 2. `vite build` — the client bundle into `dist/public`.
 3. `build:ssr` — compiles `client/src/entry-server.tsx` into `dist/server`.
 4. `generate:route-html` — writes one `dist/public/<route>/index.html` per route with

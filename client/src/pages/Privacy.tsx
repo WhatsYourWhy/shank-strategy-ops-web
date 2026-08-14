@@ -32,6 +32,7 @@ export default function Privacy() {
         title="Analytics"
         body={[
           "The site uses Google Analytics (GA4) to understand aggregate traffic patterns, such as which pages are read and where visitors come from. Google Analytics sets cookies and may receive information including IP-derived approximate location, device and browser details, and pages viewed. This data is used to measure site performance, not to build advertising profiles.",
+          "The site also uses Vercel Web Analytics, provided by the host, to count page views and see which sites visitors arrive from. It is cookieless and aggregate: it sets no cookies, does not assign a persistent identifier, and does not follow visitors to other sites.",
           "Readers who prefer not to be measured can install the Google Analytics opt-out browser add-on or block analytics cookies using their browser or extension of choice.",
         ]}
       />
@@ -39,7 +40,7 @@ export default function Privacy() {
       <InfoCard
         title="Cookies and ad measurement"
         body={[
-          "The site is designed to function without requiring user accounts. Two Google tags load on every page: the analytics tag described above, and a Google Ads tag that records whether a visit arrived from an ad I placed elsewhere and whether it led to a contact form submission. The Ads tag can set first-party cookies for that attribution.",
+          "The site is designed to function without requiring user accounts. Two Google tags load on every page: the analytics tag described above, and a Google Ads tag that records whether a visit arrived from an ad I placed elsewhere and whether it led to a contact form submission. The Ads tag can set first-party cookies for that attribution. The Vercel Web Analytics script also loads on every page and sets no cookies at all.",
           "That is measurement of ads I buy on other platforms. The site itself does not sell or display advertising. If that changes, this page will say so before it happens, not after.",
         ]}
       />

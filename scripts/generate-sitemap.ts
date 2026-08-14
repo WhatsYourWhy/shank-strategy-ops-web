@@ -56,11 +56,41 @@ function escapeXml(value: string) {
 }
 
 /**
+ * Whether git history is deep enough to date individual files.
+ *
+ * This gate is the whole reason the script is not simply "ask git". Vercel and
+ * actions/checkout both clone at depth 1, and in a depth-1 clone `git log -1 --
+ * <path>` does not fail and does not return nothing: it returns the single
+ * commit present, for *every* path. So each page appears to have been modified
+ * by the current deploy, all nine dates collapse onto the deploy date, and the
+ * daily churn this script exists to remove comes straight back — with the
+ * fallback never firing, because git answered.
+ *
+ * Verified in production: the first version of this script shipped every page
+ * as 2026-08-13, the deploy commit's date in its committer timezone.
+ *
+ * A shallow clone therefore has to be detected up front and git ignored
+ * entirely, rather than trusted and second-guessed per route.
+ */
+function hasDatableHistory() {
+  try {
+    const output = execFileSync(
+      "git",
+      ["rev-parse", "--is-shallow-repository"],
+      { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }
+    ).trim();
+
+    return output === "false";
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Date of the last commit touching any of `files`, as YYYY-MM-DD.
  *
- * Returns null rather than throwing when git can't answer — no git binary, no
- * repository, or a clone too shallow to contain the relevant commit. Vercel
- * clones shallowly, so that last case is a normal condition here, not an error.
+ * Returns null rather than throwing when git can't answer. Only meaningful
+ * when `hasDatableHistory()` is true — see the note there.
  */
 function gitLastModified(files: string[]): string | null {
   try {
@@ -80,9 +110,11 @@ function gitLastModified(files: string[]): string | null {
  * `lastmod` values from the sitemap already in the repo, keyed by the `<loc>`
  * exactly as written there.
  *
- * This is what makes a shallow clone harmless: when git can't date a route,
- * the committed answer is reused instead of today's date, so a Vercel build
- * reproduces the same file a local build would rather than churning it.
+ * This is what makes a shallow clone harmless. On Vercel the dates are not
+ * recomputed at all — they are carried over from the file in the repo, which a
+ * local build wrote with full history. The URL list is still rebuilt from the
+ * route table and post data, so a new page or post added without a local build
+ * still reaches the deployed sitemap; only its date falls back.
  */
 async function readCommittedLastmod(outputPath: string) {
   const committed = new Map<string, string>();
@@ -106,12 +138,13 @@ async function main() {
   const outputPath = path.resolve("client/public/sitemap.xml");
   const committed = await readCommittedLastmod(outputPath);
   const buildDate = new Date().toISOString().slice(0, 10);
+  const datable = hasDatableHistory();
   const undated: string[] = [];
 
   const urls = [
     ...staticRenderablePaths.map(route => {
       const loc = new URL(route, siteConfig.url).toString();
-      const fromGit = gitLastModified(ROUTE_SOURCES[route]);
+      const fromGit = datable ? gitLastModified(ROUTE_SOURCES[route]) : null;
 
       if (!fromGit && !committed.has(escapeXml(loc))) {
         undated.push(route);
@@ -154,7 +187,10 @@ async function main() {
     );
   }
 
-  console.log(`Generated sitemap with ${urls.length} URLs at ${outputPath}`);
+  console.log(
+    `Generated sitemap with ${urls.length} URLs at ${outputPath} ` +
+      `(lastmod from ${datable ? "git history" : "the committed sitemap — shallow clone"})`
+  );
 }
 
 main().catch(error => {

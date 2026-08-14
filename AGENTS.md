@@ -21,7 +21,7 @@ See `package.json` `scripts` for the full list. Summary:
 - **Dev server:** `pnpm dev` (Vite on port 3000)
 - **Type check:** `pnpm check` (`tsc --noEmit`)
 - **Format:** `pnpm format` (Prettier — note: this runs `--write` by default)
-- **Build:** `pnpm build` (sitemap → Vite client build → Vite SSR build → per-route HTML prerender → prerender verification → esbuild server bundle)
+- **Build:** `pnpm build` (sitemap → Vite client build → Vite SSR build → per-route HTML prerender → prerender verification → llms.txt generation → esbuild server bundle)
 
 There is no ESLint config; only Prettier is used for formatting.
 
@@ -36,6 +36,18 @@ There is no ESLint config; only Prettier is used for formatting.
 
 `pnpm verify:prerender` runs inside `pnpm build` and fails it if a route ships an empty body,
 the wrong title, or markup identical to another route.
+
+### llms.txt
+
+`pnpm generate:llms` derives `client/public/llms-full.txt` and the `## Writing` index in
+`client/public/llms.txt` from the prerendered HTML, by extracting each page's `<main>`
+element. Two consequences:
+
+- Every page must render exactly one `<main>`, with nav and footer outside it. The build
+  fails otherwise.
+- Never hand-edit `llms-full.txt`, or the `## Writing` section of `llms.txt` — that
+  section is rewritten from its heading to the next `## ` heading on every build. The
+  rest of `llms.txt` is hand-written and is preserved.
 
 ### Gotchas
 

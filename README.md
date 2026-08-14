@@ -47,7 +47,7 @@ This project serves as a high-performance, modern platform for "Execution leader
 pnpm build
 ```
 
-`pnpm build` runs five steps in order:
+`pnpm build` runs six steps in order:
 
 1. `generate:sitemap` — writes `client/public/sitemap.xml` from the route table.
 2. `vite build` — the client bundle into `dist/public`.
@@ -56,6 +56,19 @@ pnpm build
    per-route `<head>` metadata **and** real prerendered body HTML in `#root`.
 5. `verify:prerender` — fails the build if any route lost its body content, its title,
    or renders the same markup as another route.
+6. `generate:llms` — writes `client/public/llms-full.txt` (the full text of every
+   substantive page, in one fetch) and refreshes the `## Writing` index inside
+   `client/public/llms.txt`, then copies both into `dist/public`.
+
+Step 6 reads the prerendered HTML from step 4 rather than the data modules, because
+most page copy is literal JSX with no data module behind it. It extracts each page's
+`<main>` element, so the nav and footer that repeat on every route stay out. Every page
+must therefore render exactly one `<main>` — the build fails if one doesn't.
+
+Hand-written prose in `llms.txt` is preserved; only the `## Writing` section is
+rewritten, from its heading to the next `## ` heading. These files are served as
+`text/plain`, so the managed region is bounded by real headings rather than HTML
+comment markers, which would be visible to every reader.
 
 The site is a client-rendered SPA that ships prerendered HTML, so crawlers and LLM
 fetchers that do not execute JavaScript still get the full page text. The client

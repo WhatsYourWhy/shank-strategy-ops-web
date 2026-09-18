@@ -21,7 +21,7 @@ This project serves as a high-performance, modern platform for "Execution leader
 - `scripts/`: Custom automation — sitemap generation, per-route HTML prerendering (`generate-route-html.ts`), the prerender build gate (`verify-prerender.ts`), and an **Ad Rendering** engine (`render-ad.ts`).
 - `shared/`: Shared constants and types between client and server.
 - `docs/`: Technical documentation and engagement models.
-- `out/`: Build and generated asset output (including Sora video assets).
+- `out/`: Local-only ad-renderer inputs and outputs (Sora clips, rendered ads). Git-ignored; not part of the site build.
 
 ## 🛠️ Development
 

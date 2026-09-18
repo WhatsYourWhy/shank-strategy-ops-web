@@ -1,6 +1,6 @@
 # Shank Strategy Ops — full site text
 
-> Strategy execution, operational excellence, original essays, and deterministic tools for leaders who need systems that hold under real operating conditions.
+> Strategic operations consulting and AI-enabled operations implementation for small business owners, founders, and leadership teams. Put AI to work inside the business you already run — starting with a bounded $500 diagnostic, not a transformation program.
 
 The complete text of every substantive page on https://shankstrategy.com, in one file.
 Generated at build time from the site's own rendered output, so it cannot

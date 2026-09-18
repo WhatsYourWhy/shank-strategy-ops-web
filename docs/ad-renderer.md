@@ -9,7 +9,7 @@ This workflow treats AI-generated videos as silent background plates and makes t
 
 ## Default workflow
 
-1. Put your rendered clips in [out/sora](/C:/Users/Justin/shank-strategy-ops-web/out/sora) using the filenames listed in [shank-investor-ad.json](/C:/Users/Justin/shank-strategy-ops-web/scripts/ad-manifests/shank-investor-ad.json).
+1. Put your rendered clips in `out/sora` using the filenames listed in `scripts/ad-manifests/shank-investor-ad.json`. The `out/` directory is git-ignored: clips and rendered ads stay on your machine and are not committed.
 2. Run:
 
 ```powershell

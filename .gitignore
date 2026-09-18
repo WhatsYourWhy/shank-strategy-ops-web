@@ -104,3 +104,6 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
+
+# Ad-renderer inputs and outputs (Sora clips, rendered ads) stay local
+out/

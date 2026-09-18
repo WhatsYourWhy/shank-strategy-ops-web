@@ -22,7 +22,7 @@
         },
         {
           "key": "Content-Security-Policy-Report-Only",
-          "value": "default-src 'self'; script-src 'self' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.googletagservices.com https://ep2.adtrafficquality.google https://challenges.cloudflare.com https://forge.butterfly-effect.dev https://va.vercel-scripts.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://challenges.cloudflare.com; connect-src 'self' https://pagead2.googlesyndication.com https://ep2.adtrafficquality.google https://challenges.cloudflare.com https://forge.butterfly-effect.dev https://va.vercel-scripts.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; base-uri 'self'; form-action 'self'; object-src 'none'"
+          "value": "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://challenges.cloudflare.com https://forge.butterfly-effect.dev https://va.vercel-scripts.com; frame-src https://www.google.com https://challenges.cloudflare.com; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://challenges.cloudflare.com https://forge.butterfly-effect.dev https://va.vercel-scripts.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; base-uri 'self'; form-action 'self'; object-src 'none'"
         }
       ]
     }

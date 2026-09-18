@@ -1,5 +1,5 @@
 const defaultDescription =
-  "Strategy execution, operational excellence, original essays, and deterministic tools for leaders who need systems that hold under real operating conditions.";
+  "Strategic operations consulting and AI-enabled operations implementation for small business owners, founders, and leadership teams. Put AI to work inside the business you already run — starting with a bounded $500 diagnostic, not a transformation program.";
 
 export const siteConfig = {
   name: "Shank Strategy Ops",
@@ -18,7 +18,7 @@ export const siteConfig = {
   },
   ads: {
     adsenseClient: "ca-pub-9310837374819126",
-    enableBlogAds: true,
+    enableBlogAds: false,
   },
 } as const;
 

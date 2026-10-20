@@ -107,6 +107,11 @@ async function resolveFile(distDir: string, urlPath: string) {
     return null;
   }
 
+  // Accept only absolute URL-style paths and reject ambiguous/unsafe separators.
+  if (!decoded.startsWith("/") || decoded.includes("\0") || decoded.includes("\\")) {
+    return null;
+  }
+
   const root = await realpath(distDir);
   const candidate = path.resolve(root, `.${path.posix.normalize(decoded)}`);
 

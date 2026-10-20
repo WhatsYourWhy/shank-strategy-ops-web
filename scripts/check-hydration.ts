@@ -1,7 +1,7 @@
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
 import { createReadStream } from "node:fs";
-import { stat } from "node:fs/promises";
+import { realpath, stat } from "node:fs/promises";
 import path from "node:path";
 import { chromium, type ConsoleMessage, type Page } from "playwright";
 import {
@@ -100,16 +100,28 @@ function contentTypeFor(filePath: string) {
 
 async function resolveFile(distDir: string, urlPath: string) {
   // Resolve inside distDir so a traversal in the request can't escape it.
-  const decoded = decodeURIComponent(urlPath.split("?")[0]);
-  const candidate = path.resolve(distDir, `.${path.posix.normalize(decoded)}`);
-  if (candidate !== distDir && !candidate.startsWith(distDir + path.sep)) {
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(urlPath.split("?")[0]);
+  } catch {
     return null;
   }
 
+  const root = await realpath(distDir);
+  const candidate = path.resolve(root, `.${path.posix.normalize(decoded)}`);
+
   for (const attempt of [candidate, path.join(candidate, "index.html")]) {
     try {
-      if ((await stat(attempt)).isFile()) {
-        return attempt;
+      const canonicalAttempt = await realpath(attempt);
+      if (
+        canonicalAttempt !== root &&
+        !canonicalAttempt.startsWith(root + path.sep)
+      ) {
+        continue;
+      }
+
+      if ((await stat(canonicalAttempt)).isFile()) {
+        return canonicalAttempt;
       }
     } catch {
       // Fall through to the next candidate, then to 404.html.

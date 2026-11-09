@@ -37,7 +37,12 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        # ffmpeg-static downloads a GitHub release during postinstall. Only
+        # render:ad needs it; a transient 504 must not block website checks.
+        # Run the website's native build scripts explicitly instead.
+        run: |
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm rebuild esbuild @tailwindcss/oxide
 
       - name: Typecheck
         run: pnpm check

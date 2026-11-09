@@ -89,6 +89,11 @@ pnpm exec playwright install chromium
 CI (`.github/workflows/ci.yml`) runs typecheck → build → hydration check on every push to
 `main` and every pull request, including Dependabot's.
 
+CI installs with `--ignore-scripts`, then rebuilds `esbuild` and `@tailwindcss/oxide`
+explicitly. This keeps the website checks independent of `ffmpeg-static`'s external
+binary download, which is only needed by the local `render:ad` tool. A normal local
+`pnpm install` still installs FFmpeg for ad rendering.
+
 Step 6 reads the prerendered HTML from step 4 rather than the data modules, because
 most page copy is literal JSX with no data module behind it. It extracts each page's
 `<main>` element, so the nav and footer that repeat on every route stay out. Every page
